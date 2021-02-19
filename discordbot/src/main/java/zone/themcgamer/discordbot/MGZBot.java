@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import zone.themcgamer.discordbot.command.impl.InviteCommand;
 import zone.themcgamer.discordbot.command.impl.SetActivityCommand;
 import zone.themcgamer.discordbot.command.impl.SuggestCommand;
 import zone.themcgamer.discordbot.command.impl.ToggleNewsRoleCommand;
@@ -37,6 +38,7 @@ public class MGZBot {
         commandClientBuilder.addCommand(new SuggestCommand());
         commandClientBuilder.addCommand(new SetActivityCommand());
         commandClientBuilder.addCommand(new ToggleNewsRoleCommand());
+        commandClientBuilder.addCommand(new InviteCommand());
 
         try {
             jda = JDABuilder.createDefault(BotConstants.TOKEN)
