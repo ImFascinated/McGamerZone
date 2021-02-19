@@ -5,7 +5,7 @@ import spark.Response;
 import zone.themcgamer.api.APIException;
 import zone.themcgamer.api.APIVersion;
 import zone.themcgamer.api.RestPath;
-import zone.themcgamer.api.model.impl.StatusModel;
+import zone.themcgamer.api.model.impl.PlayerStatusModel;
 import zone.themcgamer.data.APIAccessLevel;
 import zone.themcgamer.data.jedis.cache.CacheRepository;
 import zone.themcgamer.data.jedis.cache.ICacheItem;
@@ -19,15 +19,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * This route handles everything associated with {@link PlayerStatusModel}
+ *
  * @author Braydon
  */
-public class StatusRoute {
+public class PlayerStatusRoute {
     private final CacheRepository repository;
 
-    public StatusRoute() {
+    public PlayerStatusRoute() {
         repository = RedisRepository.getRepository(CacheRepository.class).orElse(null);
     }
 
+    /**
+     * This path handles displaying of all of the {@link PlayerStatusModel}'s
+     */
     @RestPath(path = "/status", version = APIVersion.V1)
     public Map<String, Object> getStatuses(Request request, Response response, APIKey apiKey) throws APIException {
         List<ICacheItem<?>> statuses = repository.filter(cacheItem -> cacheItem.getType() == ItemCacheType.PLAYER_STATUS);
@@ -44,8 +49,11 @@ public class StatusRoute {
         }};
     }
 
+    /**
+     * This path handles displaying the {@link PlayerStatusModel} with the given name
+     */
     @RestPath(path = "/status/:name", version = APIVersion.V1)
-    public StatusModel getStatus(Request request, Response response, APIKey apiKey) throws APIException {
+    public PlayerStatusModel getStatus(Request request, Response response, APIKey apiKey) throws APIException {
         String name = request.params(":name");
         if (name == null || (name.trim().isEmpty() || name.length() > 16))
             throw new APIException("Invalid username");
@@ -54,7 +62,7 @@ public class StatusRoute {
                 .stream().findFirst().orElse(null);
         if (statusCache == null)
             throw new APIException("Player not found");
-        StatusModel model = new StatusModel(statusCache.getUuid(), statusCache.getPlayerName(), statusCache.getServer(), statusCache.getTimeJoined());
+        PlayerStatusModel model = new PlayerStatusModel(statusCache.getUuid(), statusCache.getPlayerName(), statusCache.getServer(), statusCache.getTimeJoined());
         if (apiKey.getAccessLevel() == APIAccessLevel.STANDARD)
             model.setServer("Unauthorized");
         return model;

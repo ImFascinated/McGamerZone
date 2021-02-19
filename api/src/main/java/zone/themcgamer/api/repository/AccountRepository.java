@@ -14,6 +14,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
+ * This repository handles fetching of {@link AccountModel}'s from MySQL
+ *
  * @author Braydon
  */
 public class AccountRepository extends MySQLRepository {
@@ -23,6 +25,12 @@ public class AccountRepository extends MySQLRepository {
         super(dataSource);
     }
 
+    /**
+     * Fetch the {@link AccountModel} with the provided {@link UUID}
+     *
+     * @param uuid the uuid of the account
+     * @return the account, null if it doesn't exist
+     */
     public AccountModel getAccount(UUID uuid) {
         AccountModel[] model = new AccountModel[] { null };
         executeQuery(SELECT_ACCOUNT, new Column[] {
@@ -40,6 +48,7 @@ public class AccountRepository extends MySQLRepository {
 
     /**
      * Construct a {@link AccountModel} from the given parameters
+     *
      * @param uuid the uuid
      * @param resultSet the result set
      * @return the account

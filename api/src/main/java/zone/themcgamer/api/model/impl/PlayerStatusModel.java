@@ -13,7 +13,7 @@ import java.util.UUID;
  * @author Braydon
  */
 @AllArgsConstructor @Setter @Getter @ToString
-public class StatusModel implements IModel {
+public class PlayerStatusModel implements IModel {
     private final UUID uuid;
     private final String playerName;
     private String server;
