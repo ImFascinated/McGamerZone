@@ -1,7 +1,7 @@
 dependencies {
     implementation(project(":core"))
-    implementation("com.jagrosh:jda-utilities:3.0.5")
     implementation("net.dv8tion:JDA:4.2.0_228")
+    implementation("com.jagrosh:jda-utilities:3.0.5")
 }
 
 val jar by tasks.getting(Jar::class) {

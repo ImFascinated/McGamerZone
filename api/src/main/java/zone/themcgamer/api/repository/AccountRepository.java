@@ -40,13 +40,8 @@ public class AccountRepository extends MySQLRepository {
 
     /**
      * Construct a {@link AccountModel} from the given parameters
-     * @param accountId the account id
      * @param uuid the uuid
-     * @param name the name
      * @param resultSet the result set
-     * @param ipAddress the ip address
-     * @param encryptedIpAddress the encrypted ip address
-     * @param lastLogin the last login
      * @return the account
      */
     private AccountModel constructAccount(UUID uuid, ResultSet resultSet) {

@@ -1,60 +1,57 @@
 package zone.themcgamer.discordbot;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import zone.themcgamer.discordbot.commands.BotStatusCommand;
+import zone.themcgamer.discordbot.command.impl.SetActivityCommand;
+import zone.themcgamer.discordbot.command.impl.SuggestCommand;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
+@Getter
 public class MGZBot {
+    @Getter private static MGZBot instance;
 
-    private static final Logger LOG = LoggerFactory.getLogger(MGZBot.class);
+    private JDA jda;
 
-    @Getter private static JDA jda;
-    @Getter private static CommandClientBuilder commandClientBuilder;
-    @Getter private static EventWaiter eventWaiter;
-    @Getter private static ScheduledExecutorService executorService;
-
-    public static void main(String[] args) {
+    public MGZBot() {
+        instance = this;
         long time = System.currentTimeMillis();
-        eventWaiter = new EventWaiter();
 
-        commandClientBuilder = new CommandClientBuilder();
-        commandClientBuilder.setPrefix(".");
+        CommandClientBuilder commandClientBuilder = new CommandClientBuilder();
+        commandClientBuilder.setPrefix(BotConstants.PREFIX);
         commandClientBuilder.setActivity(Activity.playing("McGamerZone"));
-        commandClientBuilder.setStatus(OnlineStatus.DO_NOT_DISTURB);
-        commandClientBuilder.setOwnerId("504069946528104471");
-        commandClientBuilder.setCoOwnerIds("504147739131641857");
-        commandClientBuilder.setEmojis("<:success:789354594651209738>", "<:warning:789354594877964324>", "<:error:789354595003793408>");
-        commandClientBuilder.setAlternativePrefix("/");
+        commandClientBuilder.setStatus(OnlineStatus.ONLINE);
+        commandClientBuilder.setOwnerId(BotConstants.OWNER_ID);
+        for (String botAdmin : BotConstants.BOT_ADMINS)
+            commandClientBuilder.setCoOwnerIds(botAdmin);
         commandClientBuilder.useHelpBuilder(false);
-        commandClientBuilder.addCommand(new BotStatusCommand(eventWaiter));
 
-        executorService = Executors.newScheduledThreadPool(10);
+        commandClientBuilder.addCommand(new SuggestCommand());
+        commandClientBuilder.addCommand(new SetActivityCommand());
 
         try {
-            jda = JDABuilder.createDefault("ODA5NjMxMzcxNzg1Nzk3NjMz.YCX5-Q.t4S8qOmhAc98DKKw9rBsPNv82xM")
-                    .setCallbackPool(getExecutorService())
-                    .setActivity(Activity.playing("loading..."))
+            jda = JDABuilder.createDefault(BotConstants.TOKEN)
+                    .setCallbackPool(Executors.newScheduledThreadPool(10))
+                    .setActivity(Activity.playing("Booting up..."))
                     .setStatus(OnlineStatus.IDLE)
                     .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_EMOJIS)
-                    .addEventListeners(eventWaiter,
-                            commandClientBuilder.build())
+                    .addEventListeners(commandClientBuilder.build())
                     .build();
-        } catch (LoginException e) {
-            e.printStackTrace();
+            jda.awaitReady();
+        } catch (LoginException | InterruptedException ex) {
+            ex.printStackTrace();
         }
 
-        System.out.println("Done (" + (System.currentTimeMillis() - time) + ")! For help, type \"help\" or \"?\"\n");
+        System.out.println("Done (" + (System.currentTimeMillis() - time) + "ms)!");
+    }
+
+    public static void main(String[] args) {
+        new MGZBot();
     }
 }
