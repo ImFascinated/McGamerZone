@@ -40,7 +40,7 @@ public class HubScoreboard extends WritableScoreboard {
     @Override
     public void writeLines() {
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
-        if (!optionalAccount.isPresent()) {
+        if (optionalAccount.isEmpty()) {
             writeBlank();
             return;
         }
