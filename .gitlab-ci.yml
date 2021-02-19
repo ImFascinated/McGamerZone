@@ -1,0 +1,19 @@
+image: gradle:jdk11
+
+stages:
+  - build
+  - deploy
+
+build:prod:
+  stage: build
+  only:
+    - master
+  before_script:
+    - gradle wrapper
+  script:
+    - ./gradlew shadowJar
+    - ./gradlew publishMavenPublicationToApiRepository
+  artifacts:
+    paths:
+      - output
+    expire_in: 1 week

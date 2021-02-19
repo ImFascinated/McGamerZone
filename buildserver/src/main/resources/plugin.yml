@@ -1,0 +1,5 @@
+name: Build
+version: 1.0-SNAPSHOT
+api-version: 1.13
+main: zone.themcgamer.buildServer.Build
+author: MGZ Development Team

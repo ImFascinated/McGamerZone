@@ -1,0 +1,5 @@
+name: Arcade
+version: 1.0-SNAPSHOT
+api-version: 1.13
+main: zone.themcgamer.arcade.Arcade
+author: MGZ Development Team

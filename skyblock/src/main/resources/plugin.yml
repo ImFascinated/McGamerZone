@@ -1,0 +1,8 @@
+name: Skyblock
+version: 1.0-SNAPSHOT
+api-version: 1.13
+main: zone.themcgamer.skyblock.Skyblock
+author: MGZ Development Team
+softdepend:
+  - PlaceholderAPI
+  - SuperiorSkyblock2
