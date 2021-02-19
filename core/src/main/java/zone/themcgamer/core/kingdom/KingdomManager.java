@@ -61,7 +61,7 @@ public class KingdomManager extends Module {
             return false;
         }
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
-        if (!optionalAccount.isPresent()) {
+        if (optionalAccount.isEmpty()) {
             player.sendMessage(Style.error("Kingdom", "§cThere was an error whilst creating your Kingdom!"));
             return false;
         }
