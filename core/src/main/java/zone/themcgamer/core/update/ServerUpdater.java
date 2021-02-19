@@ -118,7 +118,7 @@ public class ServerUpdater extends Module {
             if (split.length < 1 || (!split[split.length - 1].equalsIgnoreCase("jar")))
                 continue;
             Optional<String> optionalChecksum = getChecksum(file);
-            if (!optionalChecksum.isPresent()) {
+            if (optionalChecksum.isEmpty()) {
                 log("Failed to retrieve checksum for file '" + file.getAbsolutePath() + "' in directory '" +
                         directory.getAbsolutePath() + "', continuing...");
                 continue;

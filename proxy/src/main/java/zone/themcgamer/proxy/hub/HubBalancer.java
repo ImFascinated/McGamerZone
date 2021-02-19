@@ -139,7 +139,7 @@ public class HubBalancer implements Runnable, Listener {
             Optional<MinecraftServer> optionalMinecraftServer = minecraftServerRepository.getCached().stream()
                     .filter(server -> server.getId().equals(key))
                     .findFirst();
-            if (!optionalMinecraftServer.isPresent()) {
+            if (optionalMinecraftServer.isEmpty()) {
                 hubs.remove(key);
                 return true;
             }

@@ -30,7 +30,7 @@ public class BadSportCommand {
             return;
         }
         Optional<Account> optionalExecutorAccount = AccountManager.fromCache(player.getUniqueId());
-        if (!optionalExecutorAccount.isPresent())
+        if (optionalExecutorAccount.isEmpty())
             return;
         if (player.getName().equalsIgnoreCase(args[0]) && !optionalExecutorAccount.get().hasRank(Rank.JR_DEVELOPER) && args.length >= 2) {
             command.getSender().sendMessage(Style.error("Bad Sport","You cannot punish yourself!"));

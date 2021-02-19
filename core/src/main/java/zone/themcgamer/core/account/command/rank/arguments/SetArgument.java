@@ -29,7 +29,7 @@ public class SetArgument {
             return;
         }
         Optional<Rank> optionalRank = Rank.lookup(args[1]);
-        if (!optionalRank.isPresent()) {
+        if (optionalRank.isEmpty()) {
             sender.sendMessage(Style.error("Rank", "§cThat rank does not exist."));
             return;
         }
@@ -40,7 +40,7 @@ public class SetArgument {
         }
         if (command.isPlayer()) {
             Optional<Account> optionalAccount = AccountManager.fromCache(((Player) sender).getUniqueId());
-            if (!optionalAccount.isPresent()) {
+            if (optionalAccount.isEmpty()) {
                 sender.sendMessage(Style.error("Rank", "§cError whilst fetching account, please try again later..."));
                 return;
             }

@@ -44,7 +44,7 @@ public class GameKitsMenu extends Menu {
         if (kitManager == null)
             return;
         Optional<KitClient> optionalKitClient = kitManager.lookup(player.getUniqueId());
-        if (!optionalKitClient.isPresent())
+        if (optionalKitClient.isEmpty())
             return;
         KitClient kitClient = optionalKitClient.get();
 

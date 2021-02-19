@@ -46,7 +46,7 @@ public class BadSportMenu extends Menu {
         if (badSportSystem == null)
             return;
         Optional<BadSportClient> optionalBadSportClient = badSportSystem.lookup(target.getUuid());
-        if (!optionalBadSportClient.isPresent())
+        if (optionalBadSportClient.isEmpty())
             return;
         BadSportClient badSportClient = optionalBadSportClient.get();
 
@@ -71,7 +71,7 @@ public class BadSportMenu extends Menu {
             return;
         }
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
-        if (!optionalAccount.isPresent())
+        if (optionalAccount.isEmpty())
             return;
         Account staffAccount = optionalAccount.get();
 
