@@ -6,7 +6,7 @@ import java.util.Calendar;
  * @author Nicholas
  */
 public class BotConstants {
-    public static final String TOKEN = "ODA5NjMxMzcxNzg1Nzk3NjMz.YCX5-Q.t4S8qOmhAc98DKKw9rBsPNv82xM";
+    public static final String TOKEN = "NzY1NTI5MTM2NzgxMDY2MjQ2.X4WIkQ.L7pszAdOq1cbqwyhxtr_-qBULpA";
     public static final String PREFIX = ".";
 
     public static final String OWNER_ID = "504069946528104471"; // Joel

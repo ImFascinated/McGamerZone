@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import zone.themcgamer.discordbot.command.impl.SetActivityCommand;
 import zone.themcgamer.discordbot.command.impl.SuggestCommand;
+import zone.themcgamer.discordbot.command.impl.ToggleNewsRoleCommand;
+import zone.themcgamer.discordbot.events.GuildMemberJoinQuitListener;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
@@ -34,6 +36,7 @@ public class MGZBot {
 
         commandClientBuilder.addCommand(new SuggestCommand());
         commandClientBuilder.addCommand(new SetActivityCommand());
+        commandClientBuilder.addCommand(new ToggleNewsRoleCommand());
 
         try {
             jda = JDABuilder.createDefault(BotConstants.TOKEN)
@@ -41,7 +44,9 @@ public class MGZBot {
                     .setActivity(Activity.playing("Booting up..."))
                     .setStatus(OnlineStatus.IDLE)
                     .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_EMOJIS)
-                    .addEventListeners(commandClientBuilder.build())
+                    .addEventListeners(
+                            commandClientBuilder.build(),
+                            new GuildMemberJoinQuitListener(this))
                     .build();
             jda.awaitReady();
         } catch (LoginException | InterruptedException ex) {
