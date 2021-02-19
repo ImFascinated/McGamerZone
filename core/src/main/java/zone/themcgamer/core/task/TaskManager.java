@@ -31,7 +31,7 @@ public class TaskManager extends MiniAccount<TaskClient> {
     @Override
     public void loadAccount(int accountId, UUID uuid, String name, String ip, String encryptedIp, ResultSet resultSet) throws SQLException {
         Optional<TaskClient> client = lookup(uuid);
-        if (!client.isPresent())
+        if (client.isEmpty())
             return;
         while (resultSet.next()) {
             Task task = Task.match(resultSet.getString("task"));
