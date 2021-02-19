@@ -33,7 +33,7 @@ public class KitManager extends MiniAccount<KitClient> {
     @Override
     public void loadAccount(int accountId, UUID uuid, String name, String ip, String encryptedIp, ResultSet resultSet) throws SQLException {
         Optional<KitClient> client = lookup(uuid);
-        if (!client.isPresent())
+        if (client.isEmpty())
             return;
         while (resultSet.next()) {
             MGZGame game = EnumUtils.fromString(MGZGame.class, resultSet.getString("game"));

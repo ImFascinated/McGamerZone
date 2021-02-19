@@ -54,7 +54,7 @@ public class BadSportSystem extends Module {
             if (jedisCommand instanceof PunishmentsUpdateCommand) {
                 PunishmentsUpdateCommand punishmentsUpdateCommand = (PunishmentsUpdateCommand) jedisCommand;
                 Optional<BadSportClient> optionalBadSportClient = lookup(punishmentsUpdateCommand.getUuid());
-                if (!optionalBadSportClient.isPresent())
+                if (optionalBadSportClient.isEmpty())
                     return;
                 try {
                     Set<Punishment> punishments = GSON.fromJson(punishmentsUpdateCommand.getJson(), new TypeToken<Set<Punishment>>() {}.getType());
@@ -75,10 +75,10 @@ public class BadSportSystem extends Module {
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onLogin(PlayerLoginEvent event) {
         Optional<BadSportClient> optionalClient = lookup(event.getPlayer().getUniqueId());
-        if (!optionalClient.isPresent())
+        if (optionalClient.isEmpty())
             return;
         Optional<Punishment> optionalPunishment = optionalClient.get().getBan();
-        if (!optionalPunishment.isPresent())
+        if (optionalPunishment.isEmpty())
             return;
         Punishment punishment = optionalPunishment.get();
         event.disallow(PlayerLoginEvent.Result.KICK_BANNED, PunishmentCategory.format(punishment));

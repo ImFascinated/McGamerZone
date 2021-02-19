@@ -279,7 +279,7 @@ public class CommandManager extends Module implements CommandExecutor {
                 else {
                     if (sender instanceof Player) {
                         Optional<Account> optionalAccount = AccountManager.fromCache(((Player) sender).getUniqueId());
-                        if (!optionalAccount.isPresent()) {
+                        if (optionalAccount.isEmpty()) {
                             sender.sendMessage(Style.error("Account","&cCannot fetch account"));
                             return true;
                         }

@@ -39,7 +39,7 @@ public class ServerCommand {
         }
         Optional<MinecraftServer> optionalServer = minecraftServerRepository
                 .lookup(minecraftServer -> minecraftServer.getName().equalsIgnoreCase(args[0]));
-        if (!optionalServer.isPresent()) {
+        if (optionalServer.isEmpty()) {
             player.sendMessage(Style.error("Server", "&7A server with that name doesn't exist!"));
             return;
         }

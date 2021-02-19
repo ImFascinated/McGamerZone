@@ -78,7 +78,7 @@ public class PlayerListener implements Listener {
     private void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
-        if (!optionalAccount.isPresent()) {
+        if (optionalAccount.isEmpty()) {
             player.sendMessage(Style.error("Chat", "§cCannot send chat message"));
             return;
         }

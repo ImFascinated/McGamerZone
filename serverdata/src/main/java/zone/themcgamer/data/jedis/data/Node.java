@@ -58,7 +58,7 @@ public class Node {
     public Collection<MinecraftServer> getServers() {
         Set<MinecraftServer> servers = new HashSet<>();
         Optional<MinecraftServerRepository> minecraftServerRepository = RedisRepository.getRepository(MinecraftServerRepository.class);
-        if (!minecraftServerRepository.isPresent())
+        if (minecraftServerRepository.isEmpty())
             return servers;
         servers.addAll(new ArrayList<>(minecraftServerRepository.get().getCached()).parallelStream()
                 .filter(minecraftServer -> minecraftServer.getNode() != null && (minecraftServer.getNode().equals(this)))

@@ -62,7 +62,7 @@ public abstract class MGZPlugin extends JavaPlugin {
 
         getLogger().info("Setting up Minecraft server...");
         Optional<MinecraftServerRepository> optionalMinecraftServerRepository = RedisRepository.getRepository(MinecraftServerRepository.class);
-        if (!optionalMinecraftServerRepository.isPresent()) {
+        if (optionalMinecraftServerRepository.isEmpty()) {
             getLogger().severe("Cannot find Minecraft server repository, stopping...");
             getServer().shutdown();
             return;
@@ -83,7 +83,7 @@ public abstract class MGZPlugin extends JavaPlugin {
                     }).findFirst();
             // If there is no MinecraftServer found with this server ip and port or the server found is not
             // in a starting state, we wanna attempt to load the MinecraftServer information from a local file
-            if (!optionalMinecraftServer.isPresent() || (optionalMinecraftServer.get().getState() != ServerState.STARTING)) {
+            if (optionalMinecraftServer.isEmpty() || (optionalMinecraftServer.get().getState() != ServerState.STARTING)) {
                 File detailsFile = new File(getDataFolder(), "details.yml");
                 if (detailsFile.exists()) { // If the details file exists, try and load the MinecraftServer from it
                     try {

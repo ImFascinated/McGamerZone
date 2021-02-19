@@ -20,7 +20,7 @@ public class ProfileMenu extends Menu {
     @Override
     protected void onOpen() {
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
-        if (!optionalAccount.isPresent())
+        if (optionalAccount.isEmpty())
             return;
         Account account = optionalAccount.get();
         set(1, 1, new Button(new ItemBuilder(XMaterial.PLAYER_HEAD)
