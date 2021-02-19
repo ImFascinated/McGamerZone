@@ -169,6 +169,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     private void onBlockInteract(PlayerInteractEvent event) {
+        if (event.getPlayer().getGameMode() == GameMode.CREATIVE)
+            return;
         Block block = event.getClickedBlock();
         if (block == null)
             return;

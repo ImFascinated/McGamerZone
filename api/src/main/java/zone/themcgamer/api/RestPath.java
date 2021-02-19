@@ -8,6 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * This annotation represents information for a specific Rest path
+ *
  * @author Braydon
  */
 @Retention(RetentionPolicy.RUNTIME)

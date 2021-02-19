@@ -18,6 +18,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * This route handles everything associated with {@link AccountModel}
+ *
  * @author Braydon
  */
 @AllArgsConstructor
@@ -29,6 +31,9 @@ public class AccountRoute {
 
     private final AccountRepository accountRepository;
 
+    /**
+     * This path handles displaying the {@link AccountModel} with the given {@link UUID}
+     */
     @RestPath(path = "/account/:uuid", version = APIVersion.V1)
     public AccountModel get(Request request, Response response, APIKey apiKey) throws APIException {
         UUID uuid = MiscUtils.getUuid(request.params(":uuid"));

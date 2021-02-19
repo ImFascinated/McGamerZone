@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * The API version is used in {@link RestPath}. It represents the version the path is using
+ *
  * @author Braydon
  */
 @AllArgsConstructor @Getter

@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * This route handles everything associated with {@link ServerGroupModel} and {@link MinecraftServerModel}
+ *
  * @author Braydon
  */
 public class ServersRoute {
@@ -31,10 +33,9 @@ public class ServersRoute {
         minecraftServerRepository = RedisRepository.getRepository(MinecraftServerRepository.class).orElse(null);
     }
 
-    /*
-        Server Groups
+    /**
+     * This path handles displaying of all of the {@link ServerGroupModel}'s
      */
-
     @RestPath(path = "/serverGroups", version = APIVersion.V1, accessLevel = APIAccessLevel.DEV)
     public List<ServerGroupModel> getGroups(Request request, Response response, APIKey apiKey) throws APIException {
         List<ServerGroupModel> models = new ArrayList<>();
@@ -43,6 +44,9 @@ public class ServersRoute {
         return models;
     }
 
+    /**
+     * This path handles displaying the {@link ServerGroupModel} with the given name
+     */
     @RestPath(path = "/serverGroup/:name", version = APIVersion.V1, accessLevel = APIAccessLevel.DEV)
     public ServerGroupModel getServerGroup(Request request, Response response, APIKey apiKey) throws APIException {
         String name = request.params(":name");
@@ -54,10 +58,9 @@ public class ServersRoute {
         return ServerGroupModel.fromServerGroup(optionalServerGroup.get());
     }
 
-    /*
-        Minecraft Servers
+    /**
+     * This path handles displaying of all of the {@link MinecraftServerModel}'s
      */
-
     @RestPath(path = "/minecraftServers", version = APIVersion.V1, accessLevel = APIAccessLevel.DEV)
     public List<MinecraftServerModel> getMinecraftServers(Request request, Response response, APIKey apiKey) throws APIException {
         List<MinecraftServerModel> models = new ArrayList<>();
@@ -66,6 +69,9 @@ public class ServersRoute {
         return models;
     }
 
+    /**
+     * This path handles displaying the {@link MinecraftServerModel} with the given id
+     */
     @RestPath(path = "/minecraftServer/:id", version = APIVersion.V1, accessLevel = APIAccessLevel.DEV)
     public MinecraftServerModel getMinecraftServer(Request request, Response response, APIKey apiKey) throws APIException {
         String id = request.params(":id");
