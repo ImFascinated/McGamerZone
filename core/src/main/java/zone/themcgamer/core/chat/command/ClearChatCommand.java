@@ -11,9 +11,10 @@ public class ClearChatCommand {
     @Command(name = "clearchat", aliases = { "cc" }, description = "Clear the chat", ranks = { Rank.HELPER }, playersOnly = true)
     public void onCommand(CommandProvider command) {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            for (int i = 0; i < 150; i++)
+            for (int i = 0; i < 150; i++) {
                 onlinePlayer.sendMessage(" ");
-            onlinePlayer.sendMessage(Style.main("Chat", "The chat has been cleared by &6" + command.getPlayer().getName()));
+            }
         }
+        Bukkit.broadcastMessage(Style.main("Chat", "The chat has been cleared by &6" + command.getPlayer().getName()));
     }
 }

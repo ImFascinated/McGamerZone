@@ -1,6 +1,7 @@
 package zone.themcgamer.core.account;
 
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;
 import zone.themcgamer.common.HashUtils;
 import zone.themcgamer.core.account.event.AccountPreLoadEvent;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 /**
  * @author Braydon
  */
+@Slf4j(topic = "Account Repository")
 public class AccountRepository extends MySQLRepository {
     private static final String SELECT_ACCOUNT = "SELECT * FROM `accounts` WHERE `uuid` = ? LIMIT 1";
     private static final String INSERT_ACCOUNT = "INSERT INTO `accounts` " +
@@ -49,6 +51,7 @@ public class AccountRepository extends MySQLRepository {
         if (uuid == null || (name == null || name.trim().isEmpty()))
             return null;
         boolean offlineLookup = ipAddress.trim().isEmpty();
+        log.info("Logging in client " + name + " (" + uuid.toString() + ")" + (offlineLookup ? " - OFFLINE LOOKUP" : ""));
         String encryptedIpAddress = offlineLookup ? "" : HashUtils.encryptSha256(ipAddress);
         int accountId = -1;
         boolean loadedFromCache = false;
@@ -62,6 +65,7 @@ public class AccountRepository extends MySQLRepository {
                 }
                 accountId = cache.getAccountId();
                 loadedFromCache = true;
+                log.info("Account id for " + name + " loaded from cache: " + accountId);
             }
         }
         Account account = null;
@@ -77,8 +81,11 @@ public class AccountRepository extends MySQLRepository {
             String query = "";
 
             if (resultSet.next()) { // If the account exists in the database, we wanna load its values
-                if (accountId <= 0) // If the account id has not been loaded from the cache, we wanna fetch it from the database
+                // If the account id has not been loaded from the cache, we wanna fetch it from the database
+                if (accountId <= 0) {
                     accountId = resultSet.getInt(1);
+                    log.info("Account id for " + name + " loaded from MySQL: " + accountId);
+                }
                 account = constructAccount(accountId, uuid, name, resultSet, ipAddress, encryptedIpAddress, offlineLookup ? -1L : now);
 
                 // If the account exists in the database and we're not doing an offline account lookup, we wanna update
@@ -106,11 +113,14 @@ public class AccountRepository extends MySQLRepository {
                     }
                 });
                 accountId = idArray[0];
+                log.info("Successfully inserted a new account for " + name + ", their account id is " + accountId);
             }
             Bukkit.getPluginManager().callEvent(new AccountPreLoadEvent(uuid, name, ipAddress));
             int finalAccountId = accountId;
             query+= AccountManager.MINI_ACCOUNTS.parallelStream().map(miniAccount -> miniAccount.getQuery(finalAccountId, uuid, name, ipAddress, encryptedIpAddress)).collect(Collectors.joining());
             if (!query.trim().isEmpty()) {
+                log.info("Executing mini account tasks (" + AccountManager.MINI_ACCOUNTS.size() + ") for " + name);
+
                 statement.execute(query);
                 statement.getUpdateCount();
                 statement.getMoreResults();
@@ -145,8 +155,10 @@ public class AccountRepository extends MySQLRepository {
                     now
             );
         }
-        if (!loadedFromCache && cacheRepository != null)
+        if (!loadedFromCache && cacheRepository != null) {
             cacheRepository.post(new PlayerCache(uuid, name, accountId));
+            log.info("Stored new cache object for " + name + " in Redis");
+        }
         return account;
     }
 

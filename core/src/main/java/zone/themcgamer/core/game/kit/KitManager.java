@@ -36,12 +36,15 @@ public class KitManager extends MiniAccount<KitClient> {
         if (client.isEmpty())
             return;
         while (resultSet.next()) {
-            MGZGame game = EnumUtils.fromString(MGZGame.class, resultSet.getString("game"));
+            int gameColumnIndex = resultSet.findColumn("game");
+            if (gameColumnIndex == -1)
+                continue;
+            MGZGame game = EnumUtils.fromString(MGZGame.class, resultSet.getString(gameColumnIndex));
             if (game == null)
-                return;
+                continue;
             KitDisplay kitDisplay = game.getKitDisplay(resultSet.getString("kit"));
             if (kitDisplay == null)
-                return;
+                continue;
             client.get().getSelectedKit().put(game, kitDisplay);
         }
     }

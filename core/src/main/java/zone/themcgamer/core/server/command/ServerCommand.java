@@ -24,7 +24,7 @@ public class ServerCommand {
     private final ServerTraveler traveler;
     private final MinecraftServerRepository minecraftServerRepository;
 
-    @Command(name = "server", aliases = { "join", "play" }, description = "Join a server", playersOnly = true)
+    @Command(name = "server", aliases = { "sv", "join", "play" }, description = "Join a server", playersOnly = true)
     public void onCommand(CommandProvider command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();

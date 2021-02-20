@@ -11,7 +11,6 @@ import zone.themcgamer.core.chat.component.impl.BasicRankComponent;
 import zone.themcgamer.core.common.MathUtils;
 import zone.themcgamer.core.common.scoreboard.ScoreboardHandler;
 import zone.themcgamer.core.deliveryMan.DeliveryManManager;
-import zone.themcgamer.core.game.kit.KitManager;
 import zone.themcgamer.core.kingdom.KingdomManager;
 import zone.themcgamer.core.plugin.MGZPlugin;
 import zone.themcgamer.core.plugin.Startup;
@@ -44,7 +43,7 @@ public class Hub extends MGZPlugin {
             spawn.setYaw(MathUtils.getFacingYaw(spawn, world.getDataPoints("LOOK_AT")));
         else spawn = new Location(world.getWorld(), 0, 150, 0);
 
-        AccountManager.addMiniAccount(new KitManager(this));
+        //AccountManager.addMiniAccount(new KitManager(this));
 
         new PlayerListener(this);
         new WorldListener(this);

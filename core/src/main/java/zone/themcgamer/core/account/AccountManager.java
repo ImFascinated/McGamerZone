@@ -305,7 +305,7 @@ public class AccountManager extends Module {
         if (reference.get() != null)
             consumer.accept(reference.get());
         else {
-            CompletableFuture.runAsync(() -> {
+            Runnable fetchAccount = () -> {
                 try {
                     reference.set(repository.login(uuid, name, ""));
                     if (reference.get() != null)
@@ -314,7 +314,15 @@ public class AccountManager extends Module {
                     ex.printStackTrace();
                 }
                 consumer.accept(reference.get());
-            });
+            };
+            // If the method is being executed on the primary thread, we wanna execute it asynchronously instead
+            if (Bukkit.isPrimaryThread())
+                CompletableFuture.runAsync(fetchAccount);
+            else {
+                // If the method is being executed off of the primary thread, we wanna execute it normally to stay
+                // on that thread
+                fetchAccount.run();
+            }
         }
     }
 

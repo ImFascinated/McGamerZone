@@ -1,5 +1,6 @@
 package zone.themcgamer.core.chat;
 
+import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -16,6 +17,7 @@ import zone.themcgamer.core.badSportSystem.BadSportSystem;
 import zone.themcgamer.core.badSportSystem.Punishment;
 import zone.themcgamer.core.badSportSystem.PunishmentCategory;
 import zone.themcgamer.core.chat.command.ClearChatCommand;
+import zone.themcgamer.core.chat.command.EmotesCommand;
 import zone.themcgamer.core.chat.command.message.MessageCommand;
 import zone.themcgamer.core.chat.command.message.ReplyCommand;
 import zone.themcgamer.core.chat.component.IChatComponent;
@@ -35,12 +37,22 @@ import java.util.concurrent.TimeUnit;
 public class ChatManager extends Module {
     private final BadSportSystem badSportSystem;
     private final IChatComponent[] chatComponents;
-    private final Map<String, String> emotes = new HashMap<>();
+    @Getter private final Map<String, String> emotes = new HashMap<>();
 
     {
-        emotes.put("shrug", "¯\\_(ツ)_/¯");
-        emotes.put("tableflip", "(╯°□°）╯︵ ┻━┻");
-        emotes.put("unflip", "┬─┬ ノ( ゜-゜ノ)");
+        emotes.put("¯\\_(ツ)_/¯", ":shrug:");
+        emotes.put("⊂(´･◡･⊂ )∘˚˳°", ":happyghost:");
+        emotes.put("ヽ༼ຈل͜ຈ༽ﾉ", ":donger:");
+        emotes.put("ಠ_ಠ", ":disapproval:");
+        emotes.put("(≖_≖)", ":squint:");
+        emotes.put("(౮⦦ʖ౮)", ":lenny:");
+        emotes.put("┬─┬ ノ( ゜-゜ノ)", ":unflip:");
+        emotes.put("(☞ﾟヮﾟ)☞", ":same:");
+        emotes.put("ლ(ಥ Д ಥ )ლ", ":why:");
+        emotes.put("(╯°□°）╯︵ ┻━┻", ":tableflip:");
+        emotes.put("⊂(•̀_•́⊂ )∘˚˳°", ":angryghost:");
+        emotes.put("( ˘ ³˘)♥", ":kiss:");
+        emotes.put("༼ つ ◕_◕ ༽つ", ":ameno:");
     }
 
     public ChatManager(JavaPlugin plugin, AccountManager accountManager, BadSportSystem badSportSystem, IChatComponent[] chatComponents) {
@@ -50,15 +62,7 @@ public class ChatManager extends Module {
         registerCommand(new ClearChatCommand());
         registerCommand(new MessageCommand(accountManager, badSportSystem));
         registerCommand(new ReplyCommand(accountManager, badSportSystem));
-
-        /* TODO
-           /chatmanager blackwords add <word>
-           /chatmanager blackwords remove <word>
-           /chatmanager emote add <unicode>
-           /chatmanager emote remove <unicode>
-           /chatmanager urls add <url>
-           /chatmanager remove <url>
-         */
+        registerCommand(new EmotesCommand(this));
     }
 
     @EventHandler
@@ -91,13 +95,13 @@ public class ChatManager extends Module {
             return;
         }
         if (!CooldownHandler.canUse(player, "Chat", TimeUnit.SECONDS.toMillis(3L), false)
-                && !optionalAccount.get().hasRank(Rank.GAMER)) {
-                player.sendMessage(Style.error("Chat", "You are chatting too quickly! To bypass this cooldown," +
-                        " please consider purchasing a donator rank over at §bstore.mcgamerzone.net§7."));
-                return;
+                && !optionalAccount.get().hasRank(Rank.GAMER) && !optionalAccount.get().hasRank(Rank.HELPER)) {
+            player.sendMessage(Style.error("Chat", "You are chatting too quickly! To bypass this cooldown," +
+                    " please consider purchasing a donator rank over at §bstore.mcgamerzone.net§7."));
+            return;
         }
         for (Map.Entry<String, String> emote : emotes.entrySet())
-            message = message.replace(":" + emote.getKey() + ":", emote.getValue());
+            message = message.replace(emote.getValue(), emote.getKey());
         List<BaseComponent> components = new ArrayList<>();
         for (IChatComponent chatComponent : chatComponents) {
             BaseComponent component = chatComponent.getComponent(player);
