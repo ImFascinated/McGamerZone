@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import zone.themcgamer.core.account.Account;
+import zone.themcgamer.core.account.AccountManager;
 import zone.themcgamer.core.badSportSystem.BadSportClient;
 import zone.themcgamer.core.badSportSystem.BadSportSystem;
 import zone.themcgamer.core.badSportSystem.Punishment;
@@ -16,10 +18,13 @@ import zone.themcgamer.core.badSportSystem.PunishmentCategory;
 import zone.themcgamer.core.chat.command.ClearChatCommand;
 import zone.themcgamer.core.chat.component.IChatComponent;
 import zone.themcgamer.core.common.Style;
+import zone.themcgamer.core.cooldown.CooldownHandler;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
+import zone.themcgamer.data.Rank;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Braydon
@@ -59,6 +64,9 @@ public class ChatManager extends Module {
 
         event.setCancelled(true);
 
+        Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
+        if (optionalAccount.isEmpty())
+            return;
         Optional<BadSportClient> optionalBadSportClient = badSportSystem.lookup(player.getUniqueId());
         if (optionalBadSportClient.isEmpty()) {
             player.sendMessage(Style.error("Chat", "§cCannot find bad sport profile"));
@@ -77,6 +85,12 @@ public class ChatManager extends Module {
         if (chatComponents.length <= 0) {
             player.sendMessage(Style.error("Chat", "§cCannot format chat message"));
             return;
+        }
+        if (!CooldownHandler.canUse(player, "Chat", TimeUnit.SECONDS.toMillis(3L), false)
+                && !optionalAccount.get().hasRank(Rank.GAMER)) {
+                player.sendMessage(Style.error("Chat", "You are chatting too quickly! To bypass this cooldown," +
+                        " please consider purchasing a donator rank over at §bstore.mcgamerzone.net§7."));
+                return;
         }
         for (Map.Entry<String, String> emote : emotes.entrySet())
             message = message.replace(":" + emote.getKey() + ":", emote.getValue());
