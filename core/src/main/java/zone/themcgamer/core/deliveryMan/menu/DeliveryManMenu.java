@@ -56,8 +56,7 @@ public class DeliveryManMenu extends UpdatableMenu {
         for (DeliveryManReward reward : DeliveryManReward.values()) {
             boolean canClaim = (deliveryManManager.canClaim(player, reward) && optionalAccount.get().hasRank(reward.getRequiredRank()));
             ItemBuilder itemBuilder = new ItemBuilder(XMaterial.PLAYER_HEAD)
-                    .setSkullOwner(reward.getRewardPackage().getIconTexture(player, optionalAccount.get()))
-                    .setGlow(canClaim)
+                    .setSkullOwner((canClaim ? reward.getRewardPackage().getIconTexture(player, optionalAccount.get()) : SkullTexture.COAL_BLOCK))
                     .setName((canClaim ? "§a" : "§c") + "§l" + reward.getDisplayName())
                     .addLoreLine("§7Claimable: " + (canClaim ? "§aYes" : "§cNo"));
             if (reward == DeliveryManReward.MONTHLY) {
