@@ -33,6 +33,7 @@ public class ServerManager extends Module {
         registerCommand(new HubCommand(traveler));
         registerCommand(new RestartCommand(this, serverGroupRepository, minecraftServerRepository));
         registerCommand(new StopCommand(this));
+        registerCommand(new FindCommand());
 
         // Handle server restarting
         JedisCommandHandler.getInstance().addListener(jedisCommand -> {
