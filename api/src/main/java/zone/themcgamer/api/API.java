@@ -36,7 +36,7 @@ public class API {
             .create();
     private static final List<Class<? extends IModel>> models = new ArrayList<>();
     private static final Map<Object, List<Method>> routes = new HashMap<>();
-    private static final boolean requiresAuthentication = false;
+    private static final boolean requiresAuthentication = true;
 
     // Rate Limiting
     private static final int rateLimit = 120; // The amount of requests a minute
@@ -114,15 +114,21 @@ public class API {
                         // if there is a problem checking the key or the key is invalid
                         if (requiresAuthentication) {
                             String apiKey = request.headers("key");
-                            if (apiKey == null)
+                            if (apiKey == null) {
+                                response.status(401);
                                 throw new APIException("Unauthorized");
+                            }
                             // Check if the provided API key is valid
                             Optional<List<APIKey>> keys = apiKeyRepository.lookup(apiKey);
-                            if (keys.isEmpty() || (keys.get().isEmpty()))
+                            if (keys.isEmpty() || (keys.get().isEmpty())) {
+                                response.status(401);
                                 throw new APIException("Unauthorized");
+                            }
                             key = keys.get().get(0);
-                            if (restPath.accessLevel() == APIAccessLevel.DEV && (restPath.accessLevel() != key.getAccessLevel()))
+                            if (restPath.accessLevel() == APIAccessLevel.DEV && (restPath.accessLevel() != key.getAccessLevel())) {
+                                response.status(401);
                                 throw new APIException("Unauthorized");
+                            }
                         }
                         // Checking if the request has the appropriate headers for the get route
                         if (restPath.headers().length > 0) {
@@ -160,9 +166,11 @@ public class API {
                         jsonObject.addProperty("error", message);
                         // If the caught exception is not an API exception, print the stacktrace
                         if (!(ex instanceof APIException)) {
+                            response.status(500);
                             System.err.println("The route \"" + entry.getKey().getClass().getSimpleName() + "\" raised an exception:");
                             ex.printStackTrace();
-                        }
+                        } else if (response.status() == 200)
+                            response.status(502);
                     }
                     return gson.toJson(jsonObject);
                 });

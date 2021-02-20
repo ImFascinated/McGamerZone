@@ -2,7 +2,6 @@ package zone.themcgamer.core.deliveryMan;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import zone.themcgamer.core.common.SkullTexture;
 import zone.themcgamer.core.deliveryMan.rewardPackage.RewardPackage;
 import zone.themcgamer.core.deliveryMan.rewardPackage.impl.DailyRewardPackage;
 import zone.themcgamer.core.deliveryMan.rewardPackage.impl.MonthlyRewardPackage;

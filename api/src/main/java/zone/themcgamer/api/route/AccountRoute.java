@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 public class AccountRoute {
     // Account model cache for players that were looked up via the account route
     public static final Cache<UUID, AccountModel> CACHE = CacheBuilder.newBuilder()
-            .expireAfterWrite(10, TimeUnit.MINUTES)
+            .expireAfterWrite(5, TimeUnit.MINUTES)
             .build();
 
     private final AccountRepository accountRepository;
@@ -42,6 +42,8 @@ public class AccountRoute {
         AccountModel account = CACHE.getIfPresent(uuid);
         if (account == null) {
             account = accountRepository.getAccount(uuid);
+            if (account == null)
+                throw new APIException("Account not found");
             account.setTimeCached(System.currentTimeMillis());
             CACHE.put(uuid, account);
         }
