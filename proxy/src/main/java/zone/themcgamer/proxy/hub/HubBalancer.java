@@ -49,17 +49,24 @@ public class HubBalancer implements Runnable, Listener {
         JedisCommandHandler.getInstance().addListener(jedisCommand -> {
             if (jedisCommand instanceof ServerRestartCommand) {
                 ServerRestartCommand serverRestartCommand = (ServerRestartCommand) jedisCommand;
+                removeServer(serverRestartCommand.getServerId());
                 ServerInfo serverInfo = proxy.getProxy().getServerInfo(serverRestartCommand.getServerId());
-                if (serverInfo == null)
-                    return;
-                for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
-                    if (player.getServer().getInfo().equals(serverInfo)) {
-                        if (hubs.isEmpty() || hubs.size() == 1)
+                if (serverInfo == null) {
+                    System.out.println("ServerInfo is null");
+                    //We do this check due sometimes players stay in a server which is deleted. But were send to it before it was deleted.
+                    for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
+                        if (player.getServer() == null || player.getServer().getInfo().getName().equals(serverRestartCommand.getServerId()))
                             kickPlayer(player, NO_AVAILABLE_HUB);
                     }
+                    return;
+                } else {
+                    for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
+                        if (player.getServer().getInfo().equals(serverInfo)) {
+                            if (hubs.isEmpty() || hubs.size() <= 1)
+                                kickPlayer(player, NO_AVAILABLE_HUB);
+                        }
+                    }
                 }
-                if (hubs.containsValue(serverInfo))
-                    hubs.remove(serverRestartCommand.getServerId());
             }
             if (jedisCommand instanceof ServerStateChangeCommand) {
                 ServerStateChangeCommand serverStateChangeCommand = (ServerStateChangeCommand) jedisCommand;
@@ -69,17 +76,7 @@ public class HubBalancer implements Runnable, Listener {
                 if (!serverStateChangeCommand.getNewState().isShuttingDownState())
                     return;
                 MinecraftServer server = serverStateChangeCommand.getServer();
-                proxy.getProxy().getServers().entrySet().removeIf(entry -> {
-                    String key = entry.getKey();
-                    if (!key.equals(server.getId()))
-                        return false;
-                    if (key.equals(group.getName()))
-                        return false;
-                    if (entry.getValue().getMotd().equals("STATIC"))
-                        return false;
-                    hubs.remove(server.getId());
-                    return true;
-                });
+                removeServer(server.getId());
             }
         });
     }
@@ -224,5 +221,19 @@ public class HubBalancer implements Runnable, Listener {
                         "&7You have been disconnected from " + (server == null ? "" : "from §6" + server.getName() + "§7 ") + " &7server for\n" +
                         "&b" + reason + "\n" +
                         "&7")));
+    }
+
+    private void removeServer(String serverId) {
+        proxy.getProxy().getServers().entrySet().removeIf(entry -> {
+            String key = entry.getKey();
+            if (!key.equals(serverId))
+                return false;
+            if (key.equals(group.getName()))
+                return false;
+            if (entry.getValue().getMotd().equals("STATIC"))
+                return false;
+            hubs.remove(serverId);
+            return true;
+        });
     }
 }
