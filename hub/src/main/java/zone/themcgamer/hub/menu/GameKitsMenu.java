@@ -38,7 +38,7 @@ public class GameKitsMenu extends Menu {
         set(0, 1, new Button(new ItemBuilder(game.getIcon(), 1)
                 .setName("§6§l" + game.getName())
                 .setLore(lore)
-                .toItemStack(), event -> new TravellerMenu(player).open()));
+                .toItemStack(), event -> new TravelerMenu(player).open()));
 
         KitManager kitManager = Module.getModule(KitManager.class);
         if (kitManager == null)

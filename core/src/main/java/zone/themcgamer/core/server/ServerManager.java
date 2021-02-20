@@ -10,7 +10,7 @@ import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
 import zone.themcgamer.core.plugin.MGZPlugin;
 import zone.themcgamer.core.server.command.*;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.data.jedis.command.JedisCommandHandler;
 import zone.themcgamer.data.jedis.command.impl.ServerRestartCommand;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
@@ -24,13 +24,13 @@ import zone.themcgamer.data.jedis.repository.impl.ServerGroupRepository;
  */
 @ModuleInfo(name = "Server Manager")
 public class ServerManager extends Module {
-    public ServerManager(JavaPlugin plugin, ServerTraveller traveller) {
+    public ServerManager(JavaPlugin plugin, ServerTraveler traveler) {
         super(plugin);
         ServerGroupRepository serverGroupRepository = RedisRepository.getRepository(ServerGroupRepository.class).orElse(null);
         MinecraftServerRepository minecraftServerRepository = RedisRepository.getRepository(MinecraftServerRepository.class).orElse(null);
         registerCommand(new MonitorCommand());
-        registerCommand(new ServerCommand(traveller, minecraftServerRepository));
-        registerCommand(new HubCommand(traveller));
+        registerCommand(new ServerCommand(traveler, minecraftServerRepository));
+        registerCommand(new HubCommand(traveler));
         registerCommand(new RestartCommand(this, serverGroupRepository, minecraftServerRepository));
         registerCommand(new StopCommand(this));
 
@@ -41,7 +41,7 @@ public class ServerManager extends Module {
                 if (!((ServerRestartCommand) jedisCommand).getServerId().equals(minecraftServer.getId()))
                     return;
                 try {
-                    traveller.sendAll("Hub", "&6" + minecraftServer.getName() + " &7is restarting");
+                    traveler.sendAll("Hub", "&6" + minecraftServer.getName() + " &7is restarting");
                 } catch (IllegalArgumentException ignored) {}
                 Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () ->
                     minecraftServer.setState(ServerState.RESTARTING), 10L);

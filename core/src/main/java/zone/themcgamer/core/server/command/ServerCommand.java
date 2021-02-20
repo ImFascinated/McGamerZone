@@ -9,7 +9,7 @@ import zone.themcgamer.core.command.Command;
 import zone.themcgamer.core.command.CommandProvider;
 import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.plugin.MGZPlugin;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
 import zone.themcgamer.data.jedis.repository.impl.MinecraftServerRepository;
 
@@ -21,7 +21,7 @@ import java.util.Optional;
  */
 @AllArgsConstructor
 public class ServerCommand {
-    private final ServerTraveller traveller;
+    private final ServerTraveler traveler;
     private final MinecraftServerRepository minecraftServerRepository;
 
     @Command(name = "server", aliases = { "join", "play" }, description = "Join a server", playersOnly = true)
@@ -53,7 +53,7 @@ public class ServerCommand {
             return;
         }
         try {
-            traveller.sendPlayer(player, minecraftServer);
+            traveler.sendPlayer(player, minecraftServer);
         } catch (Exception ex) {
             player.sendMessage(Style.error("Server", "&7Cannot join &6" + minecraftServer.getName() + " &7at this time: &b" + ex.getLocalizedMessage()));
         }

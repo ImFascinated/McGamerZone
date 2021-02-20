@@ -54,7 +54,7 @@ public class Hub extends MGZPlugin {
                 new BasicRankComponent(),
                 new BasicNameComponent()
         });
-        new KingdomManager(this, traveller);
+        new KingdomManager(this, traveler);
 
         AccountManager.addMiniAccount(new DeliveryManManager(this, mySQLController, true));
 

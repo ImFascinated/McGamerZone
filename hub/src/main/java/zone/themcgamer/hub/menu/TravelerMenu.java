@@ -11,7 +11,7 @@ import zone.themcgamer.core.common.menu.MenuType;
 import zone.themcgamer.core.common.menu.UpdatableMenu;
 import zone.themcgamer.core.game.MGZGame;
 import zone.themcgamer.core.module.Module;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
 
 import java.util.ArrayList;
@@ -21,13 +21,13 @@ import java.util.Optional;
 /**
  * @author Braydon
  */
-public class TravellerMenu extends UpdatableMenu {
+public class TravelerMenu extends UpdatableMenu {
     private static final String[] ARROW_COLORS = new String[] { "§2", "§6", "§c" };
 
     private int arrowIndex, randomGameIndex;
 
-    public TravellerMenu(Player player) {
-        super(player, "Traveller", 6, MenuType.CHEST, 700L);
+    public TravelerMenu(Player player) {
+        super(player, "Traveler", 6, MenuType.CHEST, 700L);
     }
 
     @Override
@@ -150,11 +150,11 @@ public class TravellerMenu extends UpdatableMenu {
     private void sendToGame(MGZGame game) {
         Optional<MinecraftServer> optionalMinecraftServer = game.getBestServer().filter(MinecraftServer::isRunning);
         if (optionalMinecraftServer.isEmpty()) {
-            player.sendMessage(Style.error("Traveller", "§7There is no available game server found, please try again in a moment."));
+            player.sendMessage(Style.error("Traveler", "§7There is no available game server found, please try again in a moment."));
             return;
         }
-        ServerTraveller traveller = Module.getModule(ServerTraveller.class);
-        if (traveller != null)
-            traveller.sendPlayer(player, optionalMinecraftServer.get());
+        ServerTraveler traveler = Module.getModule(ServerTraveler.class);
+        if (traveler != null)
+            traveler.sendPlayer(player, optionalMinecraftServer.get());
     }
 }

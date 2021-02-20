@@ -14,7 +14,7 @@ import zone.themcgamer.core.common.menu.MenuType;
 import zone.themcgamer.core.common.menu.UpdatableMenu;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.plugin.MGZPlugin;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.data.Rank;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
 
@@ -80,9 +80,9 @@ public class HubsMenu extends UpdatableMenu {
                     return;
                 }
                 close();
-                ServerTraveller traveller = Module.getModule(ServerTraveller.class);
-                if (traveller != null)
-                    traveller.sendPlayer(player, server.getName());
+                ServerTraveler traveler = Module.getModule(ServerTraveler.class);
+                if (traveler != null)
+                    traveler.sendPlayer(player, server.getName());
             }));
         }
     }
