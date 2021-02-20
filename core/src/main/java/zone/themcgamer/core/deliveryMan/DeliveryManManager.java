@@ -1,6 +1,9 @@
 package zone.themcgamer.core.deliveryMan;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
@@ -50,6 +53,23 @@ public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
             if (reward == null)
                 continue;
             client.get().getLastClaimedRewards().put(reward, resultSet.getLong("lastClaimed"));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    private void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
+        if (optionalAccount.isEmpty())
+            return;
+        Optional<DeliveryManClient> optionalClient = lookup(player.getUniqueId());
+        if (optionalClient.isEmpty())
+            return;
+        for (DeliveryManReward reward : DeliveryManReward.values()) {
+            if ((canClaim(player, reward) && optionalAccount.get().hasRank(reward.getRequiredRank()))) {
+                player.sendMessage(Style.main(DELIVERY_MAN_NAME, "You have unclaimed rewards! Visit §b" + DELIVERY_MAN_NAME + " §7to claim them!"));
+                return;
+            }
         }
     }
 
