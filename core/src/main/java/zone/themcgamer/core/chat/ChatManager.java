@@ -19,10 +19,7 @@ import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Braydon
@@ -31,6 +28,13 @@ import java.util.Optional;
 public class ChatManager extends Module {
     private final BadSportSystem badSportSystem;
     private final IChatComponent[] chatComponents;
+    private final Map<String, String> emotes = new HashMap<>();
+
+    {
+        emotes.put("shrug", "¯\\_(ツ)_/¯");
+        emotes.put("tableflip", "(╯°□°）╯︵ ┻━┻");
+        emotes.put("unflip", "┬─┬ ノ( ゜-゜ノ)");
+    }
 
     public ChatManager(JavaPlugin plugin, BadSportSystem badSportSystem, IChatComponent[] chatComponents) {
         super(plugin);
@@ -74,6 +78,8 @@ public class ChatManager extends Module {
             player.sendMessage(Style.error("Chat", "§cCannot format chat message"));
             return;
         }
+        for (Map.Entry<String, String> emote : emotes.entrySet())
+            message = message.replace(":" + emote.getKey() + ":", emote.getValue());
         List<BaseComponent> components = new ArrayList<>();
         for (IChatComponent chatComponent : chatComponents) {
             BaseComponent component = chatComponent.getComponent(player);
