@@ -24,5 +24,5 @@ public class BotConstants {
     public static final String COPYRIGHT = "© McGamerZone - " + Calendar.getInstance().get(Calendar.YEAR);
 
     // Channels
-    public static final String SUGGESTIONS = "811048367412215851"; // TODO: 2/15/2021 Change this to the main guild's suggestions channel when the bot is on the main guild.
+    public static final String SUGGESTIONS = "802304706701426730"; // TODO: 2/15/2021 Change this to the main guild's suggestions channel when the bot is on the main guild.
 }

@@ -22,7 +22,7 @@ public class SuggestCommand extends BaseCommand {
         help = "Share a suggestion!";
         arguments = "<suggestion>";
         guildOnly = true;
-        guilds = Collections.singletonList(Guild.TEST); // TODO: 2/15/2021 Update this to MAIN whenever the bot is on the main guild.
+        guilds = Collections.singletonList(Guild.MAIN);
     }
 
     @Override
