@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
 import zone.themcgamer.core.plugin.MGZPlugin;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
 import zone.themcgamer.data.jedis.data.server.ServerState;
 
@@ -27,15 +27,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ServerUpdater extends Module {
     private static final long CHECK_DELAY = 60L * 20L; // 1 Minute
 
-    private final ServerTraveller traveller;
+    private final ServerTraveler traveler;
 
     private boolean updatePendingRestart;
     private long updateFoundTime;
     private int restartDelay;
 
-    public ServerUpdater(JavaPlugin plugin, ServerTraveller traveller) {
+    public ServerUpdater(JavaPlugin plugin, ServerTraveler traveler) {
         super(plugin);
-        this.traveller = traveller;
+        this.traveler = traveler;
 
         // Creating the jars directory
         File jarsDirectory = new File(File.separator + "home" + File.separator + "minecraft" + File.separator + "upload" + File.separator + "jars");
@@ -92,7 +92,7 @@ public class ServerUpdater extends Module {
     private void update() {
         MinecraftServer minecraftServer = MGZPlugin.getMinecraftServer();
         try {
-            traveller.sendAll("Hub", "&6" + minecraftServer.getName() + " &7is being updated");
+            traveler.sendAll("Hub", "&6" + minecraftServer.getName() + " &7is being updated");
         } catch (IllegalArgumentException ignored) {}
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> minecraftServer.setState(ServerState.UPDATING), 10L);
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), Bukkit::shutdown, 40L);

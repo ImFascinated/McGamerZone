@@ -19,7 +19,7 @@ import zone.themcgamer.core.plugin.command.BuildDataCommand;
 import zone.themcgamer.core.plugin.command.PluginsCommand;
 import zone.themcgamer.core.server.ServerManager;
 import zone.themcgamer.core.task.TaskManager;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.core.update.ServerUpdater;
 import zone.themcgamer.data.jedis.JedisController;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
@@ -49,7 +49,7 @@ public abstract class MGZPlugin extends JavaPlugin {
     protected JedisController jedisController;
     protected MySQLController mySQLController;
     protected CommandManager commandManager;
-    protected ServerTraveller traveller;
+    protected ServerTraveler traveler;
     protected BadSportSystem badSportSystem;
     protected NametagManager nametagManager;
 
@@ -170,9 +170,9 @@ public abstract class MGZPlugin extends JavaPlugin {
             nametagManager = new NametagManager(this);
 
             AccountManager accountManager = new AccountManager(this, mySQLController, nametagManager);
-            traveller = new ServerTraveller(this);
-            new ServerUpdater(this, traveller);
-            new ServerManager(this, traveller);
+            traveler = new ServerTraveler(this);
+            new ServerUpdater(this, traveler);
+            new ServerManager(this, traveler);
 
             badSportSystem = new BadSportSystem(this, mySQLController, accountManager);
             AccountManager.addMiniAccount(new TaskManager(this));

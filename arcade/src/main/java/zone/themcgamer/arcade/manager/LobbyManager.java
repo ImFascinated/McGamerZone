@@ -34,7 +34,7 @@ import zone.themcgamer.core.common.SkullTexture;
 import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.data.Rank;
 
 import java.util.Optional;
@@ -67,12 +67,12 @@ public class LobbyManager extends Module {
             .addLoreLine("&7Click to go back to a lobby server").toItemStack();
 
     private final ArcadeManager arcadeManager;
-    private final ServerTraveller traveller;
+    private final ServerTraveler traveler;
 
-    public LobbyManager(JavaPlugin plugin, ArcadeManager arcadeManager, ServerTraveller traveller) {
+    public LobbyManager(JavaPlugin plugin, ArcadeManager arcadeManager, ServerTraveler traveler) {
         super(plugin);
         this.arcadeManager = arcadeManager;
-        this.traveller = traveller;
+        this.traveler = traveler;
     }
 
     @EventHandler
@@ -127,7 +127,7 @@ public class LobbyManager extends Module {
             }
             new TimeVoteMenu(player).open();
         } else if (item.isSimilar(GO_BACK_LOBBY))
-            traveller.sendPlayer(player,"Hub");
+            traveler.sendPlayer(player,"Hub");
     }
 
     @EventHandler

@@ -35,7 +35,7 @@ public class Arcade extends MGZPlugin {
     @Startup
     public void loadArcade() {
         new PlayerDataManager(this);
-        arcadeManager = new ArcadeManager(this, traveller);
+        arcadeManager = new ArcadeManager(this, traveler);
 
         new ScoreboardHandler(this, ArcadeScoreboard.class, 3L);
 

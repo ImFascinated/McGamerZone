@@ -30,13 +30,14 @@ import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
 import zone.themcgamer.core.account.menu.ProfileMenu;
 import zone.themcgamer.core.common.*;
+import zone.themcgamer.core.cooldown.CooldownHandler;
 import zone.themcgamer.core.world.MGZWorld;
 import zone.themcgamer.data.jedis.cache.CacheRepository;
 import zone.themcgamer.data.jedis.cache.impl.PlayerStatusCache;
 import zone.themcgamer.data.jedis.repository.RedisRepository;
 import zone.themcgamer.hub.Hub;
 import zone.themcgamer.hub.menu.HubsMenu;
-import zone.themcgamer.hub.menu.TravellerMenu;
+import zone.themcgamer.hub.menu.TravelerMenu;
 import zone.themcgamer.hub.menu.cosmetics.VanityMainMenu;
 
 import java.util.ArrayList;
@@ -48,8 +49,8 @@ import java.util.Optional;
  * @author Braydon
  */
 public class PlayerListener implements Listener {
-    private static final ItemStack TRAVELLER = new ItemBuilder(XMaterial.COMPASS)
-            .setName("§a§lTraveller §8» §7Select game")
+    private static final ItemStack TRAVELER = new ItemBuilder(XMaterial.COMPASS)
+            .setName("§a§lTraveler §8» §7Select game")
             .setLore("§7Click to teleport to a game!")
             .toItemStack();
     private static final ItemStack HUB_SELECTOR = new ItemBuilder(XMaterial.BEACON)
@@ -80,7 +81,7 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         PlayerUtils.reset(player, true, true, GameMode.ADVENTURE);
 
-        player.getInventory().setItem(0, TRAVELLER);
+        player.getInventory().setItem(0, TRAVELER);
         player.getInventory().setItem(1, HUB_SELECTOR);
         player.getInventory().setItem(4, COSMETICS);
         player.getInventory().setItem(7, SETTINGS);
@@ -93,7 +94,7 @@ public class PlayerListener implements Listener {
         int online = 0;
         Optional<CacheRepository> cacheRepository = RedisRepository.getRepository(CacheRepository.class);
         if (cacheRepository.isPresent())
-            online+= cacheRepository.get().getCached().stream().filter(cacheItem -> cacheItem instanceof PlayerStatusCache).count();
+            online += cacheRepository.get().getCached().stream().filter(cacheItem -> cacheItem instanceof PlayerStatusCache).count();
 
         for (int i = 0; i < 5; i++)
             player.sendMessage("");
@@ -104,22 +105,22 @@ public class PlayerListener implements Listener {
         List<BaseComponent> components = new ArrayList<>();
         components.addAll(Arrays.asList(new ComponentBuilder(Style.color("  ")).create()));
         components.addAll(Arrays.asList(new ComponentBuilder(Style.color("§d§lSTORE"))
-                .event(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://store.mcgamerzone.net"))
+                .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://store.mcgamerzone.net"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Style.color("§dClick to visit our webstore.")).create()))
                 .create()));
         components.addAll(Arrays.asList(new ComponentBuilder(Style.color(" §8\u25AA ")).create()));
         components.addAll(Arrays.asList(new ComponentBuilder(Style.color("&e&lSITE"))
-                .event(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://mcgamerzone.net"))
+                .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://mcgamerzone.net"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Style.color("&eClick to visit our website!")).create()))
                 .create()));
         components.addAll(Arrays.asList(new ComponentBuilder(Style.color(" §8\u25AA ")).create()));
         components.addAll(Arrays.asList(new ComponentBuilder(Style.color("&a&lVOTE"))
-                .event(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://vote.mcgamerzone.net"))
+                .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://vote.mcgamerzone.net"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Style.color("&aClick to vote for us!")).create()))
                 .create()));
         components.addAll(Arrays.asList(new ComponentBuilder(Style.color(" §8\u25AA ")).create()));
         components.addAll(Arrays.asList(new ComponentBuilder(Style.color("&9&lDISCORD"))
-                .event(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://discord.mcgamerzone.net"))
+                .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.mcgamerzone.net"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Style.color("&9Click to join our community!")).create()))
                 .create()));
         player.sendMessage(components.toArray(new BaseComponent[0]));
@@ -142,8 +143,8 @@ public class PlayerListener implements Listener {
         ItemStack item = event.getItem();
         if (item == null)
             return;
-        if (item.isSimilar(TRAVELLER))
-            new TravellerMenu(player).open();
+        if (item.isSimilar(TRAVELER))
+            new TravelerMenu(player).open();
         else if (item.isSimilar(HUB_SELECTOR))
             new HubsMenu(player).open();
         else if (item.isSimilar(COSMETICS))
@@ -189,19 +190,19 @@ public class PlayerListener implements Listener {
     @EventHandler
     private void onPortal(EntityPortalEnterEvent event) {
         Entity entity = event.getEntity();
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
-
-            MGZWorld world = MGZWorld.get(Bukkit.getWorlds().get(0));
-            Location spawn = world.getDataPoint("PORTAL_SPAWN");
-            if (spawn != null)
-                spawn.setYaw(MathUtils.getFacingYaw(spawn, world.getDataPoints("LOOK_AT")));
-            else spawn = hub.getSpawn();
-            player.teleport(spawn);
-
-            new TravellerMenu(player).open();
-            player.playSound(player.getEyeLocation(), XSound.ENTITY_PLAYER_LEVELUP.parseSound(), 0.9f, 1f);
-        }
+        if (!(entity instanceof Player))
+            return;
+        if (!CooldownHandler.canUse(((Player) entity), "Hub Portal", 500, false))
+            return;
+        Player player = (Player) entity;
+        MGZWorld world = MGZWorld.get(Bukkit.getWorlds().get(0));
+        Location spawn = world.getDataPoint("PORTAL_SPAWN");
+        if (spawn != null)
+            spawn.setYaw(MathUtils.getFacingYaw(spawn, world.getDataPoints("LOOK_AT")));
+        else spawn = hub.getSpawn();
+        player.teleport(spawn);
+        new TravelerMenu(player).open();
+        player.playSound(player.getEyeLocation(), XSound.ENTITY_PLAYER_LEVELUP.parseSound(), 0.9f, 1f);
     }
 
     @EventHandler

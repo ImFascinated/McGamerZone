@@ -32,7 +32,7 @@ import zone.themcgamer.core.common.scheduler.ScheduleType;
 import zone.themcgamer.core.common.scheduler.event.SchedulerEvent;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.core.world.MGZWorld;
 
 import java.io.File;
@@ -57,9 +57,9 @@ public class ArcadeManager extends Module {
     private boolean mapsLoaded;
     private MapVotingManager mapVotingManager;
 
-    public ArcadeManager(JavaPlugin plugin, ServerTraveller traveller) {
+    public ArcadeManager(JavaPlugin plugin, ServerTraveler traveler) {
         super(plugin);
-        new LobbyManager(plugin, this, traveller);
+        new LobbyManager(plugin, this, traveler);
         gameManager = new GameManager(plugin);
         game = gameManager.getGames().get(0);
         MapManager mapManager = new MapManager(plugin);

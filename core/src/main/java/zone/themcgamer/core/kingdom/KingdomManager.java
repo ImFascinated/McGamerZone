@@ -10,7 +10,7 @@ import zone.themcgamer.core.kingdom.command.KingdomCommand;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
 import zone.themcgamer.core.plugin.MGZPlugin;
-import zone.themcgamer.core.traveller.ServerTraveller;
+import zone.themcgamer.core.traveler.ServerTraveler;
 import zone.themcgamer.data.Rank;
 import zone.themcgamer.data.jedis.data.ServerGroup;
 import zone.themcgamer.data.jedis.repository.RedisRepository;
@@ -28,7 +28,7 @@ public class KingdomManager extends Module {
 
     private final ServerGroupRepository serverGroupRepository;
 
-    public KingdomManager(JavaPlugin plugin, ServerTraveller traveller) {
+    public KingdomManager(JavaPlugin plugin, ServerTraveler traveler) {
         super(plugin);
         serverGroupRepository = RedisRepository.getRepository(ServerGroupRepository.class).orElse(null);
 //        JedisCommandHandler.getInstance().addListener(jedisCommand -> {
@@ -40,7 +40,7 @@ public class KingdomManager extends Module {
 //                for (Player player : Bukkit.getOnlinePlayers()) {
 //                    if (!server.getName().equals(player.getName() + "-1"))
 //                        continue;
-//                    traveller.sendPlayer(player, server);
+//                    traveler.sendPlayer(player, server);
 //                }
 //            }
 //        });

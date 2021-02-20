@@ -1,4 +1,4 @@
-package zone.themcgamer.core.traveller;
+package zone.themcgamer.core.traveler;
 
 import com.cryptomorin.xseries.XSound;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -27,12 +27,12 @@ import java.util.stream.Collectors;
 /**
  * @author Braydon
  */
-@ModuleInfo(name = "Server Traveller")
-public class ServerTraveller extends Module {
+@ModuleInfo(name = "Server Traveler")
+public class ServerTraveler extends Module {
     private final ServerGroupRepository serverGroupRepository;
     private final MinecraftServerRepository minecraftServerRepository;
 
-    public ServerTraveller(JavaPlugin plugin) {
+    public ServerTraveler(JavaPlugin plugin) {
         super(plugin);
         serverGroupRepository = RedisRepository.getRepository(ServerGroupRepository.class).orElse(null);
         minecraftServerRepository = RedisRepository.getRepository(MinecraftServerRepository.class).orElse(null);
@@ -130,7 +130,7 @@ public class ServerTraveller extends Module {
         if (MGZPlugin.getMinecraftServer().equals(server))
             throw new IllegalArgumentException("Player is already connected");
         if (inform) {
-            player.sendMessage(new ComponentBuilder(Style.main("Traveller", "Connecting to &6" + server.getName()))
+            player.sendMessage(new ComponentBuilder(Style.main("Traveler", "Connecting to &6" + server.getName()))
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MiscUtils.arrayToString(
                             Style.color("&7Server Id: &6" + server.getId()),
                             Style.color("&7Type: &6" + server.getGroup().getName())
