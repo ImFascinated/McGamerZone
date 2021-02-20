@@ -1,5 +1,6 @@
 package zone.themcgamer.core.deliveryMan;
 
+import com.cryptomorin.xseries.XSound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,11 +26,14 @@ import java.util.UUID;
 public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
     public static final String DELIVERY_MAN_NAME = "Harold";
 
+    private final boolean displayNotification;
+
     private final DeliveryManRepository repository;
 
-    public DeliveryManManager(JavaPlugin plugin, MySQLController mySQLController) {
+    public DeliveryManManager(JavaPlugin plugin, MySQLController mySQLController, boolean displayNotification) {
         super(plugin);
         repository = new DeliveryManRepository(mySQLController.getDataSource());
+        this.displayNotification = displayNotification;
         registerCommand(new DeliveryManCommand(this));
     }
 
@@ -58,6 +62,8 @@ public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onJoin(PlayerJoinEvent event) {
+        if (!displayNotification)
+            return;
         Player player = event.getPlayer();
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
         if (optionalAccount.isEmpty())
@@ -90,6 +96,7 @@ public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
             return;
         repository.claim(optionalAccount.get().getId(), reward);
         optionalClient.get().getLastClaimedRewards().put(reward, System.currentTimeMillis());
+        player.playSound(player.getEyeLocation(), XSound.ENTITY_PLAYER_LEVELUP.parseSound(), 0.9f, 1f);
         player.sendMessage(Style.main(DELIVERY_MAN_NAME, "You claimed §b" + reward.getDisplayName() + "§7."));
     }
 
