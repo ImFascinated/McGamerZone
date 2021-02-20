@@ -34,7 +34,7 @@ public class SayCommand  extends BaseCommand {
         //TODO a way to add images, and such to the embeds.
         String description = args.stream().skip(2).collect(Collectors.joining(" "));
         EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed();
-        embedBuilder.setTitle(args.get(1));
+        embedBuilder.setTitle(args.get(1).replace("_", " "));
         embedBuilder.setDescription(description);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
