@@ -11,6 +11,7 @@ import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
 import zone.themcgamer.common.Tuple;
 import zone.themcgamer.data.jedis.command.JedisCommandHandler;
+import zone.themcgamer.data.jedis.command.impl.ServerRestartCommand;
 import zone.themcgamer.data.jedis.command.impl.ServerStateChangeCommand;
 import zone.themcgamer.data.jedis.data.ServerGroup;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
@@ -46,6 +47,27 @@ public class HubBalancer implements Runnable, Listener {
         proxy.getProxy().getPluginManager().registerListener(proxy, this);
 
         JedisCommandHandler.getInstance().addListener(jedisCommand -> {
+            if (jedisCommand instanceof ServerRestartCommand) {
+                ServerRestartCommand serverRestartCommand = (ServerRestartCommand) jedisCommand;
+                removeServer(serverRestartCommand.getServerId());
+                ServerInfo serverInfo = proxy.getProxy().getServerInfo(serverRestartCommand.getServerId());
+                if (serverInfo == null) {
+                    System.out.println("ServerInfo is null");
+                    //We do this check due sometimes players stay in a server which is deleted. But were send to it before it was deleted.
+                    for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
+                        if (player.getServer() == null && (hubs.size() == 0))
+                            kickPlayer(player, NO_AVAILABLE_HUB);
+                    }
+                    return;
+                } else {
+                    for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
+                        if (player.getServer().getInfo().equals(serverInfo)) {
+                            if (hubs.isEmpty())
+                                kickPlayer(player, NO_AVAILABLE_HUB);
+                        }
+                    }
+                }
+            }
             if (jedisCommand instanceof ServerStateChangeCommand) {
                 ServerStateChangeCommand serverStateChangeCommand = (ServerStateChangeCommand) jedisCommand;
                 System.out.println("Received update status from server " + serverStateChangeCommand.getServer().getId() + " status: " + serverStateChangeCommand.getNewState());
@@ -54,17 +76,7 @@ public class HubBalancer implements Runnable, Listener {
                 if (!serverStateChangeCommand.getNewState().isShuttingDownState())
                     return;
                 MinecraftServer server = serverStateChangeCommand.getServer();
-                proxy.getProxy().getServers().entrySet().removeIf(entry -> {
-                    String key = entry.getKey();
-                    if (!key.equals(server.getId()))
-                        return false;
-                    if (key.equals(group.getName()))
-                        return false;
-                    if (entry.getValue().getMotd().equals("STATIC"))
-                        return false;
-                    hubs.remove(server.getId());
-                    return true;
-                });
+                removeServer(server.getId());
             }
         });
     }
@@ -89,7 +101,7 @@ public class HubBalancer implements Runnable, Listener {
                 kickPlayer(player, HUB_SEND_FAILED);
                 event.setCancelled(true);
             } else event.setTarget(serverInfo);
-        } else if (reason == ServerConnectEvent.Reason.LOBBY_FALLBACK) {
+        } else if (reason == ServerConnectEvent.Reason.LOBBY_FALLBACK || (event.getTarget().isRestricted())) {
             kickPlayer(player, NO_AVAILABLE_HUB);
             event.setCancelled(true);
         }
@@ -209,5 +221,19 @@ public class HubBalancer implements Runnable, Listener {
                         "&7You have been disconnected from " + (server == null ? "" : "from §6" + server.getName() + "§7 ") + " &7server for\n" +
                         "&b" + reason + "\n" +
                         "&7")));
+    }
+
+    private void removeServer(String serverId) {
+        proxy.getProxy().getServers().entrySet().removeIf(entry -> {
+            String key = entry.getKey();
+            if (!key.equals(serverId))
+                return false;
+            if (key.equals(group.getName()))
+                return false;
+            if (entry.getValue().getMotd().equals("STATIC"))
+                return false;
+            hubs.remove(serverId);
+            return true;
+        });
     }
 }
