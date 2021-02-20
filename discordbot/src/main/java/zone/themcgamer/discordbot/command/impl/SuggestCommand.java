@@ -7,6 +7,7 @@ import zone.themcgamer.discordbot.MGZBot;
 import zone.themcgamer.discordbot.command.BaseCommand;
 import zone.themcgamer.discordbot.guild.Guild;
 import zone.themcgamer.discordbot.utilities.EmbedUtils;
+import zone.themcgamer.discordbot.utilities.MessageUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,10 +29,7 @@ public class SuggestCommand extends BaseCommand {
     @Override
     protected void execute(CommandEvent event, List<String> args) {
         if (args.size() < 1) {
-            event.getChannel().sendMessage(EmbedUtils.errorEmbed()
-                    .appendDescription("Usage: " + BotConstants.PREFIX + name + " " + arguments)
-                    .build()
-            ).queue();
+            MessageUtils.sendUsageMessage(event.getTextChannel(),this);
             return;
         }
         TextChannel channel = MGZBot.getInstance().getJda().getTextChannelById(BotConstants.SUGGESTIONS);

@@ -8,6 +8,7 @@ import zone.themcgamer.discordbot.MGZBot;
 import zone.themcgamer.discordbot.command.BaseCommand;
 import zone.themcgamer.discordbot.guild.Guild;
 import zone.themcgamer.discordbot.utilities.EmbedUtils;
+import zone.themcgamer.discordbot.utilities.MessageUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,10 +30,7 @@ public class SetActivityCommand extends BaseCommand {
     @Override
     protected void execute(CommandEvent event, List<String> args) {
         if (args.size() < 1) {
-            event.getChannel().sendMessage(EmbedUtils.errorEmbed()
-                    .appendDescription("Usage: " + BotConstants.PREFIX + name + " " + arguments)
-                    .build()
-            ).queue();
+            MessageUtils.sendUsageMessage(event.getTextChannel(),this);
             return;
         }
         String activity = args.stream().skip(1).collect(Collectors.joining(" "));
