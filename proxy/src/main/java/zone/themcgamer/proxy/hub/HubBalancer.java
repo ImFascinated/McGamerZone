@@ -55,14 +55,14 @@ public class HubBalancer implements Runnable, Listener {
                     System.out.println("ServerInfo is null");
                     //We do this check due sometimes players stay in a server which is deleted. But were send to it before it was deleted.
                     for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
-                        if (player.getServer() == null || player.getServer().getInfo().getName().equals(serverRestartCommand.getServerId()))
+                        if (player.getServer() == null && (hubs.size() == 0))
                             kickPlayer(player, NO_AVAILABLE_HUB);
                     }
                     return;
                 } else {
                     for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
                         if (player.getServer().getInfo().equals(serverInfo)) {
-                            if (hubs.isEmpty() || hubs.size() <= 1)
+                            if (hubs.isEmpty())
                                 kickPlayer(player, NO_AVAILABLE_HUB);
                         }
                     }
@@ -101,7 +101,7 @@ public class HubBalancer implements Runnable, Listener {
                 kickPlayer(player, HUB_SEND_FAILED);
                 event.setCancelled(true);
             } else event.setTarget(serverInfo);
-        } else if (reason == ServerConnectEvent.Reason.LOBBY_FALLBACK) {
+        } else if (reason == ServerConnectEvent.Reason.LOBBY_FALLBACK || (event.getTarget().isRestricted())) {
             kickPlayer(player, NO_AVAILABLE_HUB);
             event.setCancelled(true);
         }
