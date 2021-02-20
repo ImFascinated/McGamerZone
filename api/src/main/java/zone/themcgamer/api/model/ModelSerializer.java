@@ -9,6 +9,8 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
+ * This class handles serializing of {@link IModel}'s
+ *
  * @author Braydon
  */
 public class ModelSerializer implements JsonSerializer<IModel> {

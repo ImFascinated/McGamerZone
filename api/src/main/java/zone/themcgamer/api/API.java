@@ -11,8 +11,8 @@ import zone.themcgamer.api.model.ModelSerializer;
 import zone.themcgamer.api.model.impl.*;
 import zone.themcgamer.api.repository.AccountRepository;
 import zone.themcgamer.api.route.AccountRoute;
+import zone.themcgamer.api.route.PlayerStatusRoute;
 import zone.themcgamer.api.route.ServersRoute;
-import zone.themcgamer.api.route.StatusRoute;
 import zone.themcgamer.data.APIAccessLevel;
 import zone.themcgamer.data.jedis.JedisController;
 import zone.themcgamer.data.jedis.data.APIKey;
@@ -57,12 +57,12 @@ public class API {
         addModel(NodeModel.class);
         addModel(ServerGroupModel.class);
         addModel(AccountModel.class);
-        addModel(StatusModel.class);
+        addModel(PlayerStatusModel.class);
 
         // Adding the routes
         addRoute(new ServersRoute());
         addRoute(new AccountRoute(accountRepository));
-        addRoute(new StatusRoute());
+        addRoute(new PlayerStatusRoute());
 
         // 404 Handling
         Spark.notFound((request, response) -> {
@@ -110,6 +110,8 @@ public class API {
                         System.out.println("Handling incoming request from \"" + request.ip() + "\" using path \"" + request.pathInfo() + "\"");
 
                         APIKey key = new APIKey(UUID.randomUUID().toString(), APIAccessLevel.STANDARD);
+                        // If authentication is enabled, handle the api key checking and display a Unauthorized error
+                        // if there is a problem checking the key or the key is invalid
                         if (requiresAuthentication) {
                             String apiKey = request.headers("key");
                             if (apiKey == null)
@@ -133,7 +135,9 @@ public class API {
                         if (method.getParameterTypes().length != 3)
                             throw new APIException("Invalid route defined");
                         Object object = method.invoke(entry.getKey(), request, response, key);
-                        jsonObject.addProperty("success", "true");
+                        jsonObject.addProperty("success", "true"); // Marking the request as successful in the JsonObject
+
+                        // Format the Object returned from the route accordingly
                         if (object instanceof IModel) {
                             if (models.contains(object.getClass()))
                                 jsonObject.add("value", gson.toJsonTree(((IModel) object).toMap(), HashMap.class));
@@ -144,13 +148,17 @@ public class API {
                             jsonObject.add("value", gson.toJsonTree(object, HashMap.class));
                         else jsonObject.addProperty("value", object.toString());
                     } catch (Throwable ex) {
+                        // If there is an error thrown from a route, we wanna fetch the error from the invoke method
+                        // and get the cause of the exception
                         if (ex instanceof InvocationTargetException)
                             ex = ex.getCause();
                         String message = ex.getLocalizedMessage();
+                        // If the exception has no message associated with it, display the type of exception instead
                         if (message == null || (message.trim().isEmpty()))
                             message = ex.getClass().getSimpleName();
                         jsonObject.addProperty("success", "false");
                         jsonObject.addProperty("error", message);
+                        // If the caught exception is not an API exception, print the stacktrace
                         if (!(ex instanceof APIException)) {
                             System.err.println("The route \"" + entry.getKey().getClass().getSimpleName() + "\" raised an exception:");
                             ex.printStackTrace();
@@ -162,10 +170,20 @@ public class API {
         }
     }
 
+    /**
+     * Adding a {@link IModel}
+     *
+     * @param modelClass the class of the model to add
+     */
     private static void addModel(Class<? extends IModel> modelClass) {
         models.add(modelClass);
     }
 
+    /**
+     * Adding a route
+     *
+     * @param object the instance of the route to add
+     */
     private static void addRoute(Object object) {
         List<Method> methods = routes.getOrDefault(object, new ArrayList<>());
         for (Method method : object.getClass().getMethods()) {
