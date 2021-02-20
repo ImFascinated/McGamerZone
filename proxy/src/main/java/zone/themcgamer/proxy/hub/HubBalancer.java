@@ -11,6 +11,7 @@ import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
 import zone.themcgamer.common.Tuple;
 import zone.themcgamer.data.jedis.command.JedisCommandHandler;
+import zone.themcgamer.data.jedis.command.impl.ServerRestartCommand;
 import zone.themcgamer.data.jedis.command.impl.ServerStateChangeCommand;
 import zone.themcgamer.data.jedis.data.ServerGroup;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
@@ -46,6 +47,20 @@ public class HubBalancer implements Runnable, Listener {
         proxy.getProxy().getPluginManager().registerListener(proxy, this);
 
         JedisCommandHandler.getInstance().addListener(jedisCommand -> {
+            if (jedisCommand instanceof ServerRestartCommand) {
+                ServerRestartCommand serverRestartCommand = (ServerRestartCommand) jedisCommand;
+                ServerInfo serverInfo = proxy.getProxy().getServerInfo(serverRestartCommand.getServerId());
+                if (serverInfo == null)
+                    return;
+                for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
+                    if (player.getServer().getInfo().equals(serverInfo)) {
+                        if (hubs.isEmpty() || hubs.size() == 1)
+                            kickPlayer(player, NO_AVAILABLE_HUB);
+                    }
+                }
+                if (hubs.containsValue(serverInfo))
+                    hubs.remove(serverRestartCommand.getServerId());
+            }
             if (jedisCommand instanceof ServerStateChangeCommand) {
                 ServerStateChangeCommand serverStateChangeCommand = (ServerStateChangeCommand) jedisCommand;
                 System.out.println("Received update status from server " + serverStateChangeCommand.getServer().getId() + " status: " + serverStateChangeCommand.getNewState());
