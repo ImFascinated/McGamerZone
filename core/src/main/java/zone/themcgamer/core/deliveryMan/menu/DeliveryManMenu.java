@@ -39,9 +39,10 @@ public class DeliveryManMenu extends UpdatableMenu {
                 .toItemStack(), event -> player.sendMessage("voting rewards")));
         set(2, 5, new Button(new ItemBuilder(XMaterial.PLAYER_HEAD)
                 .setSkullOwner(SkullTexture.DISCORD)
-                .setName("§d§lNitro Reward")
-                .addLoreLine("§7Claimable: §cNo")
-                .toItemStack(), event -> player.sendMessage("nitro reward")));
+                .setName("§d§lNitro Rewards")
+                .addLoreLine("§7Click to view your §d0 §7unclaimed")
+                .addLoreLine("§7nitro boosting rewards!")
+                .toItemStack(), event -> player.sendMessage("nitro rewards")));
     }
 
     @Override
