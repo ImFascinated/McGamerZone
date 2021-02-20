@@ -39,7 +39,7 @@ public class Arcade extends MGZPlugin {
 
         new ScoreboardHandler(this, ArcadeScoreboard.class, 3L);
 
-        new ChatManager(this, badSportSystem, new IChatComponent[] {
+        new ChatManager(this, accountManager, badSportSystem, new IChatComponent[] {
                 new BasicRankComponent(),
                 new BasicNameComponent()
         });

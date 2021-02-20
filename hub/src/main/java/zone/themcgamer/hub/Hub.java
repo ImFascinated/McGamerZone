@@ -50,7 +50,7 @@ public class Hub extends MGZPlugin {
         new WorldListener(this);
         new ScoreboardHandler(this, HubScoreboard.class, 3L);
 
-        new ChatManager(this, badSportSystem, new IChatComponent[] {
+        new ChatManager(this, accountManager, badSportSystem, new IChatComponent[] {
                 new BasicRankComponent(),
                 new BasicNameComponent()
         });

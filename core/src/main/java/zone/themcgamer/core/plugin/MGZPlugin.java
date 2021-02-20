@@ -50,6 +50,7 @@ public abstract class MGZPlugin extends JavaPlugin {
     protected MySQLController mySQLController;
     protected CommandManager commandManager;
     protected ServerTraveler traveler;
+    protected AccountManager accountManager;
     protected BadSportSystem badSportSystem;
     protected NametagManager nametagManager;
 
@@ -169,7 +170,7 @@ public abstract class MGZPlugin extends JavaPlugin {
             new CooldownHandler(this);
             nametagManager = new NametagManager(this);
 
-            AccountManager accountManager = new AccountManager(this, mySQLController, nametagManager);
+            accountManager = new AccountManager(this, mySQLController, nametagManager);
             traveler = new ServerTraveler(this);
             new ServerUpdater(this, traveler);
             new ServerManager(this, traveler);

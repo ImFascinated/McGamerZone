@@ -23,8 +23,6 @@ import zone.themcgamer.core.account.command.rank.arguments.ListArgument;
 import zone.themcgamer.core.account.command.rank.arguments.SetArgument;
 import zone.themcgamer.core.account.event.AccountLoadEvent;
 import zone.themcgamer.core.account.event.AccountUnloadEvent;
-import zone.themcgamer.core.command.impl.social.MessageCommand;
-import zone.themcgamer.core.command.impl.social.ReplyCommand;
 import zone.themcgamer.core.common.MojangUtils;
 import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.module.Module;
@@ -99,8 +97,6 @@ public class AccountManager extends Module {
 
         registerCommand(new GoldCommand(this));
         registerCommand(new GemsCommand(this));
-        registerCommand(new MessageCommand(this, cacheRepository));
-        registerCommand(new ReplyCommand(this, cacheRepository));
         registerCommand(new PlayerInfoCommand(this, cacheRepository));
         registerCommand(new zone.themcgamer.core.command.impl.staff.StaffChatCommand());
 

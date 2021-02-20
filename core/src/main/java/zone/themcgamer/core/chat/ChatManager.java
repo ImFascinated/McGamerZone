@@ -16,6 +16,8 @@ import zone.themcgamer.core.badSportSystem.BadSportSystem;
 import zone.themcgamer.core.badSportSystem.Punishment;
 import zone.themcgamer.core.badSportSystem.PunishmentCategory;
 import zone.themcgamer.core.chat.command.ClearChatCommand;
+import zone.themcgamer.core.chat.command.message.MessageCommand;
+import zone.themcgamer.core.chat.command.message.ReplyCommand;
 import zone.themcgamer.core.chat.component.IChatComponent;
 import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.cooldown.CooldownHandler;
@@ -41,11 +43,13 @@ public class ChatManager extends Module {
         emotes.put("unflip", "┬─┬ ノ( ゜-゜ノ)");
     }
 
-    public ChatManager(JavaPlugin plugin, BadSportSystem badSportSystem, IChatComponent[] chatComponents) {
+    public ChatManager(JavaPlugin plugin, AccountManager accountManager, BadSportSystem badSportSystem, IChatComponent[] chatComponents) {
         super(plugin);
         this.badSportSystem = badSportSystem;
         this.chatComponents = chatComponents;
         registerCommand(new ClearChatCommand());
+        registerCommand(new MessageCommand(accountManager, badSportSystem));
+        registerCommand(new ReplyCommand(accountManager, badSportSystem));
 
         /* TODO
            /chatmanager blackwords add <word>

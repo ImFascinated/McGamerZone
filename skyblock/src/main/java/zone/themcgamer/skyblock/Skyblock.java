@@ -34,7 +34,7 @@ public class Skyblock extends MGZPlugin {
         new PlayerListener(this);
         new ScoreboardHandler(this, SkyblockScoreboard.class, 3L);
 
-        new ChatManager(this, badSportSystem, new IChatComponent[] {
+        new ChatManager(this, accountManager, badSportSystem, new IChatComponent[] {
                 new SkyblockChatLevelComponent(),
                 new BasicRankComponent(),
                 new BasicNameComponent()
