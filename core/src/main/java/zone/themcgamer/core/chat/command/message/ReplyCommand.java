@@ -1,10 +1,14 @@
-package zone.themcgamer.core.command.impl.social;
+package zone.themcgamer.core.chat.command.message;
 
 import com.cryptomorin.xseries.XSound;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
+import zone.themcgamer.core.badSportSystem.BadSportClient;
+import zone.themcgamer.core.badSportSystem.BadSportSystem;
+import zone.themcgamer.core.badSportSystem.Punishment;
+import zone.themcgamer.core.badSportSystem.PunishmentCategory;
 import zone.themcgamer.core.command.Command;
 import zone.themcgamer.core.command.CommandProvider;
 import zone.themcgamer.core.common.Style;
@@ -12,6 +16,7 @@ import zone.themcgamer.data.jedis.cache.CacheRepository;
 import zone.themcgamer.data.jedis.cache.impl.PlayerStatusCache;
 import zone.themcgamer.data.jedis.command.JedisCommandHandler;
 import zone.themcgamer.data.jedis.command.impl.player.PlayerDirectMessageEvent;
+import zone.themcgamer.data.jedis.repository.RedisRepository;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -20,14 +25,25 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReplyCommand {
     private final AccountManager accountManager;
-    private final CacheRepository cacheRepository;
+    private final BadSportSystem badSportSystem;
 
     @Command(name = "reply", aliases = { "r" }, description = "Reply to a player that sent you a private message.", playersOnly = true)
     public void onCommand(CommandProvider command) {
         Player player = command.getPlayer();
+        CacheRepository cacheRepository = RedisRepository.getRepository(CacheRepository.class).orElse(null);
+        if (cacheRepository == null)
+            return;
         String[] args = command.getArgs();
         if (args.length < 1) {
             player.sendMessage(Style.main("Chat", "&7Please use &b/" + command.getLabel() + " (message)"));
+            return;
+        }
+        Optional<BadSportClient> optionalBadSportClient = badSportSystem.lookup(player.getUniqueId());
+        if (optionalBadSportClient.isEmpty())
+            return;
+        Optional<Punishment> optionalMute = optionalBadSportClient.get().getMute();
+        if (optionalMute.isPresent()) {
+            player.sendMessage(Style.error("Bad Sport", PunishmentCategory.format(optionalMute.get())));
             return;
         }
         String message = Arrays.stream(args).skip(0).collect(Collectors.joining(" "));

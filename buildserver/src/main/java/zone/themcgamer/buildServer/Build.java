@@ -33,7 +33,7 @@ public class Build extends MGZPlugin {
         WorldManager worldManager = new WorldManager(this);
         new PlayerListener(this, worldManager);
 
-        new ChatManager(this, badSportSystem, new IChatComponent[] {
+        new ChatManager(this, accountManager, badSportSystem, new IChatComponent[] {
                 new BasicRankComponent(),
                 new BasicNameComponent()
         });
