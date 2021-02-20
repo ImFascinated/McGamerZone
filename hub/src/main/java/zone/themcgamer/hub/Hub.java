@@ -10,6 +10,7 @@ import zone.themcgamer.core.chat.component.impl.BasicNameComponent;
 import zone.themcgamer.core.chat.component.impl.BasicRankComponent;
 import zone.themcgamer.core.common.MathUtils;
 import zone.themcgamer.core.common.scoreboard.ScoreboardHandler;
+import zone.themcgamer.core.deliveryMan.DeliveryManManager;
 import zone.themcgamer.core.game.kit.KitManager;
 import zone.themcgamer.core.kingdom.KingdomManager;
 import zone.themcgamer.core.plugin.MGZPlugin;
@@ -54,6 +55,8 @@ public class Hub extends MGZPlugin {
                 new BasicNameComponent()
         });
         new KingdomManager(this, traveller);
+
+        AccountManager.addMiniAccount(new DeliveryManManager(this, mySQLController));
 
         commandManager.registerCommand(new SpawnCommand(this));
     }
