@@ -68,6 +68,12 @@ public class MySQLController {
                         new StringColumn("task", 255, false)
                 }, new String[] { "accountId" }),
 
+                new Table("deliveryMan", new Column[] {
+                        new IntegerColumn("accountId", false, false),
+                        new StringColumn("rewardId", 50, false),
+                        new LongColumn("lastClaimed", false)
+                }, new String[] { "accountId", "rewardId" }),
+
                 new Table("kits", new Column[] {
                         new IntegerColumn("accountId", false, false),
                         new StringColumn("game", 50, false),

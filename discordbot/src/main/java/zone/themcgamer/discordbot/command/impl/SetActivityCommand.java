@@ -3,7 +3,6 @@ package zone.themcgamer.discordbot.command.impl;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Activity;
-import zone.themcgamer.discordbot.BotConstants;
 import zone.themcgamer.discordbot.MGZBot;
 import zone.themcgamer.discordbot.command.BaseCommand;
 import zone.themcgamer.discordbot.guild.Guild;
