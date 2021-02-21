@@ -2,6 +2,7 @@ package zone.themcgamer.core.twoFactor;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XSound;
+import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -208,6 +209,26 @@ public class TwoFactorAuthentication extends MiniAccount<TwoFactorClient> {
         Entity entity = event.getEntity();
         if (entity instanceof Player)
             cancelEvent((Player) entity, event);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    private void onPickupItem(PlayerAttemptPickupItemEvent event) {
+        cancelEvent(event);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    private void onPickupArrow(PlayerPickupArrowEvent event) {
+        cancelEvent(event);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    private void onPickupExperience(PlayerPickupExperienceEvent event) {
+        cancelEvent(event);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    private void onDropItem(PlayerDropItemEvent event) {
+        cancelEvent(event);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
