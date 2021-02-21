@@ -20,6 +20,7 @@ import zone.themcgamer.core.plugin.command.PluginsCommand;
 import zone.themcgamer.core.server.ServerManager;
 import zone.themcgamer.core.task.TaskManager;
 import zone.themcgamer.core.traveler.ServerTraveler;
+import zone.themcgamer.core.twoFactor.TwoFactorAuthentication;
 import zone.themcgamer.core.update.ServerUpdater;
 import zone.themcgamer.data.jedis.JedisController;
 import zone.themcgamer.data.jedis.data.server.MinecraftServer;
@@ -168,6 +169,7 @@ public abstract class MGZPlugin extends JavaPlugin {
             commandManager.registerCommand(this, new PluginsCommand());
 
             new CooldownHandler(this);
+            AccountManager.addMiniAccount(new TwoFactorAuthentication(this, mySQLController));
             nametagManager = new NametagManager(this);
 
             accountManager = new AccountManager(this, mySQLController, nametagManager);

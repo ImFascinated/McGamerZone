@@ -117,6 +117,7 @@ public class AccountRepository extends MySQLRepository {
             }
             Bukkit.getPluginManager().callEvent(new AccountPreLoadEvent(uuid, name, ipAddress));
             int finalAccountId = accountId;
+
             query+= AccountManager.MINI_ACCOUNTS.parallelStream().map(miniAccount -> miniAccount.getQuery(finalAccountId, uuid, name, ipAddress, encryptedIpAddress)).collect(Collectors.joining());
             if (!query.trim().isEmpty()) {
                 log.info("Executing mini account tasks (" + AccountManager.MINI_ACCOUNTS.size() + ") for " + name);

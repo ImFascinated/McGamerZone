@@ -38,6 +38,10 @@ public abstract class Module implements Listener {
     public void onEnable() {} // Called when the module is enabled
     public void onDisable() {} // Called when the module is disabled
 
+    public String getName() {
+        return info.name();
+    }
+
     public void registerCommand(Object command) {
         CommandManager commandManager = getModule(CommandManager.class);
         if (commandManager == null)
@@ -50,7 +54,7 @@ public abstract class Module implements Listener {
      * @param message the message to log
      */
     public void log(String message) {
-        System.out.println(info.name() + " » " + message);
+        Bukkit.getLogger().info("§b" + info.name() + " §8» §7" + message);
     }
 
     /**

@@ -2,6 +2,7 @@ package zone.themcgamer.core.account;
 
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
+import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.module.Module;
 
 import java.sql.ResultSet;

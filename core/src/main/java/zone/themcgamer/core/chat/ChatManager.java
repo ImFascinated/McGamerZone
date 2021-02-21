@@ -8,6 +8,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import zone.themcgamer.core.account.Account;
@@ -65,8 +66,10 @@ public class ChatManager extends Module {
         registerCommand(new EmotesCommand(this));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     private void onChat(AsyncPlayerChatEvent event) {
+        if (event.isCancelled())
+            return;
         Player player = event.getPlayer();
         String message = event.getMessage();
 

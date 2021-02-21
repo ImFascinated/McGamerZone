@@ -45,6 +45,12 @@ public class MySQLController {
                         new LongColumn("lastLogin", false)
                 }, new String[] { "id" }),
 
+                new Table("twoFactor", new Column[] {
+                        new IntegerColumn("accountId", false, false),
+                        new StringColumn("dbKey", 50, false),
+                        new StringColumn("value", 50, false)
+                }, new String[] { "accountId", "dbKey" }),
+
                 new Table("punishments", new Column[] {
                         new IntegerColumn("id", true, false),
                         new StringColumn("targetIp", 255, false),
