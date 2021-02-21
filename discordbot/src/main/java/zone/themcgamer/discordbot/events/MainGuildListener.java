@@ -13,11 +13,22 @@ import zone.themcgamer.discordbot.utilities.GuildUtils;
 
 import javax.annotation.Nonnull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static zone.themcgamer.discordbot.utilities.GuildUtils.toggleRole;
 
 @RequiredArgsConstructor
 public class MainGuildListener  extends ListenerAdapter {
     private final MGZBot mgzBot;
+
+    private static final HashMap<String, Long> reactionRoles = new HashMap<>();
+
+    static {
+     reactionRoles.put("🗞️", 812440883898875914L);
+     reactionRoles.put("📊", 813139198428839976L);
+     reactionRoles.put("🥁", 813140631705878549L);
+    }
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
@@ -70,29 +81,20 @@ public class MainGuildListener  extends ListenerAdapter {
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
         Guild guild = event.getGuild();
         Member member = event.getMember();
-
         if (!guild.getId().equals(BotConstants.MAIN_GUILD_ID))
             return;
 
         if (event.getChannel().getId().equals("813139125195898880") && event.getMessageId().equals("813143359249842186")) {
             MessageReaction.ReactionEmote reactionEmote = event.getReactionEmote();
-            if (reactionEmote.getName().equals("🗞️")) {
-                Role role = guild.getRoleById(812440883898875914L); // News role
-                if (role == null)
-                    return;
-                toggleRole(guild, member, role);
-            } else if (reactionEmote.getName().equals("📊")) {
-                Role role = guild.getRoleById(813139198428839976L); // Polls role
-                if (role == null)
-                    return;
-                toggleRole(guild, member, role);
-            } else if (reactionEmote.getName().equals("🥁")) {
-                Role role = guild.getRoleById(813140631705878549L); // Events role
-                if (role == null)
-                    return;
-                toggleRole(guild, member, role);
+            for (Map.Entry<String, Long> entry : reactionRoles.entrySet()) {
+                if (reactionEmote.getName().equals(entry.getKey())) {
+                    Role role = guild.getRoleById(entry.getValue());
+                    if (role == null)
+                        continue;
+                    toggleRole(guild, member, role);
+                    event.getReaction().removeReaction(member.getUser()).queue();
+                }
             }
-            event.getReaction().removeReaction(member.getUser()).queue();
         }
     }
 }
