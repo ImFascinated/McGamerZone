@@ -136,6 +136,9 @@ public class ServerTraveler extends Module {
                             Style.color("&7Type: &6" + server.getGroup().getName())
                     )).create())).create());
         }
+        try {
+            player.playSound(player.getEyeLocation(), XSound.ENTITY_ENDERMAN_TELEPORT.parseSound(), 0.9f, 1f);
+        } catch (NoClassDefFoundError ignored) {}
         JedisCommandHandler.getInstance().send(new ServerSendCommand(player.getName(), server.getId()));
     }
 }

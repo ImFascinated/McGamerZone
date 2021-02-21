@@ -1,5 +1,6 @@
 package zone.themcgamer.core.chat;
 
+import com.cryptomorin.xseries.XSound;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -24,6 +25,7 @@ import zone.themcgamer.core.chat.command.message.MessageCommand;
 import zone.themcgamer.core.chat.command.message.ReplyCommand;
 import zone.themcgamer.core.chat.component.IChatComponent;
 import zone.themcgamer.core.common.Style;
+import zone.themcgamer.core.cooldown.Cooldown;
 import zone.themcgamer.core.cooldown.CooldownHandler;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
@@ -90,6 +92,7 @@ public class ChatManager extends Module {
         Optional<Punishment> optionalMute = optionalBadSportClient.get().getMute();
         if (optionalMute.isPresent()) {
             player.sendMessage(Style.error("Bad Sport", PunishmentCategory.format(optionalMute.get())));
+            player.playSound(player.getLocation(), XSound.ENTITY_VILLAGER_NO.parseSound(),0.5f, 1f);
             return;
         }
         try {
@@ -107,8 +110,10 @@ public class ChatManager extends Module {
         }
         if (!CooldownHandler.canUse(player, "Chat", TimeUnit.SECONDS.toMillis(3L), false)
                 && !optionalAccount.get().hasRank(Rank.GAMER) && !optionalAccount.get().hasRank(Rank.HELPER)) {
-            player.sendMessage(Style.error("Chat", "You are chatting too quickly! To bypass this cooldown," +
-                    " please consider purchasing a donator rank over at §bstore.mcgamerzone.net§7."));
+            //TODO the actual cooldown in numbers.
+            player.sendMessage(Style.main("Chat", "You have to wait &63 &7more seconds in-order to chat!"));
+            player.sendMessage(Style.error("Chat", "This can be bypassed by " + Rank.GAMER.getPrefix() + " &7or &bhigher&7!"));
+            player.playSound(player.getLocation(), XSound.ENTITY_VILLAGER_NO.parseSound(),0.5f, 1f);
             return;
         }
         for (Map.Entry<String, String> emote : emotes.entrySet())
