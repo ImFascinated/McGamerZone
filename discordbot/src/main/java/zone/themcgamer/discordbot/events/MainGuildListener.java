@@ -81,6 +81,8 @@ public class MainGuildListener  extends ListenerAdapter {
     public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
         Guild guild = event.getGuild();
         Member member = event.getMember();
+        if (event.getUser().isBot())
+            return;
         if (!guild.getId().equals(BotConstants.MAIN_GUILD_ID))
             return;
 
