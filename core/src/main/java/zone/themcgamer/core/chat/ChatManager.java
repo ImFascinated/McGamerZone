@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import zone.themcgamer.common.TimeUtils;
 import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
 import zone.themcgamer.core.api.WebAPI;
@@ -108,10 +109,13 @@ public class ChatManager extends Module {
             player.sendMessage(Style.error("Chat", "§cCannot format chat message"));
             return;
         }
-        if (!CooldownHandler.canUse(player, "Chat", TimeUnit.SECONDS.toMillis(3L), false)
+        if (!CooldownHandler.canUse(player, "Chat", TimeUnit.SECONDS.toMillis(4L), false)
                 && !optionalAccount.get().hasRank(Rank.GAMER) && !optionalAccount.get().hasRank(Rank.HELPER)) {
             //TODO the actual cooldown in numbers.
-            player.sendMessage(Style.main("Chat", "You have to wait &63 &7more seconds in-order to chat!"));
+            Cooldown cooldown = CooldownHandler.getCooldown(player, "Chat");
+            if (cooldown == null)
+                return;
+            player.sendMessage(Style.main("Chat", "You have to wait &6" + TimeUtils.convertString(cooldown.getRemaining()) + " &7to chat!"));
             player.sendMessage(Style.main("Chat", "This can be bypassed by " + Rank.GAMER.getPrefix() + " &7or &bhigher&7!"));
             player.playSound(player.getLocation(), XSound.ENTITY_VILLAGER_NO.parseSound(),0.5f, 1f);
             return;
