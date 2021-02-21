@@ -1,7 +1,11 @@
 package zone.themcgamer.core.twoFactor;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XSound;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -13,13 +17,18 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.map.MapView;
 import org.bukkit.plugin.java.JavaPlugin;
 import zone.themcgamer.common.EnumUtils;
 import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
 import zone.themcgamer.core.account.MiniAccount;
+import zone.themcgamer.core.common.ItemBuilder;
 import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.module.ModuleInfo;
+import zone.themcgamer.core.twoFactor.image.QRImageGenerator;
+import zone.themcgamer.core.twoFactor.image.QRMapRenderer;
 import zone.themcgamer.data.Rank;
 import zone.themcgamer.data.mysql.MySQLController;
 
@@ -109,11 +118,25 @@ public class TwoFactorAuthentication extends MiniAccount<TwoFactorClient> {
                 String secretKey = googleAuthenticator.createCredentials().getKey();
                 twoFactorClient.setSecretKey(secretKey);
 
-                // TODO: 2/20/21 generate a qr map and give it to the player so they can scan it on their twoFactor app
+                // QR Map
+                ItemStack firstSlotItem = player.getInventory().getItem(0);
+                if (firstSlotItem != null)
+                    twoFactorClient.setFirstSlotItem(firstSlotItem);
+
+                // Creating the map
+                Bukkit.getScheduler().runTaskAsynchronously(getPlugin(), new QRImageGenerator(player, twoFactorClient.getSecretKey(), image -> {
+                    MapView mapView = Bukkit.createMap(player.getWorld());
+                    mapView.getRenderers().removeIf(mapView::removeRenderer);
+                    mapView.addRenderer(new QRMapRenderer(player, image));
+                    player.getInventory().setItem(0, new ItemBuilder(XMaterial.FILLED_MAP, 1, (byte) mapView.getId()).toItemStack());
+                    player.getInventory().setHeldItemSlot(0);
+                }));
+
                 player.sendMessage(Style.main(getName(), "Hey §b" + player.getName() + "§7, you have not setup your two factor authentication yet!"));
-                player.sendMessage(Style.main(getName(), "To begin, open your authentication app of choice and insert the secret key"));
-                player.sendMessage(Style.main(getName(), "§f" + secretKey));
-                player.sendMessage(Style.main(getName(), "Once done, type the 6 digit code provided by your authentication app into the chat"));
+                player.sendMessage(new ComponentBuilder(Style.main(getName(), "To begin, open your authentication app of choice and scan the QR code on the map or enter " +
+                        "the code §6" + secretKey + " §7manually. Once done, type the 6 digit code provided by your authentication app into the chat"))
+                        .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aClick to copy").create()))
+                        .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, secretKey)).create());
                 return;
             }
             player.sendMessage(Style.main(getName(), "§cYou need to re-authenticate!"));
@@ -143,13 +166,16 @@ public class TwoFactorAuthentication extends MiniAccount<TwoFactorClient> {
         }
         TwoFactorClient twoFactorClient = optionalTwoFactorClient.get();
         String secretKey = twoFactorClient.getSecretKey();
-        if (!googleAuthenticator.authorize(secretKey, code))
+        if (!googleAuthenticator.authorize(secretKey, code)) // If the provided code is incorrect, show an error to the player
             player.sendMessage(Style.main(getName(), "§cInvalid authentication code!"));
         else {
+            // If the code is correct, we wanna authenticate the player
             twoFactorClient.setLastAuthentication(System.currentTimeMillis());
             repository.authenticate(optionalAccount.get().getId(), secretKey, twoFactorClient.getLastAuthentication());
             authenticating.remove(player.getUniqueId());
             player.playSound(player.getEyeLocation(), XSound.ENTITY_PLAYER_LEVELUP.parseSound(), 0.9f, 1f);
+            if (twoFactorClient.getFirstSlotItem() != null)
+                player.getInventory().setItem(0, twoFactorClient.getFirstSlotItem());
             player.sendMessage(Style.main(getName(), "§aAuthenticated!"));
         }
     }
@@ -192,6 +218,16 @@ public class TwoFactorAuthentication extends MiniAccount<TwoFactorClient> {
     @EventHandler
     private void onQuit(PlayerQuitEvent event) {
         authenticating.remove(event.getPlayer().getUniqueId());
+    }
+
+    /**
+     * Check whetherr or not the provided {@link Player} is authenticating
+     *
+     * @param player the player to check
+     * @return whether or not they're authenticating
+     */
+    public boolean isAuthenticating(Player player) {
+        return authenticating.contains(player.getUniqueId());
     }
 
     private void cancelEvent(Cancellable cancellable) {
