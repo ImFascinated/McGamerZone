@@ -56,7 +56,7 @@ public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
             DeliveryManReward reward = DeliveryManReward.match(resultSet.getString("rewardId"));
             if (reward == null)
                 continue;
-            client.get().getLastClaimedRewards().put(reward, resultSet.getLong("lastClaimed"));
+            client.get().claim(reward, resultSet.getLong("lastClaimed"));
         }
     }
 
@@ -71,12 +71,8 @@ public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
         Optional<DeliveryManClient> optionalClient = lookup(player.getUniqueId());
         if (optionalClient.isEmpty())
             return;
-        for (DeliveryManReward reward : DeliveryManReward.values()) {
-            if ((canClaim(player, reward) && optionalAccount.get().hasRank(reward.getRequiredRank()))) {
-                player.sendMessage(Style.main(DELIVERY_MAN_NAME, "You have unclaimed rewards! Visit §b" + DELIVERY_MAN_NAME + " §7to claim them!"));
-                return;
-            }
-        }
+        if (optionalClient.get().getUnclaimedRewards(player) > 0)
+            player.sendMessage(Style.main(DELIVERY_MAN_NAME, "You have unclaimed rewards! Visit §b" + DELIVERY_MAN_NAME + " §7to claim them!"));
     }
 
     /**
@@ -89,31 +85,15 @@ public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
         Optional<DeliveryManClient> optionalClient = lookup(player.getUniqueId());
         if (optionalClient.isEmpty())
             return;
-        if (!canClaim(player, reward))
+        DeliveryManClient deliveryManClient = optionalClient.get();
+        if (!deliveryManClient.canClaim(reward))
             return;
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
         if (optionalAccount.isEmpty())
             return;
         repository.claim(optionalAccount.get().getId(), reward);
-        optionalClient.get().getLastClaimedRewards().put(reward, System.currentTimeMillis());
+        deliveryManClient.claim(reward);
         player.playSound(player.getEyeLocation(), XSound.ENTITY_PLAYER_LEVELUP.parseSound(), 0.9f, 1f);
         player.sendMessage(Style.main(DELIVERY_MAN_NAME, "You claimed §b" + reward.getDisplayName() + "§7."));
-    }
-
-    /**
-     * Checks if a {@link DeliveryManReward} can be claimed at the time of checking.
-     *
-     * @param player the player that we are checking from
-     * @param reward the reward that we are seeing if it can be claimed
-     * @return if the reward is claimable
-     */
-    public boolean canClaim(Player player, DeliveryManReward reward) {
-        Optional<DeliveryManClient> optionalClient = lookup(player.getUniqueId());
-        if (optionalClient.isEmpty())
-            return false;
-        if (!optionalClient.get().getLastClaimedRewards().containsKey(reward))
-            return true;
-        else
-            return System.currentTimeMillis() - optionalClient.get().getLastClaimedRewards().get(reward) > reward.getClaimCooldown();
     }
 }

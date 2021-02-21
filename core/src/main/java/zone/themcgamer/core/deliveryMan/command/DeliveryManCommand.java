@@ -3,7 +3,7 @@ package zone.themcgamer.core.deliveryMan.command;
 import zone.themcgamer.core.command.Command;
 import zone.themcgamer.core.command.CommandProvider;
 import zone.themcgamer.core.deliveryMan.DeliveryManManager;
-import zone.themcgamer.core.deliveryMan.menu.DeliveryManMenu;
+import zone.themcgamer.core.deliveryMan.DeliveryManMenu;
 
 /**
  * @author Nicholas

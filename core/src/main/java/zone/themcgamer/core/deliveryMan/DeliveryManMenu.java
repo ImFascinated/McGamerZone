@@ -1,4 +1,4 @@
-package zone.themcgamer.core.deliveryMan.menu;
+package zone.themcgamer.core.deliveryMan;
 
 import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
@@ -10,10 +10,10 @@ import zone.themcgamer.core.common.SkullTexture;
 import zone.themcgamer.core.common.menu.Button;
 import zone.themcgamer.core.common.menu.MenuType;
 import zone.themcgamer.core.common.menu.UpdatableMenu;
-import zone.themcgamer.core.deliveryMan.DeliveryManClient;
-import zone.themcgamer.core.deliveryMan.DeliveryManManager;
-import zone.themcgamer.core.deliveryMan.DeliveryManReward;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +24,7 @@ public class DeliveryManMenu extends UpdatableMenu {
     private final DeliveryManManager deliveryManManager;
 
     public DeliveryManMenu(Player player, DeliveryManManager deliveryManManager) {
-        super(player, DeliveryManManager.DELIVERY_MAN_NAME, 4, MenuType.CHEST, TimeUnit.SECONDS.toMillis(1L));
+        super(player, "§c§lDelivery §r" + DeliveryManManager.DELIVERY_MAN_NAME + " Reward's", 4, MenuType.CHEST, TimeUnit.SECONDS.toMillis(1L));
         this.deliveryManManager = deliveryManManager;
     }
 
@@ -50,40 +50,46 @@ public class DeliveryManMenu extends UpdatableMenu {
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
         if (optionalAccount.isEmpty())
             return;
+        Account account = optionalAccount.get();
         Optional<DeliveryManClient> optionalClient = deliveryManManager.lookup(player.getUniqueId());
         if (optionalClient.isEmpty())
             return;
+        DeliveryManClient deliveryManClient = optionalClient.get();
         int slot = 2;
         for (DeliveryManReward reward : DeliveryManReward.values()) {
-            boolean canClaim = (deliveryManManager.canClaim(player, reward) && optionalAccount.get().hasRank(reward.getRequiredRank()));
-            ItemBuilder itemBuilder = new ItemBuilder(XMaterial.PLAYER_HEAD)
-                    .setSkullOwner((canClaim ? reward.getRewardPackage().getIconTexture(player, optionalAccount.get()) : SkullTexture.COAL_BLOCK))
-                    .setName((canClaim ? "§a" : "§c") + "§l" + reward.getDisplayName())
-                    .addLoreLine("§7Claimable: " + (canClaim ? "§aYes" : "§cNo"));
+            boolean canClaim = (deliveryManClient.canClaim(reward) && account.hasRank(reward.getRequiredRank()));
+            String[] rewardNames = reward.getRewardPackage().getRewardNames(player, account);
+
+            List<String> lore = new ArrayList<>();
+            lore.add("§7Claimable: " + (canClaim ? "§aYes" : "§cNo"));
+            lore.add("");
             if (reward == DeliveryManReward.MONTHLY) {
-                if (optionalAccount.get().hasRank(reward.getRequiredRank())) {
-                    itemBuilder.addLoreLine("")
-                            .addLoreLine("§7Your Rank: §b" + optionalAccount.get().getPrimaryRankName());
-                } else {
-                    itemBuilder.addLoreLine("")
-                            .addLoreLine("§cOnly §bdonators §ccan claim a §b" + reward.getDisplayName() + "§c!");
-                }
+                if (account.hasRank(reward.getRequiredRank()))
+                    lore.add("§7Your Rank: §b" + account.getPrimaryRankName());
+                else lore.add("§cOnly §f"  + reward.getRequiredRank().getPrefix() + " §ccan claim this reward!");
+                lore.add("");
             }
-            itemBuilder.addLoreLine("")
-                    .addLoreLine("§7Rewards:")
-                    .addLoreLine(" §bNone!"); // TODO: 2/19/2021 This is static at the moment due to the fact the reward base isn't done.
-            if (!deliveryManManager.canClaim(player, reward)) {
-                itemBuilder.addLoreLine("")
-                        .addLoreLine("§7Next Delivery: §b" + TimeUtils.formatIntoDetailedString((optionalClient.get().getLastClaimedRewards().get(reward)
-                                + reward.getClaimCooldown()) - System.currentTimeMillis(), true));
+
+            lore.add("§7Rewards:");
+            if (rewardNames.length < 1)
+                lore.add("§cNone");
+            else lore.addAll(Arrays.asList(rewardNames));
+
+            if (!deliveryManClient.canClaim(reward)) {
+                lore.add("");
+                lore.add("§7Next Delivery: §b" + TimeUtils.formatIntoDetailedString((deliveryManClient.getLastClaim(reward)
+                        + reward.getClaimCooldown()) - System.currentTimeMillis(), true));
             }
-            set(1, slot, new Button(itemBuilder.toItemStack(), event -> {
+            set(1, slot, new Button(new ItemBuilder(XMaterial.PLAYER_HEAD)
+                    .setSkullOwner(canClaim ? reward.getRewardPackage().getIconTexture(player, account) : SkullTexture.COAL_BLOCK)
+                    .setName((canClaim ? "§a" : "§c") + "§l" + reward.getDisplayName())
+                    .setLore(lore).toItemStack(), event -> {
                 if (!canClaim)
                     return;
                 close();
                 deliveryManManager.claimReward(player, reward);
             }));
-            slot += 2;
+            slot+= 2;
         }
     }
 }

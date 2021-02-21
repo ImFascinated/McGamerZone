@@ -25,4 +25,16 @@ public class MonthlyRewardPackage extends RewardPackage {
         else
             return SkullTexture.BACKPACK_GRAY;
     }
+
+    /**
+     * Get the list of reward names for this reward package
+     *
+     * @param player  the player to get the list for
+     * @param account the account to get the list for
+     * @return the list
+     */
+    @Override
+    public String[] getRewardNames(Player player, Account account) {
+        return new String[0];
+    }
 }

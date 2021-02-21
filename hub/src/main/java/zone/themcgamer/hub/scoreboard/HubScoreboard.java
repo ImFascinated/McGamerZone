@@ -29,7 +29,7 @@ public class HubScoreboard extends WritableScoreboard {
     public String getTitle() {
         if (title == null) {
             title = new WaveAnimation("McGamerZone")
-                    .withPrimary(ChatColor.GREEN.toString())
+                    .withPrimary(ChatColor.DARK_GREEN.toString())
                     .withSecondary(ChatColor.GOLD.toString())
                     .withTertiary(ChatColor.RED.toString())
                     .withBold();
@@ -63,6 +63,6 @@ public class HubScoreboard extends WritableScoreboard {
         write("§fLobby: &a#" + MGZPlugin.getMinecraftServer().getNumericId());
         write("§fPlayers: &a" + online);
         writeBlank();
-        write("§ethemcgamer.zone");
+        write("§bthemcgamer.zone");
     }
 }

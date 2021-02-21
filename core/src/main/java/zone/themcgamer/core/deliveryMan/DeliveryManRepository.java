@@ -22,7 +22,7 @@ public class DeliveryManRepository extends MySQLRepository {
     }
 
     /**
-     * Executes a query to insert / update the reward in the database.
+     * Inserts the claimed reward or updates the current value if it already exists
      *
      * @param accountId the id of the account that is claiming the reward
      * @param reward the reward that is being claimed
