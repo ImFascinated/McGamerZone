@@ -63,7 +63,12 @@ public class CooldownHandler extends Module {
         return true;
     }
 
+    public static Cooldown getCooldown(Player player, String name) {
+        return getCooldowns(player).stream().filter(cooldown -> cooldown.getName().equals(name)).findFirst().orElse(null);
+    }
+
     private static List<Cooldown> getCooldowns(Player player) {
         return cooldowns.getOrDefault(player, new ArrayList<>());
     }
+
 }
