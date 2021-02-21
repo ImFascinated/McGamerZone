@@ -89,7 +89,7 @@ public class DeliveryManMenu extends UpdatableMenu {
             itemBuilder.setLore(lore);
             set(1, slot, new Button(itemBuilder.toItemStack(), event -> {
                 if (!canClaim) {
-                    player.sendMessage(Style.main("Harold", "You can not claim this reward right now!"));
+                    player.sendMessage(Style.main(DeliveryManManager.DELIVERY_MAN_NAME, "You can not claim this reward right now!"));
                     player.playSound(player.getLocation(), XSound.ENTITY_ENDERMITE_AMBIENT.parseSound(), 0.9f, 1f);
                     return;
                 }
