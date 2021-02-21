@@ -31,6 +31,9 @@ public class GuildUtils {
             guild.removeRoleFromMember(member.getIdLong(), role).queue();
         else guild.addRoleToMember(member.getIdLong(), role).queue();
 
+        if (member.getUser() == MGZBot.getInstance().getJda().getSelfUser())
+            return;
+
         member.getUser().openPrivateChannel().queue(privateChannel -> {
             privateChannel.sendMessage(EmbedUtils.successEmbed().setDescription("Succesfully toggled " + role.getName() + " " + (!member.getRoles().contains(role) ? "On" : "Off")).build()).queue();
         }, error -> {
