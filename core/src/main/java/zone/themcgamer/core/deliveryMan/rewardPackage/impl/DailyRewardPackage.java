@@ -24,8 +24,8 @@ public class DailyRewardPackage extends RewardPackage {
     @Override
     public String[] getRewardNames(Player player, Account account) {
         return new String[] {
-                "§aExample",
-                "§bSomething else"
+                " §b▪ &7Example",
+                " §b▪ &7Something else"
         };
     }
 }

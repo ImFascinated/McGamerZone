@@ -1,12 +1,14 @@
 package zone.themcgamer.core.deliveryMan;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XSound;
 import org.bukkit.entity.Player;
 import zone.themcgamer.common.TimeUtils;
 import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
 import zone.themcgamer.core.common.ItemBuilder;
 import zone.themcgamer.core.common.SkullTexture;
+import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.common.menu.Button;
 import zone.themcgamer.core.common.menu.MenuType;
 import zone.themcgamer.core.common.menu.UpdatableMenu;
@@ -61,18 +63,18 @@ public class DeliveryManMenu extends UpdatableMenu {
             String[] rewardNames = reward.getRewardPackage().getRewardNames(player, account);
 
             List<String> lore = new ArrayList<>();
-            lore.add("§7Claimable: " + (canClaim ? "§aYes" : "§cNo"));
+            lore.add((canClaim ? "§7You haven't claimed this reward!" : "&7You already claimed this reward!"));
             lore.add("");
             if (reward == DeliveryManReward.MONTHLY) {
                 if (account.hasRank(reward.getRequiredRank()))
                     lore.add("§7Your Rank: §b" + account.getPrimaryRankName());
-                else lore.add("§cOnly §f"  + reward.getRequiredRank().getPrefix() + " §ccan claim this reward!");
+                else lore.add("§7Only §f"  + reward.getRequiredRank().getPrefix() + " §7can claim this reward!");
                 lore.add("");
             }
 
-            lore.add("§7Rewards:");
+            lore.add("§6&lRewards:");
             if (rewardNames.length < 1)
-                lore.add("§cNone");
+                lore.add(" §b▪ &7None");
             else lore.addAll(Arrays.asList(rewardNames));
 
             if (!deliveryManClient.canClaim(reward)) {
@@ -80,12 +82,17 @@ public class DeliveryManMenu extends UpdatableMenu {
                 lore.add("§7Next Delivery: §b" + TimeUtils.formatIntoDetailedString((deliveryManClient.getLastClaim(reward)
                         + reward.getClaimCooldown()) - System.currentTimeMillis(), true));
             }
-            set(1, slot, new Button(new ItemBuilder(XMaterial.PLAYER_HEAD)
-                    .setSkullOwner(canClaim ? reward.getRewardPackage().getIconTexture(player, account) : SkullTexture.COAL_BLOCK)
-                    .setName((canClaim ? "§a" : "§c") + "§l" + reward.getDisplayName())
-                    .setLore(lore).toItemStack(), event -> {
-                if (!canClaim)
+            ItemBuilder itemBuilder = new ItemBuilder(canClaim ? XMaterial.PLAYER_HEAD : XMaterial.MINECART);
+            if (canClaim)
+                itemBuilder.setSkullOwner(reward.getRewardPackage().getIconTexture(player, account));
+            itemBuilder.setName((canClaim ? "§a" : "§c") + "§l" + reward.getDisplayName());
+            itemBuilder.setLore(lore);
+            set(1, slot, new Button(itemBuilder.toItemStack(), event -> {
+                if (!canClaim) {
+                    player.sendMessage(Style.main("Harold", "You can not claim this reward right now!"));
+                    player.playSound(player.getLocation(), XSound.ENTITY_ENDERMITE_AMBIENT.parseSound(), 0.9f, 1f);
                     return;
+                }
                 close();
                 deliveryManManager.claimReward(player, reward);
             }));

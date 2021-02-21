@@ -93,7 +93,7 @@ public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
             return;
         repository.claim(optionalAccount.get().getId(), reward);
         deliveryManClient.claim(reward);
-        player.playSound(player.getEyeLocation(), XSound.ENTITY_PLAYER_LEVELUP.parseSound(), 0.9f, 1f);
+        player.playSound(player.getEyeLocation(), XSound.ENTITY_HORSE_ARMOR.parseSound(), 0.9f, 1f);
         player.sendMessage(Style.main(DELIVERY_MAN_NAME, "You claimed §b" + reward.getDisplayName() + "§7."));
     }
 }
