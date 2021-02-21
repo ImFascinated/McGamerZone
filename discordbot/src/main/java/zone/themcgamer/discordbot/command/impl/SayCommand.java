@@ -10,7 +10,6 @@ import zone.themcgamer.discordbot.utilities.MessageUtils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SayCommand  extends BaseCommand {
 
@@ -32,10 +31,9 @@ public class SayCommand  extends BaseCommand {
         }
 
         //TODO a way to add images, and such to the embeds.
-        String description = args.stream().skip(2).collect(Collectors.joining(" "));
         EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed();
         embedBuilder.setTitle(args.get(1).replace("_", " "));
-        embedBuilder.setDescription(description);
+        embedBuilder.setDescription(event.getMessage().getContentRaw().replace(args.get(1), "").replace("." + args.get(0), ""));
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 }

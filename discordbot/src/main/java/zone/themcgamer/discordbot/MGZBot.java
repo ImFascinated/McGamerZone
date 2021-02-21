@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import zone.themcgamer.discordbot.command.impl.*;
 import zone.themcgamer.discordbot.events.GuildMemberJoinQuitListener;
+import zone.themcgamer.discordbot.events.ReactionListener;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
@@ -46,7 +47,8 @@ public class MGZBot {
                     .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_EMOJIS)
                     .addEventListeners(
                             commandClientBuilder.build(),
-                            new GuildMemberJoinQuitListener(this))
+                            new GuildMemberJoinQuitListener(this),
+                            new ReactionListener())
                     .build();
             jda.awaitReady();
         } catch (LoginException | InterruptedException ex) {
