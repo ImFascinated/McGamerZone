@@ -112,7 +112,7 @@ public class ChatManager extends Module {
                 && !optionalAccount.get().hasRank(Rank.GAMER) && !optionalAccount.get().hasRank(Rank.HELPER)) {
             //TODO the actual cooldown in numbers.
             player.sendMessage(Style.main("Chat", "You have to wait &63 &7more seconds in-order to chat!"));
-            player.sendMessage(Style.error("Chat", "This can be bypassed by " + Rank.GAMER.getPrefix() + " &7or &bhigher&7!"));
+            player.sendMessage(Style.main("Chat", "This can be bypassed by " + Rank.GAMER.getPrefix() + " &7or &bhigher&7!"));
             player.playSound(player.getLocation(), XSound.ENTITY_VILLAGER_NO.parseSound(),0.5f, 1f);
             return;
         }
