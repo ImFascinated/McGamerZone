@@ -11,6 +11,8 @@ import zone.themcgamer.discordbot.utilities.EmbedUtils;
 
 import javax.annotation.Nonnull;
 
+import static zone.themcgamer.discordbot.utilities.GuildUtils.toggleRole;
+
 public class ReactionListener extends ListenerAdapter {
 
     @Override
@@ -41,17 +43,5 @@ public class ReactionListener extends ListenerAdapter {
             }
             event.getReaction().removeReaction(member.getUser()).queue();
         }
-    }
-
-    protected void toggleRole(Guild guild, Member member, Role role) {
-        if (member.getRoles().contains(role))
-            guild.removeRoleFromMember(member.getIdLong(), role).queue();
-        else guild.addRoleToMember(member.getIdLong(), role).queue();
-
-        member.getUser().openPrivateChannel().queue(privateChannel -> {
-            privateChannel.sendMessage(EmbedUtils.successEmbed().setDescription("Succesfully toggled " + role.getName() + " " + (!member.getRoles().contains(role) ? "On" : "Off")).build()).queue();
-        }, error -> {
-
-        });
     }
 }
