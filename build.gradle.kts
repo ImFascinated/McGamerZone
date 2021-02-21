@@ -41,7 +41,7 @@ subprojects {
 
         compileOnly("org.slf4j:slf4j-simple:1.7.30")
 
-        implementation("com.google.code.gson:gson:2.7")
+        implementation("com.google.code.gson:gson:2.8.5")
 
         implementation("commons-io:commons-io:2.6")
 

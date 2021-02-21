@@ -13,6 +13,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
+import zone.themcgamer.core.api.WebAPI;
 import zone.themcgamer.core.badSportSystem.BadSportClient;
 import zone.themcgamer.core.badSportSystem.BadSportSystem;
 import zone.themcgamer.core.badSportSystem.Punishment;
@@ -26,6 +27,7 @@ import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.cooldown.CooldownHandler;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
+import zone.themcgamer.data.ChatFilterLevel;
 import zone.themcgamer.data.Rank;
 
 import java.util.*;
@@ -41,19 +43,21 @@ public class ChatManager extends Module {
     @Getter private final Map<String, String> emotes = new HashMap<>();
 
     {
-        emotes.put("¯\\_(ツ)_/¯", ":shrug:");
-        emotes.put("⊂(´･◡･⊂ )∘˚˳°", ":happyghost:");
-        emotes.put("ヽ༼ຈل͜ຈ༽ﾉ", ":donger:");
-        emotes.put("ಠ_ಠ", ":disapproval:");
-        emotes.put("(≖_≖)", ":squint:");
-        emotes.put("(౮⦦ʖ౮)", ":lenny:");
-        emotes.put("┬─┬ ノ( ゜-゜ノ)", ":unflip:");
-        emotes.put("(☞ﾟヮﾟ)☞", ":same:");
-        emotes.put("ლ(ಥ Д ಥ )ლ", ":why:");
-        emotes.put("(╯°□°）╯︵ ┻━┻", ":tableflip:");
-        emotes.put("⊂(•̀_•́⊂ )∘˚˳°", ":angryghost:");
-        emotes.put("( ˘ ³˘)♥", ":kiss:");
-        emotes.put("༼ つ ◕_◕ ༽つ", ":ameno:");
+        emotes.put(":shrug:", "¯\\_(ツ)_/¯");
+        emotes.put(":happyghost:", "⊂(´･◡･⊂ )∘˚˳°");
+        emotes.put(":donger:", "ヽ༼ຈل͜ຈ༽ﾉ");
+        emotes.put(":disapproval:", "ಠ_ಠ");
+        emotes.put(":squint:", "(≖_≖)");
+        emotes.put(":lenny:", "(౮⦦ʖ౮)");
+        emotes.put(":unflip:", "┬─┬ ノ( ゜-゜ノ)");
+        emotes.put(":same:", "(☞ﾟヮﾟ)☞");
+        emotes.put(":why:", "ლ(ಥ Д ಥ )ლ");
+        emotes.put(":tableflip:", "(╯°□°）╯︵ ┻━┻");
+        emotes.put(":angryghost:", "⊂(•̀_•́⊂ )∘˚˳°");
+        emotes.put(":kiss:", "( ˘ ³˘)♥");
+        emotes.put(":ameno:", "༼ つ ◕_◕ ༽つ");
+        emotes.put(":heart:", "❤");
+        emotes.put("<3", "❤");
     }
 
     public ChatManager(JavaPlugin plugin, AccountManager accountManager, BadSportSystem badSportSystem, IChatComponent[] chatComponents) {
@@ -88,7 +92,11 @@ public class ChatManager extends Module {
             player.sendMessage(Style.error("Bad Sport", PunishmentCategory.format(optionalMute.get())));
             return;
         }
-        // TODO: 1/26/21 filter message
+        try {
+            message = WebAPI.filterText(message, ChatFilterLevel.HIGH);
+        } catch (Exception ex) {
+            player.sendMessage(Style.error("Chat", "§cProblem filtering chat message: §f" + ex.getLocalizedMessage()));
+        }
         if (message.trim().isEmpty()) {
             player.sendMessage(Style.error("Chat", "§cCannot send empty chat message"));
             return;
@@ -104,7 +112,7 @@ public class ChatManager extends Module {
             return;
         }
         for (Map.Entry<String, String> emote : emotes.entrySet())
-            message = message.replace(emote.getValue(), emote.getKey());
+            message = message.replace(emote.getKey(), emote.getValue());
         List<BaseComponent> components = new ArrayList<>();
         for (IChatComponent chatComponent : chatComponents) {
             BaseComponent component = chatComponent.getComponent(player);

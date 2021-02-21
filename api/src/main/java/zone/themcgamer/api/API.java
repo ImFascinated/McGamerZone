@@ -11,6 +11,7 @@ import zone.themcgamer.api.model.ModelSerializer;
 import zone.themcgamer.api.model.impl.*;
 import zone.themcgamer.api.repository.AccountRepository;
 import zone.themcgamer.api.route.AccountRoute;
+import zone.themcgamer.api.route.ChatRoute;
 import zone.themcgamer.api.route.PlayerStatusRoute;
 import zone.themcgamer.api.route.ServersRoute;
 import zone.themcgamer.data.APIAccessLevel;
@@ -63,6 +64,7 @@ public class API {
         addRoute(new ServersRoute());
         addRoute(new AccountRoute(accountRepository));
         addRoute(new PlayerStatusRoute());
+        addRoute(new ChatRoute());
 
         // 404 Handling
         Spark.notFound((request, response) -> {

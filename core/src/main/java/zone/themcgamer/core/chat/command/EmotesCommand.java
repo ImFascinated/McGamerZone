@@ -21,6 +21,6 @@ public class EmotesCommand {
         Player player = command.getPlayer();
         player.sendMessage(Style.main("Chat", "Chat Emotes:"));
         for (Map.Entry<String, String> entry : chatManager.getEmotes().entrySet())
-            player.sendMessage("  §6" + entry.getValue() + " §7-> §b" + entry.getKey());
+            player.sendMessage("  §6" + entry.getKey() + " §7-> §b" + entry.getValue());
     }
 }
