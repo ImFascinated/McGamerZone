@@ -25,6 +25,8 @@ public class GuildUtils {
     }
 
     public static void toggleRole(net.dv8tion.jda.api.entities.Guild guild, Member member, Role role) {
+        if (role == null)
+            return;
         if (member.getRoles().contains(role))
             guild.removeRoleFromMember(member.getIdLong(), role).queue();
         else guild.addRoleToMember(member.getIdLong(), role).queue();

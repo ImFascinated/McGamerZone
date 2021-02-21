@@ -8,8 +8,8 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import zone.themcgamer.discordbot.command.impl.*;
-import zone.themcgamer.discordbot.events.GuildMemberJoinQuitListener;
-import zone.themcgamer.discordbot.events.ReactionListener;
+import zone.themcgamer.discordbot.events.GuildsListener;
+import zone.themcgamer.discordbot.events.MainGuildListener;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
@@ -39,6 +39,7 @@ public class MGZBot {
         commandClientBuilder.addCommand(new InviteCommand());
         commandClientBuilder.addCommand(new MessageCommand());
         commandClientBuilder.addCommand(new EditMessageCommand());
+        commandClientBuilder.addCommand(new AddReactionToMessageCommand());
 
         try {
             jda = JDABuilder.createDefault(BotConstants.TOKEN)
@@ -48,8 +49,8 @@ public class MGZBot {
                     .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_EMOJIS)
                     .addEventListeners(
                             commandClientBuilder.build(),
-                            new GuildMemberJoinQuitListener(this),
-                            new ReactionListener())
+                            new GuildsListener(this),
+                            new MainGuildListener(this))
                     .build();
             jda.awaitReady();
         } catch (LoginException | InterruptedException ex) {
