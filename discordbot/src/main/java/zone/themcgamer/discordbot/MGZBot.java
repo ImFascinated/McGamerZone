@@ -37,7 +37,8 @@ public class MGZBot {
         commandClientBuilder.addCommand(new SetActivityCommand());
         commandClientBuilder.addCommand(new ToggleNewsRoleCommand());
         commandClientBuilder.addCommand(new InviteCommand());
-        commandClientBuilder.addCommand(new SayCommand());
+        commandClientBuilder.addCommand(new MessageCommand());
+        commandClientBuilder.addCommand(new EditMessageCommand());
 
         try {
             jda = JDABuilder.createDefault(BotConstants.TOKEN)

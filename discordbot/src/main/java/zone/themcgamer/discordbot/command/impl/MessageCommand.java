@@ -11,11 +11,11 @@ import zone.themcgamer.discordbot.utilities.MessageUtils;
 import java.util.Arrays;
 import java.util.List;
 
-public class SayCommand  extends BaseCommand {
+public class MessageCommand extends BaseCommand {
 
-    public SayCommand() {
-        name = "say";
-        aliases = new String[]{"announce"};
+    public MessageCommand() {
+        name = "message";
+        aliases = new String[]{"say"};
         help = "Announce something in an embed format.";
         arguments = "<title> <description>";
         userPermissions = new Permission[] { Permission.ADMINISTRATOR };
