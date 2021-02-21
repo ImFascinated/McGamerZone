@@ -99,7 +99,7 @@ public class PlayerListener implements Listener {
         for (int i = 0; i < 5; i++)
             player.sendMessage("");
         player.sendMessage(Style.color(" Welcome &7" + optionalAccount.get().getDisplayName() + " &fto &2&lMc&6&lGamer&c&lZone"));
-        player.sendMessage(Style.color(" &fThere is &b" + online + " &fplayer" + (online == 1 ? "" : "s") + " online!"));
+        player.sendMessage(Style.color(" &fThere " + (online == 1 ? "is" : "are") + " &b" + online + " &fplayer" + (online == 1 ? "" : "s") + " online!"));
         player.sendMessage("");
 
         List<BaseComponent> components = new ArrayList<>();
