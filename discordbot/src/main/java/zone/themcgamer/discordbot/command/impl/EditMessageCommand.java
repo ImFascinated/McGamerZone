@@ -1,11 +1,8 @@
 package zone.themcgamer.discordbot.command.impl;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
-import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import zone.themcgamer.discordbot.MGZBot;
 import zone.themcgamer.discordbot.command.BaseCommand;

@@ -6,17 +6,14 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import zone.themcgamer.common.TimeUtils;
 import zone.themcgamer.discordbot.BotConstants;
 import zone.themcgamer.discordbot.MGZBot;
 import zone.themcgamer.discordbot.utilities.EmbedUtils;
 import zone.themcgamer.discordbot.utilities.GuildUtils;
 
 import javax.annotation.Nonnull;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import static zone.themcgamer.discordbot.utilities.GuildUtils.toggleRole;
 

@@ -7,8 +7,6 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import zone.themcgamer.data.mysql.MySQLConstants;
-import zone.themcgamer.data.mysql.MySQLController;
 import zone.themcgamer.discordbot.command.impl.*;
 import zone.themcgamer.discordbot.events.GuildsListener;
 import zone.themcgamer.discordbot.events.MainGuildListener;
