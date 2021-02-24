@@ -8,6 +8,8 @@ import zone.themcgamer.discordbot.BotConstants;
 import zone.themcgamer.discordbot.MGZBot;
 import zone.themcgamer.discordbot.guild.Guild;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Nicholas
  */
@@ -37,6 +39,13 @@ public class GuildUtils {
         member.getUser().openPrivateChannel().queue(privateChannel -> {
             privateChannel.sendMessage(EmbedUtils.successEmbed().setDescription("Succesfully toggled " + role.getName() + " " + (!member.getRoles().contains(role) ? "On" : "Off")).build()).queue();
         }, error -> {
+            EmbedBuilder embedBuilder = EmbedUtils.successEmbed();
+            embedBuilder.setTitle("Role Manager");
+            embedBuilder.setDescription("Succesfully toggled " + role.getName() + " " + (!member.getRoles().contains(role) ? "On" : "Off"));
+            TextChannel textChannelById = guild.getTextChannelById(813139125195898880L);
+            if (textChannelById == null)
+                return;
+            textChannelById.sendMessage(embedBuilder.build()).queue(message -> message.delete().queueAfter(2, TimeUnit.SECONDS));
         });
 
         TextChannel textChannelById = MGZBot.getInstance().getJda().getTextChannelById(BotConstants.HAROLD_LOG);

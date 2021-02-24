@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import zone.themcgamer.common.TimeUtils;
 import zone.themcgamer.discordbot.BotConstants;
 import zone.themcgamer.discordbot.MGZBot;
 import zone.themcgamer.discordbot.utilities.EmbedUtils;
@@ -15,6 +16,7 @@ import javax.annotation.Nonnull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static zone.themcgamer.discordbot.utilities.GuildUtils.toggleRole;
 
@@ -90,11 +92,11 @@ public class MainGuildListener  extends ListenerAdapter {
             MessageReaction.ReactionEmote reactionEmote = event.getReactionEmote();
             for (Map.Entry<String, Long> entry : reactionRoles.entrySet()) {
                 if (reactionEmote.getName().equals(entry.getKey())) {
+                    event.getReaction().removeReaction(member.getUser()).queue();
                     Role role = guild.getRoleById(entry.getValue());
                     if (role == null)
                         continue;
                     toggleRole(guild, member, role);
-                    event.getReaction().removeReaction(member.getUser()).queue();
                 }
             }
         }
