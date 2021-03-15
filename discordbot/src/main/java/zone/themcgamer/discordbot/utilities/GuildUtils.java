@@ -48,16 +48,11 @@ public class GuildUtils {
             textChannelById.sendMessage(embedBuilder.build()).queue(message -> message.delete().queueAfter(2, TimeUnit.SECONDS));
         });
 
-        TextChannel textChannelById = MGZBot.getInstance().getJda().getTextChannelById(BotConstants.HAROLD_LOG);
-        if (textChannelById == null)
-            return;
-
         EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed();
         embedBuilder.setTitle("Role Log");
         embedBuilder.addField("Member", member.getUser().getAsTag() + " (" + member.getId() + ")", true);
         embedBuilder.addField("Role", role.getName() + " " + (!member.getRoles().contains(role) ? "(Added)" : "(Removed)"), true);
         embedBuilder.addField("Status", "Success", false);
-        textChannelById.sendMessage(embedBuilder.build()).queue();
-
+        MessageUtils.sendLogMessage(embedBuilder);
     }
 }

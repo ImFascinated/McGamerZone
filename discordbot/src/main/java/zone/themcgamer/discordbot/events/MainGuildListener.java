@@ -44,11 +44,15 @@ public class MainGuildListener  extends ListenerAdapter {
         GuildUtils.toggleRole(guild, member, memberRole);
         Role newsRole = guild.getRoleById(812440883898875914L);
         GuildUtils.toggleRole(guild, member, newsRole);
+        Role pollsRole = guild.getRoleById(813139198428839976L);
+        GuildUtils.toggleRole(guild, member, pollsRole);
+        Role eventsRole = guild.getRoleById(813140631705878549L);
+        GuildUtils.toggleRole(guild, member, eventsRole);
 
         user.openPrivateChannel().queue(privateChannel -> {
             EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed();
             embedBuilder.setThumbnail(mgzBot.getJda().getSelfUser().getAvatarUrl());
-            embedBuilder.setDescription("Welcome to **McGamerZone** you have received News & Member role.");
+            embedBuilder.setDescription("Welcome to **McGamerZone**! You have have the default roles applied your account.\nYou can toggle them in #roles channel!");
             privateChannel.sendMessage(embedBuilder.build()).queue();
         }, error -> {
             TextChannel textChannelById = guild.getTextChannelById(767396615299923998L);

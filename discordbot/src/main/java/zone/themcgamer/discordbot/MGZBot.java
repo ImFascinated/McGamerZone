@@ -35,7 +35,6 @@ public class MGZBot {
 
         commandClientBuilder.addCommand(new SuggestCommand());
         commandClientBuilder.addCommand(new SetActivityCommand());
-        commandClientBuilder.addCommand(new ToggleNewsRoleCommand());
         commandClientBuilder.addCommand(new InviteCommand());
         commandClientBuilder.addCommand(new MessageCommand());
         commandClientBuilder.addCommand(new EditMessageCommand());
@@ -49,7 +48,7 @@ public class MGZBot {
                     .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_EMOJIS)
                     .addEventListeners(
                             commandClientBuilder.build(),
-                            new GuildsListener(this),
+                            new GuildsListener(),
                             new MainGuildListener(this))
                     .build();
             jda.awaitReady();
