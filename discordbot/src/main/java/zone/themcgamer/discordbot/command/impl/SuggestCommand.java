@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class SuggestCommand extends BaseCommand {
     public SuggestCommand() {
         name = "suggest";
-        aliases = new String[]{"suggestion"};
+        aliases = new String[] { "suggestion" };
         help = "Share a suggestion!";
         arguments = "<suggestion>";
         guildOnly = true;

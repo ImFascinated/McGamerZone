@@ -10,10 +10,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class InviteCommand extends BaseCommand {
-
     public InviteCommand() {
         name = "invite";
-        aliases = new String[]{"createinvite"};
+        aliases = new String[] { "createinvite" };
         help = "Create invite link via the bot";
         guildOnly = true;
         guilds = Collections.singletonList(zone.themcgamer.discordbot.guild.Guild.MAIN);
@@ -22,7 +21,6 @@ public class InviteCommand extends BaseCommand {
     @Override
     protected void execute(CommandEvent event, List<String> args) {
         Guild guild = event.getGuild();
-
         TextChannel textChannelById = guild.getTextChannelById(791015530001596456L);
         if (textChannelById == null)
             return;
@@ -31,12 +29,8 @@ public class InviteCommand extends BaseCommand {
                 .setTemporary(true).queue(inviteLink -> {
             event.getMember().getUser().openPrivateChannel().queue(privateChannel -> {
                 privateChannel.sendMessage("I have generated an invite link for you! This invite link will work for 24 hours! " + inviteLink.getUrl()).queue();
-                event.reply("Check your dm's!");
-            }, error -> {
-                event.replyError("Could not sent you a dm!");
-            });        }, error -> {
-            event.replyError("Coulnd't create an invite link due an error!");
-        });
-
+                event.reply("Check your DMs!");
+            }, error -> event.replyError("Could not sent you a dm!"));
+        }, error -> event.replyError("Couldn't create an invite link due to an error!"));
     }
 }

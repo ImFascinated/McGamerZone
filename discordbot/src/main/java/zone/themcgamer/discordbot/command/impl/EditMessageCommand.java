@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EditMessageCommand extends BaseCommand {
-
     public EditMessageCommand() {
         name = "edit";
         aliases = new String[]{"editmessage"};
@@ -28,7 +27,7 @@ public class EditMessageCommand extends BaseCommand {
     @Override
     protected void execute(CommandEvent event, List<String> args) {
         if (args.size() < 3) {
-            MessageUtils.sendUsageMessage(event.getTextChannel(),this);
+            MessageUtils.sendUsageMessage(event.getTextChannel(), this);
             return;
         }
 

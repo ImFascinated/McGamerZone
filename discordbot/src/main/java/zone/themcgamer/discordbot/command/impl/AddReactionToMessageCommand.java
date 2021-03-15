@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AddReactionToMessageCommand extends BaseCommand {
-
     public AddReactionToMessageCommand() {
         name = "addreaction";
         aliases = new String[]{"react"};

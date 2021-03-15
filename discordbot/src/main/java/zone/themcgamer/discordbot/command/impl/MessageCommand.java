@@ -15,7 +15,7 @@ public class MessageCommand extends BaseCommand {
 
     public MessageCommand() {
         name = "message";
-        aliases = new String[]{"say"};
+        aliases = new String[] { "say" };
         help = "Announce something in an embed format.";
         arguments = "<title> <description>";
         userPermissions = new Permission[] { Permission.ADMINISTRATOR };

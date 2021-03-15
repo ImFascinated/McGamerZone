@@ -18,15 +18,15 @@ import java.util.Map;
 import static zone.themcgamer.discordbot.utilities.GuildUtils.toggleRole;
 
 @RequiredArgsConstructor
-public class MainGuildListener  extends ListenerAdapter {
+public class MainGuildListener extends ListenerAdapter {
     private final MGZBot mgzBot;
 
     private static final HashMap<String, Long> reactionRoles = new HashMap<>();
 
     static {
-     reactionRoles.put("🗞️", 812440883898875914L);
-     reactionRoles.put("📊", 813139198428839976L);
-     reactionRoles.put("🥁", 813140631705878549L);
+        reactionRoles.put("🗞️", 812440883898875914L);
+        reactionRoles.put("📊", 813139198428839976L);
+        reactionRoles.put("🥁", 813140631705878549L);
     }
 
     @Override
