@@ -16,7 +16,7 @@ import java.util.List;
 public class EditMessageCommand extends BaseCommand {
     public EditMessageCommand() {
         name = "edit";
-        aliases = new String[]{"editmessage"};
+        aliases = new String[] { "editmessage" };
         help = "Edit a message from the bot.";
         arguments = "<channelID> <messageID> <title> <description>";
         userPermissions = new Permission[] { Permission.ADMINISTRATOR };

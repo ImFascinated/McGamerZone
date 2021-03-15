@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MessageCommand extends BaseCommand {
-
     public MessageCommand() {
         name = "message";
         aliases = new String[] { "say" };

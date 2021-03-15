@@ -16,7 +16,7 @@ import java.util.List;
 public class AddReactionToMessageCommand extends BaseCommand {
     public AddReactionToMessageCommand() {
         name = "addreaction";
-        aliases = new String[]{"react"};
+        aliases = new String[] { "react" };
         help = "Edit a message from the bot.";
         arguments = "<channelID> <messageID> <reaction>";
         userPermissions = new Permission[] { Permission.ADMINISTRATOR };
