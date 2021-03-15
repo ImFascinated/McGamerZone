@@ -41,7 +41,7 @@ public class GuildUtils {
         }, error -> {
             EmbedBuilder embedBuilder = EmbedUtils.successEmbed();
             embedBuilder.setTitle("Role Manager");
-            embedBuilder.setDescription("Succesfully toggled " + role.getName() + " " + (!member.getRoles().contains(role) ? "On" : "Off"));
+            embedBuilder.setDescription("Successfully toggled " + role.getName() + " " + (!member.getRoles().contains(role) ? "On" : "Off"));
             TextChannel textChannelById = guild.getTextChannelById(813139125195898880L);
             if (textChannelById == null)
                 return;
