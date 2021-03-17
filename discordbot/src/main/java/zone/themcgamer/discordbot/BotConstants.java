@@ -25,5 +25,5 @@ public class BotConstants {
 
     // Channels
     public static final String HAROLD_LOG = "813151182758608936";
-    public static final String SUGGESTIONS = "802304706701426730"; // TODO: 2/15/2021 Change this to the main guild's suggestions channel when the bot is on the main guild.
+    public static final String SUGGESTIONS = "802304706701426730";
 }

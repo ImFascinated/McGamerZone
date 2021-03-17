@@ -58,7 +58,7 @@ public class MGZBot {
             ex.printStackTrace();
         }
 
-        System.out.println("Done (" + (System.currentTimeMillis() - time) + "ms)!");
+        System.out.println("Done (" + (System.currentTimeMillis() - time) + ")! For help, type \"help\" or \"?\"\n");
     }
 
     public static void main(String[] args) {
