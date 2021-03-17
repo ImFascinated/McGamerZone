@@ -1,9 +1,7 @@
 package zone.themcgamer.discordbot.command.impl;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
-import com.jagrosh.jdautilities.command.annotation.JDACommand;
 import net.dv8tion.jda.api.EmbedBuilder;
-import zone.themcgamer.core.cooldown.Cooldown;
 import zone.themcgamer.discordbot.command.BaseCommand;
 import zone.themcgamer.discordbot.guild.Guild;
 import zone.themcgamer.discordbot.utilities.EmbedUtils;

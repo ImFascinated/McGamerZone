@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import zone.themcgamer.core.account.AccountManager;
+import zone.themcgamer.core.announce.AnnounceManager;
 import zone.themcgamer.core.badSportSystem.BadSportSystem;
 import zone.themcgamer.core.command.CommandManager;
 import zone.themcgamer.core.common.ServerUtils;
@@ -179,6 +180,8 @@ public abstract class MGZPlugin extends JavaPlugin {
 
             badSportSystem = new BadSportSystem(this, mySQLController, accountManager);
             AccountManager.addMiniAccount(new TaskManager(this));
+
+            new AnnounceManager(this);
 
             // Running the @Startup methods for the plugin
             getLogger().info("Running @Startup methods...");
