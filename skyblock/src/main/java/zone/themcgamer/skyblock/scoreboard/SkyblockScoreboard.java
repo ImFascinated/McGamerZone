@@ -1,6 +1,7 @@
 package zone.themcgamer.skyblock.scoreboard;
 
 import com.bgsoftware.superiorskyblock.api.SuperiorSkyblockAPI;
+import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.wrappers.SuperiorPlayer;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
@@ -33,7 +34,6 @@ public class SkyblockScoreboard  extends WritableScoreboard {
 
         LocalDateTime dateTime = LocalDateTime.now();
         write("§7" + dateTime.getMonth().getValue() + "/" + dateTime.getDayOfMonth() + "/" + dateTime.getYear());
-
         writeBlank();
         write("§e┋ Account");
         write("§e┋ §fRank: &7" + account.getPrimaryRank().getColor() + account.getPrimaryRank().getDisplayName());
@@ -42,21 +42,21 @@ public class SkyblockScoreboard  extends WritableScoreboard {
         write("§e┋ &fMcMMO: &60");
 
         SuperiorPlayer superiorPlayer = SuperiorSkyblockAPI.getPlayer(player);
-        if (superiorPlayer == null)
-            return;
-        if (superiorPlayer.getIsland() == null) {
+        if (superiorPlayer != null) {
             writeBlank();
-            write("&7You do not have");
-            write("&7an island!");
-            write("&e/start &7to get started!");
-        } else {
-            writeBlank();
-            write("§c┋ Island");
-            write("§c┋ §fRole: &c" + superiorPlayer.getPlayerRole().getName());
-            write("§c┋ §fLevel: &a" + superiorPlayer.getIsland().getIslandLevel());
-            write("§c┋ &fSize: &b" + superiorPlayer.getIsland().getIslandSize() + "x" + superiorPlayer.getIsland().getIslandSize());
-            write("§c┋ &fTeam: &3" + superiorPlayer.getIsland().getIslandMembers(true).size() + "/" + superiorPlayer.getIsland().getTeamLimit());
-            write("§c┋ &fBank: &e" + DoubleUtils.format(superiorPlayer.getIsland().getIslandBank().getBalance().doubleValue(), true));
+            Island island = superiorPlayer.getIsland();
+            if (island == null) {
+                write("&7You do not have");
+                write("&7an island!");
+                write("&e/start &7to get started!");
+            } else {
+                write("§c┋ Island");
+                write("§c┋ §fRole: &c" + superiorPlayer.getPlayerRole().getName());
+                write("§c┋ §fLevel: &a" + island.getIslandLevel());
+                write("§c┋ &fSize: &b" + island.getIslandSize() + "x" + island.getIslandSize());
+                write("§c┋ &fTeam: &3" + island.getIslandMembers(true).size() + "/" + island.getTeamLimit());
+                write("§c┋ &fBank: &e" + DoubleUtils.format(island.getIslandBank().getBalance().doubleValue(), true));
+            }
         }
         writeBlank();
         write("§bthemcgamer.zone");

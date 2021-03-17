@@ -140,7 +140,7 @@ public class GuildsListener extends ListenerAdapter {
         embedBuilder.setDescription(event.getOldPosition() + " -> " + event.getNewPosition());
         embedBuilder.addField("Role", role.getAsMention(), false);
         embedBuilder.addField("Id", role.getId(), false);
-        embedBuilder.addField("Color", Objects.requireNonNull(role.getColor()).toString(), false);
+        embedBuilder.addField("Color", String.valueOf(role.getColor().getRGB()), false);
         embedBuilder.addField("Guild", guild.getName(), true);
         MessageUtils.sendLogMessage(embedBuilder);
     }

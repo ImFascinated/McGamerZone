@@ -50,23 +50,6 @@ public class HubBalancer implements Runnable, Listener {
             if (jedisCommand instanceof ServerRestartCommand) {
                 ServerRestartCommand serverRestartCommand = (ServerRestartCommand) jedisCommand;
                 removeServer(serverRestartCommand.getServerId());
-                ServerInfo serverInfo = proxy.getProxy().getServerInfo(serverRestartCommand.getServerId());
-                if (serverInfo == null) {
-                    System.out.println("ServerInfo is null");
-                    //We do this check due sometimes players stay in a server which is deleted. But were send to it before it was deleted.
-                    for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
-                        if (player.getServer() == null && (hubs.size() == 0))
-                            kickPlayer(player, NO_AVAILABLE_HUB);
-                    }
-                    return;
-                } else {
-                    for (ProxiedPlayer player : proxy.getProxy().getPlayers()) {
-                        if (player.getServer().getInfo().equals(serverInfo)) {
-                            if (hubs.isEmpty())
-                                kickPlayer(player, NO_AVAILABLE_HUB);
-                        }
-                    }
-                }
             }
             if (jedisCommand instanceof ServerStateChangeCommand) {
                 ServerStateChangeCommand serverStateChangeCommand = (ServerStateChangeCommand) jedisCommand;
@@ -233,6 +216,15 @@ public class HubBalancer implements Runnable, Listener {
             if (entry.getValue().getMotd().equals("STATIC"))
                 return false;
             hubs.remove(serverId);
+            if (hubs.size() <= 0) {
+                System.out.println(hubs.size());
+                System.out.println("Kicking players from server" + entry.getValue().getName());
+                entry.getValue().getPlayers().forEach(proxiedPlayer -> kickPlayer(proxiedPlayer, NO_AVAILABLE_HUB));
+            } else {
+                System.out.println(hubs.size());
+                System.out.println("Movings players from server " + entry.getValue().getName());
+                entry.getValue().getPlayers().forEach(this::sendToHub);
+            }
             return true;
         });
     }

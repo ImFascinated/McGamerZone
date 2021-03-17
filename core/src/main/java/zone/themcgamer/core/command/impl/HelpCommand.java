@@ -69,11 +69,18 @@ public class HelpCommand {
             player.sendMessage("§cPage out of bounds. There " + (maxPage == 1 ? "is" : "are") + " only §l" + maxPage + " §cpage" + (maxPage == 1 ? "" : "s") + ".");
             return;
         }
+        String spacers = "               ";
         player.sendMessage("");
         player.sendMessage("§2§lMc§6§lGamer§c§lZone §7(Page " + page + " / " + maxPage + ")");
         player.sendMessage("§6<>§7 = required, §6[]§7 = optional");
         player.sendMessage("");
         pageBuilder.send(player, page);
+        player.sendMessage("");
+        player.sendMessage(new ComponentBuilder("   ")
+                .append(new ComponentBuilder(page <= 1 ? spacers : Style.color("&c&l« Previous Page")).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help " + Math.decrementExact(page)))
+                .append(spacers)
+                .append(new ComponentBuilder(page == maxPage ? spacers : Style.color("&a&lNext Page »")).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help " + Math.incrementExact(page)))
+                        .create()).create()).create());
         player.sendMessage("");
     }
 }
