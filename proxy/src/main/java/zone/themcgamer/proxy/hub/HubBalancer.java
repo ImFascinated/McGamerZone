@@ -145,6 +145,14 @@ public class HubBalancer implements Runnable, Listener {
             }
             return false;
         });
+
+        proxy.getProxy().getPlayers().forEach(proxiedPlayer -> {
+            if (proxiedPlayer.getServer() == null) {
+                if (hubs.size() >= 1) // Do nothing we want to send player later on when lobbies are back online
+                    sendToHub(proxiedPlayer);
+                else kickPlayer(proxiedPlayer, NO_AVAILABLE_HUB);
+            }
+        });
     }
 
     private ServerInfo sendToHub(ProxiedPlayer player) {
