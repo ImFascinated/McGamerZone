@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class AnnounceCommand {
     private final AnnounceManager announceManager;
 
-    @Command(name = "announce", usage = "<type> <message ...>", description = "Announces a message", ranks = { Rank.ADMIN })
+    @Command(name = "announce", usage = "<type> <message ...>", description = "Announce a message", ranks = { Rank.ADMIN })
     public void onCommand(CommandProvider command) {
         CommandSender sender = command.getSender();
         String[] args = command.getArgs();

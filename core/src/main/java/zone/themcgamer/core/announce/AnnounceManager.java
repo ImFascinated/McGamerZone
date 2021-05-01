@@ -54,7 +54,7 @@ public class AnnounceManager extends Module {
     /**
      * Send a server-wide announcement
      *
-     * @param type the type of announcement to send
+     * @param type the {@link AnnounceType} to use for the announcement
      * @param message the message that will be sent in the announcement
      */
     public void sendAnnouncement(AnnounceType type, String message) {
