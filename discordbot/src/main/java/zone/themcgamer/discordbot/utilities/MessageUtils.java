@@ -30,7 +30,8 @@ public class MessageUtils {
         if (logChannel == null) {
             Objects.requireNonNull(MGZBot.getInstance().getJda().getUserById("504069946528104471"))
                     .openPrivateChannel().queue(privateChannel ->
-                    privateChannel.sendMessage("There was an error while sending a log message, the channel id is invalid or does not exist.").queue());
+                    privateChannel.sendMessage("There was an error while sending a log message, the channel id is " +
+                            "invalid or does not exist.").queue());
             return null;
         }
         return logChannel;

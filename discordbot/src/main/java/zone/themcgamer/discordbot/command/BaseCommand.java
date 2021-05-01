@@ -19,7 +19,7 @@ public abstract class BaseCommand extends Command {
 
     @Override
     protected void execute(CommandEvent event) {
-        if (!guilds.contains(GuildUtils.getGuildFromId(event.getGuild().getId())))
+        if (!guilds.contains(GuildUtils.matchGuild(event.getGuild().getId())))
             return;
         List<String> args = new ArrayList<>();
         if (event.getArgs() != null && event.getArgs().length() > 0) {

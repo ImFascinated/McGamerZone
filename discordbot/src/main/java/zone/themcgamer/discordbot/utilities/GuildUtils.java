@@ -4,26 +4,18 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
-import zone.themcgamer.discordbot.BotConstants;
 import zone.themcgamer.discordbot.MGZBot;
 import zone.themcgamer.discordbot.guild.Guild;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author Nicholas
  */
 public class GuildUtils {
-    public static Guild getGuildFromId(String id) {
-        switch (id) {
-            case BotConstants.MAIN_GUILD_ID:
-                return Guild.MAIN;
-            case BotConstants.TEAM_GUILD_ID:
-                return Guild.TEAM;
-            case BotConstants.TEST_GUILD_ID:
-                return Guild.TEST;
-        }
-        return null;
+    public static Guild matchGuild(String guildId) {
+        return Arrays.stream(Guild.values()).filter(guild -> guild.getGuildId().equals(guildId)).findFirst().orElse(null);
     }
 
     public static void toggleRole(net.dv8tion.jda.api.entities.Guild guild, Member member, Role role) {
@@ -37,11 +29,13 @@ public class GuildUtils {
             return;
 
         member.getUser().openPrivateChannel().queue(privateChannel -> {
-            privateChannel.sendMessage(EmbedUtils.successEmbed().setDescription("Succesfully toggled " + role.getName() + " " + (!member.getRoles().contains(role) ? "On" : "Off")).build()).queue();
+            privateChannel.sendMessage(EmbedUtils.successEmbed().setDescription("Successfully toggled " + role.getName() +
+                    " " + (!member.getRoles().contains(role) ? "On" : "Off")).build()).queue();
         }, error -> {
             EmbedBuilder embedBuilder = EmbedUtils.successEmbed();
             embedBuilder.setTitle("Role Manager");
-            embedBuilder.setDescription("Successfully toggled " + role.getName() + " " + (!member.getRoles().contains(role) ? "On" : "Off"));
+            embedBuilder.setDescription("Successfully toggled " + role.getName() + " " +
+                    (!member.getRoles().contains(role) ? "On" : "Off"));
             TextChannel textChannelById = guild.getTextChannelById(813139125195898880L);
             if (textChannelById == null)
                 return;

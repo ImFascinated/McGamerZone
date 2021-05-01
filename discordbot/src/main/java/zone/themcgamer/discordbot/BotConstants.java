@@ -12,13 +12,7 @@ public class BotConstants {
     public static final String OWNER_ID = "504069946528104471"; // Joel
     public static final String[] BOT_ADMINS = new String[] {
             "758733013579595836", // Nicholas
-            "504147739131641857" // Braydon
     };
-
-    // Guilds
-    public static final String MAIN_GUILD_ID = "764609803459756093";
-    public static final String TEAM_GUILD_ID = "796582717956423760";
-    public static final String TEST_GUILD_ID = "811044415211700234";
 
     // Default Lines
     public static final String COPYRIGHT = "© McGamerZone - " + Calendar.getInstance().get(Calendar.YEAR);
