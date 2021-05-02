@@ -135,6 +135,7 @@ public class ScoreboardHandler implements Listener {
 
     /**
      * Give the provided player the scoreboard
+     *
      * @param player - The player you would like to give the scoreboard to
      */
     public void giveBoard(Player player) {
@@ -150,6 +151,7 @@ public class ScoreboardHandler implements Listener {
 
     /**
      * Remove the scoreboard from the provided player
+     *
      * @param player - The player you would like to remove the scoreboard from
      */
     public void removeBoard(Player player) {

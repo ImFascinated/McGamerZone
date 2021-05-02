@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class HubBalancer implements Runnable, Listener {
     private static final String NO_AVAILABLE_HUB = "&2&lMc&6&lGamer&c&lZone &8» &7There are no available lobbies found!";
-    private static final String HUB_SEND_FAILED = "&2&lMc&6&lGamer&c&lZone &8» &cAn error occured while sending you to a hub!";
+    private static final String HUB_SEND_FAILED = "&2&lMc&6&lGamer&c&lZone &8» &cAn error occurred while sending you to a hub!";
 
     private final Proxy proxy;
     private ServerGroupRepository serverGroupRepository;

@@ -13,6 +13,7 @@ import java.util.List;
 public class Style {
     /**
      * Return the rank required message for the given player name with the given prefix
+     *
      * @return the rank required message.
      * @param rank the rank that is required
      */
@@ -27,6 +28,7 @@ public class Style {
 
     /**
      * Return the invalid account error for the given player name with the given prefix
+     *
      * @param prefix the prefix
      * @param playerName the player name
      * @return the error
@@ -37,6 +39,7 @@ public class Style {
 
     /**
      * Return the default chat format with the given prefix and message
+     *
      * @param prefix the prefix of the message
      * @param message the message
      * @return the formatted message
@@ -47,6 +50,7 @@ public class Style {
 
     /**
      * Return the default error chat format with the given prefix and message
+     *
      * @param prefix the prefix of the message
      * @param message the message
      * @return the formatted message
@@ -57,6 +61,7 @@ public class Style {
 
     /**
      * Color the provided {@link Collection<String>} using {@link ChatColor}
+     *
      * @param lines the lines to color
      * @return the colored lines
      */
@@ -69,6 +74,7 @@ public class Style {
 
     /**
      * Color the provided message using {@link ChatColor}
+     *
      * @param message the message to color
      * @return the colored message
      */

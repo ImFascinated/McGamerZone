@@ -16,6 +16,7 @@ public class HiddenStringUtils {
     /**
      * Encode the given {@link String} and return the
      * encoded string
+     *
      * @param s - The string to encode
      * @return the encoded string
      */
@@ -28,6 +29,7 @@ public class HiddenStringUtils {
     /**
      * Replace the given from hidden {@link String} with
      * the to {@link String}
+     *
      * @param from - The from
      * @param to - The to
      * @return the replaced string
@@ -45,6 +47,7 @@ public class HiddenStringUtils {
     /**
      * Get whether or not the provided {@link String} is
      * a hidden {@link String}
+     *
      * @param s - The string to check
      * @return whether or not the {@link String} is a hidden {@link String}
      */
@@ -56,6 +59,7 @@ public class HiddenStringUtils {
 
     /**
      * Decode the given {@link String}
+     * 
      * @param s - The string to decode
      * @return the decoded string
      */

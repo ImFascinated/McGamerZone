@@ -32,6 +32,7 @@ public abstract class ScoreboardProvider {
 
     /**
      * Get an entry at the provided index
+     *
      * @param index - The index of the entry you would like to get
      * @return the entry at the provided index, null if none
      */
@@ -43,6 +44,7 @@ public abstract class ScoreboardProvider {
 
     /**
      * Get a unique name for a team
+     *
      * @return the unique name for a team
      */
     public String getTeamName() {

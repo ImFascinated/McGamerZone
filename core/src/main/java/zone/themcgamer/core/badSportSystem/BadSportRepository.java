@@ -27,6 +27,7 @@ public class BadSportRepository extends MySQLRepository {
 
     /**
      * Post a {@link Punishment} to MySQL
+     *
      * @param punishment the punishment
      */
     public void punish(Punishment punishment, Consumer<Integer> idConsumer) {
@@ -47,6 +48,7 @@ public class BadSportRepository extends MySQLRepository {
 
     /**
      * Post a {@link Punishment} to MySQL
+     *
      * @param encryptedIpAddress the target encrypted ip of the punishment
      * @param uuid the target uuid of the punishment
      * @param category the category of the punishment

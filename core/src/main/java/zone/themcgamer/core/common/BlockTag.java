@@ -95,6 +95,7 @@ public enum BlockTag {
 
     /**
      * Check if the given {@link Block} {@link Material} is apart of this {@link BlockTag}
+     *
      * @param block the block to check
      * @return if the block material is apart of this tag
      */
@@ -104,6 +105,7 @@ public enum BlockTag {
 
     /**
      * Check if the given {@link Material} is apart of this {@link BlockTag}
+     *
      * @param material the material to check
      * @return if the material is apart of this tag
      */
@@ -113,6 +115,7 @@ public enum BlockTag {
 
     /**
      * Check if the given {@link XMaterial} is apart of this {@link BlockTag}
+     *
      * @param material the material to check
      * @return if the material is apart of this tag
      */

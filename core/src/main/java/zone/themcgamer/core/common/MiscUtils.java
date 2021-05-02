@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 public class MiscUtils {
     /**
      * Format the given tps value
+     *
      * @param tps the tps
      * @return the formatted tps
      */

@@ -32,6 +32,7 @@ public class ServerUtils {
 
     /**
      * Get the current tps of the server
+     *
      * @return the tps
      */
     public static double getTps() {

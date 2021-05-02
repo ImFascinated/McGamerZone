@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * This class is an override for the default {@link org.bukkit.command.defaults.BukkitCommand}
  * class
+ *
  * @author Braydon
  */
 public class BukkitCommand extends Command {

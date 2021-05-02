@@ -153,6 +153,7 @@ public class BadSportSystem extends Module {
 
     /**
      * Get the {@link BadSportClient} account for the given {@link UUID}
+     *
      * @param uuid the uuid of the account
      * @return the optional account
      */

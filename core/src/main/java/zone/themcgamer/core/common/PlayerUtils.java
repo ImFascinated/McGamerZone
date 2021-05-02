@@ -10,6 +10,7 @@ import org.bukkit.potion.PotionEffect;
 public class PlayerUtils {
     /**
      * Reset the given {@link Player} to it's original state
+     *
      * @param player the player to reset
      * @param effects whether or not to clear the player's effects
      * @param inventory whether or not to clear the player's inventory

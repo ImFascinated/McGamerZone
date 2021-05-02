@@ -9,6 +9,7 @@ import java.util.List;
 public class DoubleUtils {
     /**
      * Format the given value into a readable format
+     *
      * @param amount the value to format
      * @param shortSuffixes whether or not to have shorrt suffixes
      * @return the formatted value

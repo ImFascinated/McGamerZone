@@ -97,6 +97,7 @@ public enum MGZGame {
 
     /**
      * Get the amount of players playing this game
+     *
      * @return the amount of players playing
      */
     public int getPlaying() {
@@ -115,6 +116,7 @@ public enum MGZGame {
 
     /**
      * Get the best {@link MinecraftServer} to join for this game
+     *
      * @return the optional server
      */
     public Optional<MinecraftServer> getBestServer() {

@@ -100,6 +100,7 @@ public class ServerUpdater extends Module {
 
     /**
      * Get a map of checksums from the given {@link File} directory
+     *
      * @param directory the directory
      * @return the map of checksums
      */
@@ -130,6 +131,7 @@ public class ServerUpdater extends Module {
 
     /**
      * Get the checksum for the given {@link File}
+     *
      * @param file the file to get the checksum for
      * @return the optional checksum
      */

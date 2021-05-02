@@ -20,6 +20,7 @@ public class PageBuilder<T> {
 
     /**
      * Set the results per page
+     *
      * @param resultsPerPage the results per page
      */
     public PageBuilder<T> resultsPerPage(int resultsPerPage) {
@@ -29,6 +30,7 @@ public class PageBuilder<T> {
 
     /**
      * Get the maximum number of pages
+     *
      * @return the maximum number of pages
      */
     public int getMaxPages() {

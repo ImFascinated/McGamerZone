@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 public class HashUtils {
     /**
      * Encrypt the given {@link String} as SHA-256
+     *
      * @param s the string to encrypt
      * @return the encrypted string
      */

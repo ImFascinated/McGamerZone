@@ -10,6 +10,7 @@ import java.util.UUID;
 public class MiscUtils {
     /**
      * Get a {@link String} based on the provided string array
+     *
      * @param array - The string array
      * @return the string
      */
@@ -19,6 +20,7 @@ public class MiscUtils {
 
     /**
      * Get a {@link String} based on the provided {@link List<String>}
+     *
      * @param list - The string list
      * @return the string
      */

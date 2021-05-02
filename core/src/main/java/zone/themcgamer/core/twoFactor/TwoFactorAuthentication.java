@@ -242,7 +242,7 @@ public class TwoFactorAuthentication extends MiniAccount<TwoFactorClient> {
     }
 
     /**
-     * Check whetherr or not the provided {@link Player} is authenticating
+     * Check whether or not the provided {@link Player} is authenticating
      *
      * @param player the player to check
      * @return whether or not they're authenticating

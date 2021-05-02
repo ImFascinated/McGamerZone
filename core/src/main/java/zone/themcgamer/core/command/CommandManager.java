@@ -146,6 +146,7 @@ public class CommandManager extends Module implements CommandExecutor {
 
     /**
      * Register a command
+     *
      * @param plugin - The owner of the command
      * @param object - The instance of the command class
      */
@@ -159,6 +160,7 @@ public class CommandManager extends Module implements CommandExecutor {
 
     /**
      * Add all of the currently registered commands to the help menu
+     *
      * @param plugin - The plugin owner of the commands to add to
      *                 the help menu
      */

@@ -15,11 +15,13 @@ import java.util.List;
  * to the executor. The {@code sendHelp} method can be overridden
  * inside of a command class so that command can have it's own help
  * menu instead of the default one
+ *
  * @author Braydon
  */
 public class HelpCommand {
     /**
      * Get the color scheme for the help menu
+     *
      * @return the color scheme
      */
     public HelpColorScheme getColorScheme() {
@@ -28,6 +30,7 @@ public class HelpCommand {
 
     /**
      * Send the help menu to the provided sender
+     *
      * @param sender - The sender to send the help menu to
      * @param label - The command label
      * @param parent - The parent command

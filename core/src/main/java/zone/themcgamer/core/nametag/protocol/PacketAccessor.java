@@ -73,6 +73,7 @@ public class PacketAccessor {
 
     /**
      * Create a new instance of {@link PacketPlayOutScoreboardTeam}
+     *
      * @return the new instance
      */
     public static Object createPacket() {
@@ -86,6 +87,7 @@ public class PacketAccessor {
 
     /**
      * Send the given packet to the {@link Collection<Player>}
+     *
      * @param players the players to send the packet to
      * @param packet the packet to send
      */
@@ -96,6 +98,7 @@ public class PacketAccessor {
 
     /**
      * Send a packet to the given {@link Player}
+     *
      * @param player the player to send the packet to
      * @param packet the packet to send
      */
@@ -111,6 +114,7 @@ public class PacketAccessor {
 
     /**
      * Get a field in the packet by the given name
+     *
      * @param name the name of the field
      * @return the field
      * @throws Exception the exception

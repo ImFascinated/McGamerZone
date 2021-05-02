@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor @Getter
-public enum  WorldTime {
+public enum WorldTime {
     SUNRISE("Sunrise", new String[] {
             "&7Beginning of the Minecraft day.",
             "&7Villagers awaken and rise from their beds."

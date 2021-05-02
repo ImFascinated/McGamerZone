@@ -484,6 +484,7 @@ public class ServerController {
 
     /**
      * Generate a unique id based on the given values
+     *
      * @param includeCapitalLetters Whether or not to include capital letters in the unique id
      * @param includeLowercaseLetters Whether or not to include lowercase letters in the unique id
      * @return the unique id
@@ -506,6 +507,7 @@ public class ServerController {
 
     /**
      * Stop the given {@link MinecraftServer} with the given {@link StopCause}
+     *
      * @param server The Minecraft server to stop
      * @param cause The cause to stop the server
      */

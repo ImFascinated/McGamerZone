@@ -18,6 +18,7 @@ public class WaveAnimation extends TextAnimation {
 
     /**
      * Add a primary color to the animation
+     *
      * @param color the color to add
      */
     public WaveAnimation withPrimary(String color) {
@@ -27,6 +28,7 @@ public class WaveAnimation extends TextAnimation {
 
     /**
      * Add a secondary color to the animation
+     *
      * @param color the color to add
      */
     public WaveAnimation withSecondary(String color) {
@@ -36,6 +38,7 @@ public class WaveAnimation extends TextAnimation {
 
     /**
      * Add a third (highlight) color to the animation
+     *
      * @param color the color to add
      */
     public WaveAnimation withTertiary(String color) {
@@ -53,6 +56,7 @@ public class WaveAnimation extends TextAnimation {
 
     /**
      * Animate the animation and return the new text
+     *
      * @return the text
      */
     @Override
@@ -72,6 +76,7 @@ public class WaveAnimation extends TextAnimation {
 
     /**
      * Get the frames for the text with the given primary and secondary colors
+     *
      * @param primary the primary color
      * @param secondary the secondary color
      * @return the frames

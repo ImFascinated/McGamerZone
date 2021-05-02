@@ -45,6 +45,7 @@ public class MojangUtils {
 
     /**
      * Get the Mojang service statuses
+     *
      * @return service statuses
      */
     public static Map<MojangService, ServiceStatus> getServiceStatus() {
@@ -84,6 +85,7 @@ public class MojangUtils {
 
     /**
      * Get the {@link UUID} of the given player
+     *
      * @param playerName - The name of the player to get the uuid for
      * @return the uuid
      */
@@ -116,6 +118,7 @@ public class MojangUtils {
 
     /**
      * Get the {@link UUID} of the given player asynchronously
+     *
      * @param playerName - The name of the player to get the uuid for
      * @param callback - The consumer that that will contain the uuid response, null if none
      */
@@ -157,6 +160,7 @@ public class MojangUtils {
 
     /**
      * Get a list of changes names for the given uuid
+     *
      * The response is: name, timestamp (-1 if first name)
      * @param uuid - The {@link UUID} to get the changed names for
      * @return the changed names
@@ -191,6 +195,7 @@ public class MojangUtils {
     /**
      * Get a list of changes names for the given uuid asynchronously
      * The response is: name, timestamp (-1 if first name)
+     *
      * @param uuid - The {@link UUID} to get the changed names for
      * @param callback - The consumer that that will contain the list of changed names
      */
@@ -233,6 +238,7 @@ public class MojangUtils {
 
     /**
      * Get the skin textures for the given {@link UUID}
+     *
      * @param uuid - The uuid to get the textures for
      * @return the skin data
      */
@@ -264,6 +270,7 @@ public class MojangUtils {
 
     /**
      * Get the skin textures for the given {@link UUID} asynchronously
+     *
      * @param uuid - The uuid to get the textures for
      * @param callback - The consumer that that will contain the skin data
      */
@@ -307,6 +314,7 @@ public class MojangUtils {
 
     /**
      * Parse a uuid without dashes to a proper {@link UUID}
+     *
      * @param s - The un-parsed uuid
      * @return the uuid
      */

@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * This class is an override for the default class
+ *
  * @author Braydon
  */
 public class BukkitCompleter implements TabCompleter {

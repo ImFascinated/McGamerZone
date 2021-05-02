@@ -40,6 +40,7 @@ public class ServerTraveler extends Module {
 
     /**
      * Send all players to the provided server
+     *
      * @param server the server to send the players to
      */
     public void sendAll(String server) {
@@ -48,6 +49,7 @@ public class ServerTraveler extends Module {
 
     /**
      * Send all players to the provided server
+     *
      * @param server the server to send the players to
      * @param reason the reason for sending the players
      */
@@ -57,6 +59,7 @@ public class ServerTraveler extends Module {
 
     /**
      * Send all players to the provided server
+     *
      * @param server the server to send the players to
      * @param reason the reason for sending the players
      * @param inform whether or not to inform the player that they are
@@ -78,6 +81,7 @@ public class ServerTraveler extends Module {
 
     /**
      * Send the provided player to the provided server
+     *
      * @param player the player to send
      * @param server the name of the server to send the player to
      */
@@ -87,6 +91,7 @@ public class ServerTraveler extends Module {
 
     /**
      * Send the provided player to the provided server
+     *
      * @param player the player to send
      * @param server the name of the server to send the player to
      * @param inform whether or not to inform the player that they are
@@ -110,6 +115,7 @@ public class ServerTraveler extends Module {
 
     /**
      * Send the provided player to the provided {@link MinecraftServer}
+     *
      * @param player the player to send
      * @param server the server to send the player to
      */
@@ -119,6 +125,7 @@ public class ServerTraveler extends Module {
 
     /**
      * Send the provided player to the provided {@link MinecraftServer}
+     *
      * @param player the player to send
      * @param server the server to send the player to
      * @param inform whether or not to inform the player that they are

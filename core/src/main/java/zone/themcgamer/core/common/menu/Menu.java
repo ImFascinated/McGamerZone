@@ -80,6 +80,7 @@ public abstract class Menu {
 
     /**
      * Add the defined flag to the menu
+     *
      * @param flag - The flag to add
      */
     protected void addFlag(MenuFlag flag) {
@@ -88,6 +89,7 @@ public abstract class Menu {
 
     /**
      * Get whether the menu has the defined flag
+     *
      * @param flag - The flag to check
      * @return whether the menu has the flag
      */
@@ -97,6 +99,7 @@ public abstract class Menu {
 
     /**
      * Remove the defined flag from the menu
+     *
      * @param flag - The flag to remove
      */
     protected void removeFlag(MenuFlag flag) {
@@ -105,6 +108,7 @@ public abstract class Menu {
 
     /**
      * Fill the menu with the given button
+     *
      * @param button - The button to fill the menu with
      */
     protected void fill(Button button) {
@@ -115,6 +119,7 @@ public abstract class Menu {
 
     /**
      * Fill the menu with the given button at the given slots.
+     *
      * @see MenuPattern to get a list of slots
      * @param slots - The slots to fill
      * @param button - The button to fill the slots with
@@ -127,6 +132,7 @@ public abstract class Menu {
 
     /**
      * Fill the borders of the menu with the given button
+     *
      * @param button - The button to fill the borders with
      * @author NoneTaken
      */
@@ -147,6 +153,7 @@ public abstract class Menu {
 
     /**
      * Fill the slots at the given column with the given button
+     *
      * @param column - The column to fill
      * @param button - The button to fill the column with
      */
@@ -160,6 +167,7 @@ public abstract class Menu {
 
     /**
      * Fill the slots at the given row with the given button
+     *
      * @param row - The row to fill
      * @param button - The button to fill the row with
      */
@@ -173,6 +181,7 @@ public abstract class Menu {
 
     /**
      * Add a {@link Button} to the next available slot in the menu
+     *
      * @param button the button to add
      */
     public void add(Button button) {
@@ -186,6 +195,7 @@ public abstract class Menu {
 
     /**
      * Set the slot at the given column and row to the given button
+     *
      * @param column - The column
      * @param row - The row
      * @param button - The button to set
@@ -196,6 +206,7 @@ public abstract class Menu {
 
     /**
      * Set the given slot in the menu to the given button
+     *
      * @param slot - The slot to set the button in
      * @param button - The button
      */
@@ -216,6 +227,7 @@ public abstract class Menu {
 
     /**
      * Get the button at the given column and row
+     *
      * @param column - The column
      * @param row - The row
      * @return the button
@@ -227,6 +239,7 @@ public abstract class Menu {
 
     /**
      * Get the button at the given slot
+     *
      * @param slot - The slot to get the button for
      * @return the button
      */
@@ -246,6 +259,7 @@ public abstract class Menu {
 
     /**
      * Get the opened menu for the given player
+     *
      * @param player - The player to get the menu for
      * @return the menu
      */

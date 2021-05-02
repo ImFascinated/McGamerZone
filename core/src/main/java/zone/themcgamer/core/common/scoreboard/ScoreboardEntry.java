@@ -18,6 +18,7 @@ public class ScoreboardEntry {
     /**
      * Creates a new scoreboard line with the provided text for the
      * provided scoreboard provider
+     *
      * @param provider - The scoreboard provider you would like to make the line for
      * @param text - The text you would like to be displayed for this line
      */
@@ -55,6 +56,7 @@ public class ScoreboardEntry {
 
     /**
      * Display the line at the provided position
+     *
      * @param position - The position you would like to display the line at
      */
     protected void display(int position) {

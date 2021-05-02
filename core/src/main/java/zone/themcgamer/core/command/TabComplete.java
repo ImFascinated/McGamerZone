@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * This annotation holds information for a command tab completer
+ *
  * @author Braydon
  */
 @Target(ElementType.METHOD)

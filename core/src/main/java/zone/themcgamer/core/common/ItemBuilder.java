@@ -22,6 +22,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder from an existing {@link ItemStack}
+     *
      * @param item - The {@link ItemStack} you would like to create the item builder with
      */
     public ItemBuilder(ItemStack item) {
@@ -30,6 +31,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder with the provided {@link XMaterial}
+     *
      * @param xMaterial - The {@link XMaterial} of the item you would like to create
      */
     public ItemBuilder(XMaterial xMaterial) {
@@ -38,6 +40,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder with the provided {@link Material}
+     *
      * @param material - The {@link Material} of the item you would like to create
      */
     public ItemBuilder(Material material) {
@@ -46,6 +49,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder with the provided {@link XMaterial}, and amount
+     *
      * @param xMaterial - The {@link XMaterial} of the item you would like to create
      * @param amount - The amount of the item you would like to create
      */
@@ -58,6 +62,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder with the provided {@link Material}, and amount
+     *
      * @param material - The {@link Material} of the item you would like to create
      * @param amount - The amount of the item you would like to create
      */
@@ -67,6 +72,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder with the provided {@link XMaterial}, amount, and dye color
+     *
      * @param xMaterial - The {@link XMaterial} of the item you would like to create
      * @param amount - The amount of the item you would like to create
      * @param color - The dye color of the item you would like to create
@@ -77,6 +83,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder with the provided {@link Material}, amount, and dye color
+     *
      * @param material - The {@link Material} of the item you would like to create
      * @param amount - The amount of the item you would like to create
      * @param color - The dye color of the item you would like to create
@@ -87,6 +94,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder with the provided {@link XMaterial}, amount, and data
+     *
      * @param xMaterial - The {@link XMaterial} of the item you would like to create
      * @param amount - The amount of the item you would like to create
      * @param data - The data of the item you would like to create
@@ -100,6 +108,7 @@ public class ItemBuilder {
 
     /**
      * Create a new item builder with the provided {@link Material}, amount, and data
+     *
      * @param material - The {@link Material} of the item you would like to create
      * @param amount - The amount of the item you would like to create
      * @param data - The data of the item you would like to create
@@ -110,6 +119,7 @@ public class ItemBuilder {
 
     /**
      * Sets the type of your item to the provided {@link XMaterial}
+     *
      * @param xMaterial - The {@link XMaterial} you would like to set your item to
      * @return the item builder
      */
@@ -122,6 +132,7 @@ public class ItemBuilder {
 
     /**
      * Sets the type of your item to the provided {@link Material}
+     *
      * @param material - The {@link Material} you would like to set your item to
      * @return the item builder
      */
@@ -132,6 +143,7 @@ public class ItemBuilder {
 
     /**
      * Sets the data of your item to the provided data
+     *
      * @param data - The data you would like to set your item to
      * @return the item builder
      */
@@ -142,6 +154,7 @@ public class ItemBuilder {
 
     /**
      * Sets the display name of your item to the provided string
+     *
      * @param name - The name you would like to set your item to
      * @return the item builder
      */
@@ -156,6 +169,7 @@ public class ItemBuilder {
 
     /**
      * Sets the lore of your item to the provided string array
+     *
      * @param array - The array of strings you would like to set your lore to
      * @return the item builder
      */
@@ -165,6 +179,7 @@ public class ItemBuilder {
 
     /**
      * Sets the lore of your item to the provided string list
+     *
      * @param list - The list of strings you would like to set your lore to
      * @return the item builder
      */
@@ -177,6 +192,7 @@ public class ItemBuilder {
 
     /**
      * Add a string to the item lore at the provided index
+     *
      * @param index - The index you would like to add the lore line to
      * @param s - The text you would like to add at the provided index
      * @return the item builder
@@ -192,6 +208,7 @@ public class ItemBuilder {
 
     /**
      * Add a string to the item lore
+     *
      * @param s - The text you would like to add to your item lore
      * @return the item builder
      */
@@ -208,6 +225,7 @@ public class ItemBuilder {
 
     /**
      * Remove a string from the lore at the provided index
+     *
      * @param index - The index you would like to remove the lore line from
      * @return the item builder
      */
@@ -224,6 +242,7 @@ public class ItemBuilder {
 
     /**
      * Remove a string from the lore that matches the provided string
+     *
      * @param s - The string you would like to remove from the lore
      * @return the item builder
      */
@@ -240,6 +259,7 @@ public class ItemBuilder {
 
     /**
      * Clears the item lore
+     *
      * @return the item builder
      */
     public ItemBuilder clearLore() {
@@ -253,6 +273,7 @@ public class ItemBuilder {
 
     /**
      * Set the amount of the itemstack
+     *
      * @param amount - The amount you would like your item to be
      * @return the item builder
      */
@@ -263,6 +284,7 @@ public class ItemBuilder {
 
     /**
      * Set the durability of the itemstack
+     *
      * @param durability - The durability you would like your item to have
      * @return the item builder
      */
@@ -273,6 +295,7 @@ public class ItemBuilder {
 
     /**
      * Add a glow effect to your item
+     *
      * @return the item builder
      */
     public ItemBuilder addGlow() {
@@ -281,6 +304,7 @@ public class ItemBuilder {
 
     /**
      * Add a glow effect to your item
+     *
      * @return the item builder
      */
     public ItemBuilder setGlow(boolean glow) {
@@ -298,6 +322,7 @@ public class ItemBuilder {
 
     /**
      * Adds enchantments to your item from a map ({@link XEnchantment}, {@link Integer})
+     *
      * @param enchantments - A map of enchantments with the key as the enchant, and the value as the level
      * @return the item builder
      */
@@ -314,6 +339,7 @@ public class ItemBuilder {
 
     /**
      * Adds enchantments to your item from a map ({@link Enchantment}, {@link Integer})
+     *
      * @param enchantments - A map of enchantments with the key as the enchant, and the value as the level
      * @return the item builder
      */
@@ -324,6 +350,7 @@ public class ItemBuilder {
 
     /**
      * Add an enchantment to your item
+     *
      * @param xEnchantment - The {@link XEnchantment} you would like to add
      * @param level - The level of the enchantment to add
      * @return the item builder
@@ -337,6 +364,7 @@ public class ItemBuilder {
 
     /**
      * Add an enchantment to your item
+     *
      * @param enchantment - The {@link Enchantment} you would like to add
      * @param level - The level of the enchantment to add
      * @return the item builder
@@ -350,6 +378,7 @@ public class ItemBuilder {
 
     /**
      * Add an unsafe enchantment to your item
+     *
      * @param xEnchantment - The {@link XEnchantment} you would like to add
      * @param level - The level of the enchant
      * @return the item builder
@@ -363,6 +392,7 @@ public class ItemBuilder {
 
     /**
      * Add an unsafe enchantment to your item
+     *
      * @param enchantment - The {@link Enchantment} you would like to add
      * @param level - The level of the enchant
      * @return the item builder
@@ -374,6 +404,7 @@ public class ItemBuilder {
 
     /**
      * Remove an enchantment from your item
+     *
      * @param xEnchantment - The {@link XEnchantment} you would like to remove
      * @return the item builder
      */
@@ -386,6 +417,7 @@ public class ItemBuilder {
 
     /**
      * Remove an enchantment from your item
+     *
      * @param enchantment - The {@link Enchantment} you would like to remove
      * @return the item builder
      */
@@ -397,6 +429,7 @@ public class ItemBuilder {
 
     /**
      * Clear all enchantments from your item
+     *
      * @return the item builder
      */
     public ItemBuilder clearEnchantments() {
@@ -408,6 +441,7 @@ public class ItemBuilder {
 
     /**
      * Set the skull texture of your item with the provided player's skin
+     *
      * @param identifier - The identifier for the skull
      * @return the item builder
      */
@@ -423,6 +457,7 @@ public class ItemBuilder {
 
     /**
      * Set the color of your item
+     *
      * @param color - The color you would like to set your leather armor to
      * @return the item builder
      */
@@ -437,6 +472,7 @@ public class ItemBuilder {
 
     /**
      * Create the item we just created with the item builder
+     *
      * @return the constructed {@link ItemStack}
      */
     public ItemStack toItemStack() {

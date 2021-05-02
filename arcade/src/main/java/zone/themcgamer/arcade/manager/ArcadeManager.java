@@ -229,6 +229,7 @@ public class ArcadeManager extends Module {
 
     /**
      * Set the current game to the provided {@link Game}
+     *
      * @param game the game to set
      */
     public void setGame(Game game) {
@@ -247,6 +248,7 @@ public class ArcadeManager extends Module {
 
     /**
      * Start the game with the given countdown
+     *
      * @param countdown the countdown
      */
     public void startCountdown(int countdown) {
@@ -291,6 +293,7 @@ public class ArcadeManager extends Module {
 
     /**
      * Set the game state to the given {@link GameState}
+     *
      * @param state the state to set
      */
     private void setState(GameState state) {

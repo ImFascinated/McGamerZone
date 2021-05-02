@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 public class EnumUtils {
     /**
      * Get the enum value from the given class with the given name
+     *
      * @param clazz - The enum class
      * @param name - The name
      * @return the enum value

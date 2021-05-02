@@ -22,6 +22,7 @@ public class BadSportClient {
 
     /**
      * Get the currently active ban
+     *
      * @return the optional ban
      */
     public Optional<Punishment> getBan() {
@@ -31,6 +32,7 @@ public class BadSportClient {
 
     /**
      * Get the currently active mute
+     *
      * @return the optional mute
      */
     public Optional<Punishment> getMute() {
@@ -39,6 +41,7 @@ public class BadSportClient {
 
     /**
      * Get an optional {@link Punishment} that matches against the {@link Predicate}
+     *
      * @param predicate the predicate to test against
      * @return the optional punishment
      */
@@ -51,6 +54,7 @@ public class BadSportClient {
 
     /**
      * Get a {@link Collection} of punishments that matches against the {@link Predicate}
+     *
      * @param predicate the predicate to test against
      * @return the collection of punishments
      */

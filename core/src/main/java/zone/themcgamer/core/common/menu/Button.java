@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 /**
  * This class holds the {@link ItemStack} and {@link Consumer} for
  * the {@link InventoryClickEvent} for each button
+ *
  * @author Braydon
  */
 @RequiredArgsConstructor @AllArgsConstructor @Getter

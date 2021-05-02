@@ -15,6 +15,7 @@ import java.util.zip.ZipOutputStream;
 public class ZipUtils {
     /**
      * Zip the given directory
+     *
      * @param sourceDirectoryPath the path of the directory to zip
      * @param zipDirectoryPath the path of the output file
      */

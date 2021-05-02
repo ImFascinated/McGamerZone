@@ -10,6 +10,7 @@ import org.bukkit.World;
 public class LocationUtils {
     /**
      * Serialize the given {@link Location}
+     *
      * @param location the location to serialize
      * @return the serialized location
      */
@@ -26,6 +27,7 @@ public class LocationUtils {
 
     /**
      * Deserialize the given {@link String}
+     *
      * @param s the string to deserialize
      * @return the deserialized {@link Location}
      */

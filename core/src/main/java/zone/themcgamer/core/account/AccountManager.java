@@ -269,6 +269,7 @@ public class AccountManager extends Module {
 
     /**
      * Lookup a {@link Account} with the given username
+     *
      * @param name the name of the account to lookup
      * @param consumer the account consumer
      */
@@ -290,6 +291,7 @@ public class AccountManager extends Module {
 
     /**
      * Lookup a {@link Account} with the given {@link UUID}
+     *
      * @param uuid the uuid of the account to lookup
      * @param name the name of the account to lookup
      * @param consumer the account consumer
@@ -341,6 +343,7 @@ public class AccountManager extends Module {
 
     /**
      * Add the given {@link MiniAccount}
+     *
      * @param miniAccount the mini account to add
      */
     public static void addMiniAccount(MiniAccount<?> miniAccount) {
@@ -349,6 +352,7 @@ public class AccountManager extends Module {
 
     /**
      * Get the {@link Account} from the provided uuid
+     *
      * @param uuid the uuid to get the account for
      * @return the optional account
      */

@@ -91,6 +91,7 @@ public class PacketWrapper {
 
     /**
      * Send the wrapped packet to the given {@link Player}
+     *
      * @param player the player to send the wrapped packet to
      */
     public void send(Player player) {

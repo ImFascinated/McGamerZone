@@ -14,6 +14,7 @@ public class MenuPattern {
      * Get the slots matching the given pattern.
      * Example: 'XXOOOOOXX' would return slots
      * from 1 to 6 for that pattern
+     *
      * @param patterns - The patterns
      * @return the slots
      */

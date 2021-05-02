@@ -42,6 +42,7 @@ public class AccountRepository extends MySQLRepository {
 
     /**
      * Attempt a login with the given uuid, name, and ip address
+     *
      * @param uuid the uuid
      * @param name the username
      * @param ipAddress the ip address
@@ -185,6 +186,7 @@ public class AccountRepository extends MySQLRepository {
 
     /**
      * Construct a {@link Account} from the given parameters
+     *
      * @param accountId the account id
      * @param uuid the uuid
      * @param name the name

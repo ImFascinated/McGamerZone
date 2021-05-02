@@ -59,6 +59,7 @@ public class ServerManager extends Module {
 
     /**
      * Restart the given {@link MinecraftServer}
+     *
      * @param minecraftServer the server to restart
      */
     public void restart(MinecraftServer minecraftServer) {

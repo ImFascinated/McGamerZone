@@ -210,6 +210,7 @@ public abstract class MGZPlugin extends JavaPlugin {
 
     /**
      * Format the given memory into megabytes
+     *
      * @param memory the memory to format
      * @return the formatted memory
      */

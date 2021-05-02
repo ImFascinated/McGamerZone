@@ -3,11 +3,14 @@ package zone.themcgamer.core.api;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.NonNull;
+import org.apache.commons.lang3.StringEscapeUtils;
 import zone.themcgamer.core.api.json.JsonRequest;
 import zone.themcgamer.core.api.json.JsonResponse;
 import zone.themcgamer.data.ChatFilterLevel;
 
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 /**
@@ -27,7 +30,8 @@ public class WebAPI {
     }
 
     public static String filterText(@NonNull String text, @NonNull ChatFilterLevel chatFilterLevel) {
-        JsonResponse jsonResponse = new JsonRequest(URL + "/filter/" + text.replaceAll(" ", "%20") + "/" + chatFilterLevel.name()).getResponse();
+        // TODO: 3/17/2021 debug this
+        JsonResponse jsonResponse = new JsonRequest(URLEncoder.encode(URL + "/filter/" + text.replaceAll(" ", "%20") + "/" + chatFilterLevel.name(), StandardCharsets.UTF_8)).getResponse();
         JsonElement jsonElement = jsonResponse.getJsonElement();
         if (!(jsonElement instanceof JsonObject))
             return text;

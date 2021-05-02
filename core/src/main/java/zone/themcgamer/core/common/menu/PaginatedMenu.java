@@ -35,6 +35,7 @@ public abstract class PaginatedMenu<T> extends Menu {
 
     /**
      * Calculate and return what the max page is
+     *
      * @return the max page
      */
     protected int getMaxPage() {
@@ -44,6 +45,7 @@ public abstract class PaginatedMenu<T> extends Menu {
 
     /**
      * Populate the contents map with the position and value
+     *
      * @param itemsPerPage - The amount of items to display per page
      */
     private void populateContents(int itemsPerPage) {

@@ -14,6 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomUtils {
     /**
      * Return whether or not the {@param chance} has been met
+     *
      * @param chance - The chance
      * @param max - The maximum number
      * @return whether or not the {@param chance} has been met
@@ -24,6 +25,7 @@ public class RandomUtils {
 
     /**
      * Return whether or not the {@param chance} has been met
+     *
      * @param chance - The chance
      * @param max - The maximum number
      * @return whether or not the {@param chance} has been met
@@ -34,6 +36,7 @@ public class RandomUtils {
 
     /**
      * Get a random int between 0 and the maximum value
+     *
      * @param max - The maximum value
      * @return the random number
      */
@@ -43,6 +46,7 @@ public class RandomUtils {
 
     /**
      * Get a random int between the minimum and maximum values
+     *
      * @param min - The minimum value
      * @param max - The maximum value
      * @return the random number
@@ -53,6 +57,7 @@ public class RandomUtils {
 
     /**
      * Get a random long between 0 and the maximum value
+     *
      * @param max - The maximum value
      * @return the random number
      */
@@ -62,6 +67,7 @@ public class RandomUtils {
 
     /**
      * Get a random long between the minimum and maximum values
+     *
      * @param min - The minimum value
      * @param max - The maximum value
      * @return the random number
@@ -72,6 +78,7 @@ public class RandomUtils {
 
     /**
      * Get a random double between 0 and the maximum value
+     *
      * @param max - The maximum value
      * @return the random number
      */
@@ -81,6 +88,7 @@ public class RandomUtils {
 
     /**
      * Get a random double between the minimum and maximum values
+     *
      * @param min - The minimum value
      * @param max - The maximum value
      * @return the random number
@@ -91,6 +99,7 @@ public class RandomUtils {
 
     /**
      * Select a random {@link Enum<T>} value from the given
+     *
      * {@link Enum<T>} class
      * @param enumClass - The enum class
      * @return the random enum value
@@ -104,6 +113,7 @@ public class RandomUtils {
 
     /**
      * Select a random {@link Object} from the provided {@link java.util.ArrayList}
+     *
      * @param list - The list to get the object from
      * @return the random object
      */

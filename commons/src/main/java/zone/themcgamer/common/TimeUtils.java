@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 public class TimeUtils {
     /**
      * Format the given time as a date and time {@link String}
+     *
      * @param time the time to format
      * @return the formatted time
      */
@@ -33,6 +34,7 @@ public class TimeUtils {
 
     /**
      * Convert the provided unix time into readable time such as "1.0 Minute"
+     *
      * @param time - The unix time to convert
      * @return the formatted time
      */
@@ -42,6 +44,7 @@ public class TimeUtils {
 
     /**
      * Convert the provided unix time into readable time such as "1.0 Minute"
+     *
      * @param time - The unix time to convert
      * @param includeDecimals - Whether or not to format the time with decimals
      * @param type - The type to format the time as. Use {@code TimeUnit.FIT} for

@@ -5,6 +5,7 @@ import lombok.Getter;
 
 /**
  * This class holds information for a help menu color scheme
+ *
  * @author Braydon
  */
 @AllArgsConstructor @Getter

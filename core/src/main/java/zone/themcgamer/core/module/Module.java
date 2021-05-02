@@ -51,6 +51,7 @@ public abstract class Module implements Listener {
 
     /**
      * Log a message to the terminal for this module
+     *
      * @param message the message to log
      */
     public void log(String message) {
@@ -59,6 +60,7 @@ public abstract class Module implements Listener {
 
     /**
      * Get the module by the provided class
+     *
      * @param clazz the class of the module to get
      * @return the module
      */

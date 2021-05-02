@@ -66,6 +66,7 @@ public class FakeTeam {
 
     /**
      * Add the given {@link Player} to the team
+     *
      * @param player the player to add
      */
     public void addMember(Player player) {
@@ -74,6 +75,7 @@ public class FakeTeam {
 
     /**
      * Add the given player name to the team
+     *
      * @param playerName the player name to add
      */
     public void addMember(String playerName) {
@@ -83,6 +85,7 @@ public class FakeTeam {
 
     /**
      * Check if the given prefix and suffix is similar to the team prefix and suffix
+     *
      * @param prefix the prefix
      * @param suffix the suffix
      * @return if the given prefix and suffix are similar

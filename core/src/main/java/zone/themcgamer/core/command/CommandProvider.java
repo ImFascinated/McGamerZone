@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 /**
  * This class is constructed everytime a command is executed.
  * It holds information such as the sender, label, and arguments
+ *
  * @author Braydon
  */
 @Getter
