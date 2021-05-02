@@ -17,6 +17,7 @@ public class MySQLRepository {
 
     /**
      * Insert the given columns using the provided query
+     *
      * @param query the query to execute
      * @param columns the columns to insert
      * @return the amount of rows affected
@@ -27,6 +28,7 @@ public class MySQLRepository {
 
     /**
      * Insert the given columns using the provided query
+     *
      * @param query the query to execute
      * @param columns the columns to insert
      * @param onComplete the oncomplete consumer
@@ -38,6 +40,7 @@ public class MySQLRepository {
 
     /**
      * Insert the given columns using the provided query
+     *
      * @param query the query to execute
      * @param columns the columns to insert
      * @param onComplete the oncomplete consumer
@@ -56,6 +59,7 @@ public class MySQLRepository {
 
     /**
      * Insert the given columns using the provided query
+     *
      * @param connection the connection to execute the query on
      * @param query the query to execute
      * @param columns the columns to insert
@@ -67,6 +71,7 @@ public class MySQLRepository {
 
     /**
      * Insert the given columns using the provided query
+     *
      * @param connection the connection to execute the query on
      * @param query the query to execute
      * @param columns the columns to insert
@@ -79,6 +84,7 @@ public class MySQLRepository {
 
     /**
      * Insert the given columns using the provided query
+     *
      * @param connection the connection to execute the query on
      * @param query the query to execute
      * @param columns the columns to insert
@@ -114,6 +120,7 @@ public class MySQLRepository {
 
     /**
      * Execute the given query
+     *
      * @param query the query to execute
      * @param columns the columns to use in the query
      * @param onComplete the oncomplete consumer
@@ -124,6 +131,7 @@ public class MySQLRepository {
 
     /**
      * Execute the given query
+     *
      * @param query the query to execute
      * @param columns the columns to use in the query
      * @param onComplete the oncomplete consumer
@@ -140,6 +148,7 @@ public class MySQLRepository {
 
     /**
      * Execute the given query
+     *
      * @param connection the connection to execute the query on
      * @param query the query to execute
      * @param columns the columns to use in the query
@@ -151,6 +160,7 @@ public class MySQLRepository {
 
     /**
      * Execute the given query
+     *
      * @param connection the connection to execute the query on
      * @param query the query to execute
      * @param columns the columns to use in the query

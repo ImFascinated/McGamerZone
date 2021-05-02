@@ -23,6 +23,7 @@ public class Node {
 
     /**
      * Check whether or not the Node is reachable
+     *
      * @return the reachable state
      */
     @SneakyThrows
@@ -53,6 +54,7 @@ public class Node {
 
     /**
      * Get a list of {@link MinecraftServer}'s running under this node
+     *
      * @return the list of servers
      */
     public Collection<MinecraftServer> getServers() {

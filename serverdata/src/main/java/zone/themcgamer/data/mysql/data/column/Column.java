@@ -21,6 +21,7 @@ public class Column<T> {
     /**
      * Construct a new column with a name and a value. This is used when executing
      * queries in a repository.
+     *
      * @param name the name of the column
      * @param value the value in the column
      */

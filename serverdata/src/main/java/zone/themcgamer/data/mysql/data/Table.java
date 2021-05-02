@@ -23,6 +23,7 @@ public class Table {
 
     /**
      * Create the table in the MySQL database
+     *
      * @param mySQLController the MySQL controller
      * @param ignoreExisting whether or not to ignore the existing table
      * @throws SQLException exception

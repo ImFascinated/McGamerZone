@@ -33,6 +33,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Lookup a {@link T} object by {@link I}
+     *
      * @param i The object to use to do the lookup
      * @return optional {@link T}
      */
@@ -40,6 +41,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Get the Redis key for the given {@link T} object
+     *
      * @param t The object to get the key for
      * @return the key
      */
@@ -47,6 +49,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Create a new {@link T} instance from the given map
+     *
      * @param map The map
      * @return the new instance
      */
@@ -54,12 +57,14 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Get how long a key should be stored
+     *
      * @return the expiration time, -1 if none
      */
     public abstract long getExpiration(T t);
 
     /**
      * Create a new map for the given {@link T} object
+     *
      * @param t The object`
      * @return the map
      */
@@ -67,6 +72,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Get the cached value for the repository
+     *
      * @return the cached values
      */
     public List<T> getCached() {
@@ -75,6 +81,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Lookup a {@link T} object that tests against the {@link Predicate}
+     *
      * @param predicate The predicate to test
      * @return optional {@link T}
      */
@@ -84,6 +91,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Add an update listener
+     *
      * @param consumer the consumer to add
      */
     public void addUpdateListener(Consumer<List<T>> consumer) {
@@ -92,6 +100,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Adds the given {@link T} object to the local cache and to Redis
+     *
      * @param t The object to add
      */
     public void post(T t) {
@@ -114,6 +123,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Remove the given {@link T} object from the local cache and from Redis
+     *
      * @param t The object to remove
      */
     public void remove(T t) {
@@ -156,6 +166,7 @@ public abstract class RedisRepository<I, T> {
 
     /**
      * Get a {@link RedisRepository} from the given {@link Class}
+     *
      * @param clazz The class to get the repository from
      * @return the repository
      */

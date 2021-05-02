@@ -60,6 +60,7 @@ public class JedisCommandHandler {
 
     /**
      * Add a command listener
+     *
      * @param consumer The listener to add
      */
     public void addListener(Consumer<JedisCommand> consumer) {
@@ -68,6 +69,7 @@ public class JedisCommandHandler {
 
     /**
      * Send a {@link JedisCommand} across the network
+     *
      * @param command The command to send
      */
     public void send(JedisCommand command) {

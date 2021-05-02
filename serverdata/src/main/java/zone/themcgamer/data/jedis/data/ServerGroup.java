@@ -27,6 +27,7 @@ public class ServerGroup {
 
     /**
      * Get a list of {@link MinecraftServer}'s running under this server group
+     *
      * @return the list of servers
      */
     public Collection<MinecraftServer> getServers() {

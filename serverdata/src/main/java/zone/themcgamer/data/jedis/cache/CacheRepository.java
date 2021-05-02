@@ -82,6 +82,7 @@ public class CacheRepository extends RedisRepository<String, ICacheItem<?>> {
 
     /**
      * Find a {@link ICacheItem} by the given {@link Class} and identifier
+     *
      * @param clazz the class of the cache item to lookup
      * @param identifier the identifier of the cache item
      * @return the optional cache item
@@ -92,6 +93,7 @@ public class CacheRepository extends RedisRepository<String, ICacheItem<?>> {
 
     /**
      * Find a {@link ICacheItem} by the given {@link Class} and test against the {@link Predicate}
+     *
      * @param clazz the class of the cache item to lookup
      * @param predicate the predicate to test against
      * @return the optional cache item
@@ -104,6 +106,7 @@ public class CacheRepository extends RedisRepository<String, ICacheItem<?>> {
 
     /**
      * Find a {@link ICacheItem} by the given {@link Class} and identifier and remove it from Redis
+     *
      * @param clazz the class of the cache item to remove
      * @param identifier the identifier of the cache item
      */

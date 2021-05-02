@@ -41,6 +41,7 @@ public class MinecraftServer {
 
     /**
      * Set the state of the server to the given state
+     *
      * @param state the state
      */
     public void setState(ServerState state) {
@@ -52,6 +53,7 @@ public class MinecraftServer {
     /**
      * Return whether or not the Minecraft server is running by checking
      * the dead state and the server state
+     *
      * @return the running state
      */
     public boolean isRunning() {
@@ -63,6 +65,7 @@ public class MinecraftServer {
     /**
      * Return whether or not the Minecraft server is lagging by
      * checking if ths tps is 15 or below
+     *
      * @return the lagging state
      */
     public boolean isLagging() {
@@ -73,6 +76,7 @@ public class MinecraftServer {
      * Return whether or not the Minecraft server is dead.
      * A server is considered dead if it hasn't sent a heartbeat
      * within 8 seconds and the server is older than 30 seconds
+     *
      * @return the dead state
      */
     public boolean isDead() {
@@ -83,6 +87,7 @@ public class MinecraftServer {
 
     /**
      * Return whether or not the server was created in the last minute
+     *
      * @return the new state
      */
     public boolean isNew() {
@@ -91,6 +96,7 @@ public class MinecraftServer {
 
     /**
      * Get the uptime of the server in millis
+     *
      * @return the uptime
      */
     public long getUptime() {
