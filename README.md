@@ -1,6 +1,5 @@
 # Project Structure
 - **Commons**: Commons is common libraries and/or utilities that are shared across the network.
-g
 - **ServerData**: This branch of the project controls the database backend for both Redis and MySQL. All modules that use Redis or MySQL must have this as a dependency.
 - **ServerController**: This will dynamically start and stop servers on demand.
 - **Proxy**: The proxy will handle server balancing and player caching.
