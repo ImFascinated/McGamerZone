@@ -3,7 +3,7 @@
 - **ServerData**: This branch of the project controls the database backend for both Redis and MySQL. All modules that use Redis or MySQL must have this as a dependency.
 - **ServerController**: This will dynamically start and stop servers on demand.
 - **Proxy**: The proxy will handle server balancing and player caching.
-- **API**: This is the Restful API. The API has api keys which have access levels. Players will be able to generate an api key in-game with the /api command and they will have the standard access level. The standard access level has access to things such as stats, leaderboards, etc. The dev access level is granted to Jr.Developers and above. The dev access level has access to things such as server groups, Minecraft servers, etc.
+- **API**: This is the Restful API. The API has api keys which have access levels. Players will be able to generate an api key in-game with the /api command, and they will have the standard access level. The standard access level has access to things such as stats, leaderboards, etc. The dev access level is granted to Jr.Developers and above. The dev access level has access to things such as server groups, Minecraft servers, etc.
 - **Core**: The core is a shared module between all Spigot plugins. Everything used between multiple Spigot servers will be created here.
 - **Build Server**: The core for the build server - This handles map creating, parsing, etc
 - **Hub**: This is pretty self-explanatory. Any Hub related things will go here.
