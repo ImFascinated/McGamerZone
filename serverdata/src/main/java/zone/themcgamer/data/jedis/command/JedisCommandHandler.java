@@ -35,6 +35,7 @@ public class JedisCommandHandler {
         new Thread(() -> {
             try (Jedis jedis = pool.getResource()) {
                 jedis.auth(JedisConstants.AUTH);
+                jedis.select(JedisConstants.SELECTED_DB);
                 jedis.psubscribe(new JedisPubSub() {
                     @Override
                     public void onPMessage(String pattern, String channel, String message) {
@@ -80,6 +81,7 @@ public class JedisCommandHandler {
             System.out.println("Dispatching Redis command for class \"" + className + "\" with json \"" + json + "\"");
         try (Jedis jedis = pool.getResource()) {
             jedis.auth(JedisConstants.AUTH);
+            jedis.select(JedisConstants.SELECTED_DB);
             jedis.publish("mcGamerZone:commands:" + className, json);
         }
     }

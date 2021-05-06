@@ -3,7 +3,6 @@ package zone.themcgamer.core.api;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.NonNull;
-import org.apache.commons.lang3.StringEscapeUtils;
 import zone.themcgamer.core.api.json.JsonRequest;
 import zone.themcgamer.core.api.json.JsonResponse;
 import zone.themcgamer.data.ChatFilterLevel;
