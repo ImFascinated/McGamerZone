@@ -40,6 +40,7 @@ public class MGZBot {
         commandClientBuilder.addCommand(new EditMessageCommand());
         commandClientBuilder.addCommand(new AddReactionToMessageCommand());
         commandClientBuilder.addCommand(new MemberCountCommand());
+        commandClientBuilder.addCommand(new PingCommand());
 
         try {
             jda = JDABuilder.createDefault(BotConstants.TOKEN)

@@ -35,10 +35,11 @@ public class SuggestCommand extends BaseCommand {
         TextChannel channel = MGZBot.getInstance().getJda().getTextChannelById(BotConstants.SUGGESTIONS);
         if (channel == null)
             return;
+        int charLimit = 120;
         String suggestion = args.stream().skip(1).collect(Collectors.joining(" "));
-        if (suggestion.length() < 120) {
+        if (suggestion.length() < charLimit) {
             event.getChannel().sendMessage(EmbedUtils.errorEmbed()
-                    .appendDescription("Your suggestion is too short. Suggestions must be at least 120 characters.")
+                    .appendDescription("Your suggestion is too short. Suggestions must be at least " + charLimit + " characters.")
                     .build()
             ).queue();
             return;
