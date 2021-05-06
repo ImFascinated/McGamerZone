@@ -15,10 +15,7 @@ import zone.themcgamer.common.TriTuple;
 import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
 import zone.themcgamer.core.command.help.HelpCommand;
-import zone.themcgamer.core.command.impl.DiscordCommand;
-import zone.themcgamer.core.command.impl.RulesCommand;
-import zone.themcgamer.core.command.impl.StoreCommand;
-import zone.themcgamer.core.command.impl.StressTestCommand;
+import zone.themcgamer.core.command.impl.*;
 import zone.themcgamer.core.command.impl.essentials.GameModeCommand;
 import zone.themcgamer.core.command.impl.essentials.TeleportCommand;
 import zone.themcgamer.core.common.Style;
@@ -96,6 +93,7 @@ public class CommandManager extends Module implements CommandExecutor {
         registerCommand(plugin, new zone.themcgamer.core.command.impl.HelpCommand(this));
         registerCommand(plugin, new DiscordCommand());
         registerCommand(plugin, new StoreCommand());
+        registerCommand(plugin, new VoteCommand());
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             for (String disabledCommand : DISABLED_COMMANDS) {
