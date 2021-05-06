@@ -26,6 +26,7 @@ When something is being released for production, you must set the production par
 - Create a **gradle.properties** file which will contain your
 Nexus username and password. (It's recommended to add the properties below to your **gradle.properties** file to allow the use of parallel compiling and caching)
 - Stick to Java naming conventions, which can be found [here](https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html)
+- Stick to the same code style as the rest of the project
 ```properties
 org.gradle.parallel=true
 org.gradle.caching=true
