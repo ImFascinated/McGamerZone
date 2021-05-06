@@ -113,6 +113,7 @@ public abstract class RedisRepository<I, T> {
             map.put(entry.getKey(), entry.getValue().toString());
         try (Jedis jedis = controller.getPool().getResource()) {
             jedis.auth(JedisConstants.AUTH);
+            jedis.select(JedisConstants.SELECTED_DB);
             jedis.hmset(key, map);
 
             long expiration = getExpiration(t);
@@ -133,6 +134,7 @@ public abstract class RedisRepository<I, T> {
             throw new IllegalArgumentException("Cannot remove, the key is null or empty: \"" + (key == null ? "null" : key) + "\"");
         try (Jedis jedis = controller.getPool().getResource()) {
             jedis.auth(JedisConstants.AUTH);
+            jedis.select(JedisConstants.SELECTED_DB);
             jedis.del(key);
         }
     }
@@ -147,6 +149,7 @@ public abstract class RedisRepository<I, T> {
         List<T> cached = new ArrayList<>();
         try (Jedis jedis = controller.getPool().getResource()) {
             jedis.auth(JedisConstants.AUTH);
+            jedis.select(JedisConstants.SELECTED_DB);
             Set<String> keys = jedis.keys(pattern);
             for (String key : keys) {
                 Map<String, String> data = jedis.hgetAll(key);

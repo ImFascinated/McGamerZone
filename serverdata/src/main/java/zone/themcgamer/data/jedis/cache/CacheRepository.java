@@ -53,6 +53,7 @@ public class CacheRepository extends RedisRepository<String, ICacheItem<?>> {
         List<ICacheItem<?>> cached = new ArrayList<>();
         try (Jedis jedis = getController().getPool().getResource()) {
             jedis.auth(JedisConstants.AUTH);
+            jedis.select(JedisConstants.SELECTED_DB);
             for (ItemCacheType cacheType : ItemCacheType.values()) {
                 for (String key : jedis.keys(cacheType.getIdentifier() + ":*")) {
                     Map<String, String> map = jedis.hgetAll(key);
