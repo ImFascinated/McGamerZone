@@ -8,33 +8,32 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import zone.themcgamer.discordbot.command.impl.*;
-import zone.themcgamer.discordbot.events.GuildsListener;
+import zone.themcgamer.discordbot.events.GuildListener;
+import zone.themcgamer.discordbot.events.HasteBinListener;
 import zone.themcgamer.discordbot.events.MainGuildListener;
-import zone.themcgamer.discordbot.utilities.EmbedUtils;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
 
 @Getter
-public class MGZBot {
-    @Getter private static MGZBot instance;
+public class BGSoftwareBot {
+    @Getter private static BGSoftwareBot instance;
 
     private JDA jda;
 
-    public MGZBot() {
+    public BGSoftwareBot() {
         instance = this;
         long time = System.currentTimeMillis();
 
         CommandClientBuilder commandClientBuilder = new CommandClientBuilder();
         commandClientBuilder.setPrefix(BotConstants.PREFIX);
-        commandClientBuilder.setActivity(Activity.playing("McGamerZone"));
+        commandClientBuilder.setActivity(Activity.playing("BG-Software Harold"));
         commandClientBuilder.setStatus(OnlineStatus.ONLINE);
         commandClientBuilder.setOwnerId(BotConstants.OWNER_ID);
         for (String botAdmin : BotConstants.BOT_ADMINS)
             commandClientBuilder.setCoOwnerIds(botAdmin);
         commandClientBuilder.useHelpBuilder(false);
 
-        commandClientBuilder.addCommand(new SuggestCommand());
         commandClientBuilder.addCommand(new SetActivityCommand());
         commandClientBuilder.addCommand(new InviteCommand());
         commandClientBuilder.addCommand(new MessageCommand());
@@ -51,8 +50,9 @@ public class MGZBot {
                     .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_EMOJIS)
                     .addEventListeners(
                             commandClientBuilder.build(),
-                            new GuildsListener(),
-                            new MainGuildListener(this))
+                            new MainGuildListener(this),
+                            new GuildListener(this),
+                            new HasteBinListener())
                     .build();
             jda.awaitReady();
         } catch (LoginException | InterruptedException ex) {
@@ -63,6 +63,6 @@ public class MGZBot {
     }
 
     public static void main(String[] args) {
-        new MGZBot();
+        new BGSoftwareBot();
     }
 }
