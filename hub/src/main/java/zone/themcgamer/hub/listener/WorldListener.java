@@ -12,6 +12,7 @@ import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import zone.themcgamer.core.common.WorldTime;
 import zone.themcgamer.hub.Hub;
 
 /**
@@ -21,11 +22,11 @@ public class WorldListener implements Listener {
     public WorldListener(Hub hub) {
         Bukkit.getPluginManager().registerEvents(this, hub);
         for (World world : Bukkit.getWorlds()) {
-            long time = 6000L;
+            long time = WorldTime.DAY.getTime();
             if (world.getName().toLowerCase().contains("christmas"))
-                time = 12000L;
+                time = WorldTime.NIGHT.getTime();
             else if (world.getName().toLowerCase().contains("halloween"))
-                time = 17000L;
+                time = WorldTime.MIDNIGHT.getTime();
             world.setTime(time);
             world.setThundering(false);
             world.setStorm(false);
