@@ -92,7 +92,7 @@ public class ServerUpdater extends Module {
     private void update() {
         MinecraftServer minecraftServer = MGZPlugin.getMinecraftServer();
         try {
-            traveler.sendAll("Hub", "&6" + minecraftServer.getName() + " &7is being updated");
+            traveler.sendAll("Hub", "&b" + minecraftServer.getName() + " &7is being updated");
         } catch (IllegalArgumentException ignored) {}
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> minecraftServer.setState(ServerState.UPDATING), 10L);
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), Bukkit::shutdown, 40L);

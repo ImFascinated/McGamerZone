@@ -68,7 +68,7 @@ public class ServerTraveler extends Module {
     public void sendAll(String server, String reason, boolean inform) {
         if (reason != null) {
             Bukkit.broadcastMessage("");
-            Bukkit.broadcastMessage(Style.color(" &c➢ &7" + reason));
+            Bukkit.broadcastMessage(Style.color(" &c➢ &b" + reason));
             Bukkit.broadcastMessage("");
         }
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -137,7 +137,7 @@ public class ServerTraveler extends Module {
         if (MGZPlugin.getMinecraftServer().equals(server))
             throw new IllegalArgumentException("Player is already connected");
         if (inform) {
-            player.sendMessage(new ComponentBuilder(Style.main("Traveler", "Connecting to &6" + server.getName()))
+            player.sendMessage(new ComponentBuilder(Style.main("Traveler", "Connecting to &b" + server.getName()))
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(MiscUtils.arrayToString(
                             Style.color("&7Server Id: &6" + server.getId()),
                             Style.color("&7Type: &6" + server.getGroup().getName())

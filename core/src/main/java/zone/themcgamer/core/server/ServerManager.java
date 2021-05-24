@@ -42,7 +42,7 @@ public class ServerManager extends Module {
                 if (!((ServerRestartCommand) jedisCommand).getServerId().equals(minecraftServer.getId()))
                     return;
                 try {
-                    traveler.sendAll("Hub", "&6" + minecraftServer.getName() + " &7is restarting");
+                    traveler.sendAll("Hub", "&b" + minecraftServer.getName() + " &7is restarting");
                 } catch (IllegalArgumentException ignored) {}
                 Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () ->
                     minecraftServer.setState(ServerState.RESTARTING), 10L);

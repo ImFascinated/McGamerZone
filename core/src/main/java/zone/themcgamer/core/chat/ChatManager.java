@@ -115,8 +115,8 @@ public class ChatManager extends Module {
             Cooldown cooldown = CooldownHandler.getCooldown(player, "Chat");
             if (cooldown == null)
                 return;
-            player.sendMessage(Style.main("Chat", "You have to wait &6" + TimeUtils.convertString(cooldown.getRemaining()) + " &7to chat!"));
-            player.sendMessage(Style.main("Chat", "This can be bypassed by " + Rank.GAMER.getPrefix() + " &7or &bhigher&7!"));
+            player.sendMessage(Style.main("Chat", "You have to wait &b" + TimeUtils.convertString(cooldown.getRemaining()) + " &7to chat!"));
+            player.sendMessage(Style.main("Chat", "This can be bypassed by " + Rank.GAMER.getPrefix() + " &7or &chigher&7!"));
             player.playSound(player.getLocation(), XSound.ENTITY_VILLAGER_NO.parseSound(),0.5f, 1f);
             return;
         }

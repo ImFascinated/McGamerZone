@@ -35,7 +35,7 @@ public class CooldownHandler extends Module {
                 if (cooldown.getRemaining() > 0)
                     return false;
                 if (cooldown.isInform())
-                    player.sendMessage(Style.main("Cooldown", "Your cooldown for §f" + cooldown.getName() + " §7has expired"));
+                    player.sendMessage(Style.main("Cooldown", "Your cooldown for §b" + cooldown.getName() + " §7has expired"));
                 return true;
             });
         }
@@ -53,7 +53,7 @@ public class CooldownHandler extends Module {
                 .findFirst();
         if (optionalCooldown.isPresent()) {
             if (inform) {
-                player.sendMessage(Style.error("Cooldown", "§f" + name + " §cis still on cooldown for another §f" +
+                player.sendMessage(Style.error("Cooldown", "§b" + name + " §cis still on cooldown for another §f" +
                         TimeUtils.convertString(optionalCooldown.get().getRemaining())));
             }
             return false;

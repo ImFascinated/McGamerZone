@@ -15,6 +15,7 @@ public enum WorldCategory {
     THE_BRIDGE("The Bridge", XMaterial.END_STONE),
     DISASTERS("Disasters", XMaterial.LAVA_BUCKET),
     CHAOSPVP("Chaospvp", XMaterial.IRON_SWORD),
+    TNT_WARS("TnT Wars", XMaterial.TNT),
     SKYBLOCK("Skyblock", XMaterial.GRASS_BLOCK),
     PRISON("Prison", XMaterial.IRON_BARS),
 

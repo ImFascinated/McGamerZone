@@ -111,7 +111,7 @@ public class AccountManager extends Module {
                     Rank finalRank = rank;
                     fromCache(player.getUniqueId()).ifPresent(account -> account.setPrimaryRank(finalRank));
                     nametagManager.setNametag(player, rank.getNametag(), null, rank.ordinal() + 1);
-                    player.sendMessage(Style.main("Rank", "Your rank was updated to §f" + accountRankSetCommand.getRankDisplayName()));
+                    player.sendMessage(Style.main("Rank", "Your rank was updated to §b" + accountRankSetCommand.getRankDisplayName()));
                 }
             } else if (jedisCommand instanceof AccountRankClearCommand) {
                 AccountRankClearCommand accountRankClearCommand = (AccountRankClearCommand) jedisCommand;
@@ -142,7 +142,7 @@ public class AccountManager extends Module {
                     if (account.isEmpty() || (!account.get().hasRank(Rank.HELPER)))
                         continue;
                     String format = staffChatCommand.getPrefix() +
-                            " &7" + staffChatCommand.getUsername() + " &8» &f" + staffChatCommand.getMessage();
+                            " &7" + staffChatCommand.getUsername() + " &8» &b" + staffChatCommand.getMessage();
                     player.sendMessage(Style.main(staffChatCommand.getServer(), format));
                 }
             } else if (jedisCommand instanceof PlayerDirectMessageEvent) {
