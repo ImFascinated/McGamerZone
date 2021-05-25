@@ -2,15 +2,19 @@ package zone.themcgamer.discordbot;
 
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import lombok.Getter;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import zone.themcgamer.discordbot.command.impl.*;
 import zone.themcgamer.discordbot.events.GuildsListener;
 import zone.themcgamer.discordbot.events.MainGuildListener;
 import zone.themcgamer.discordbot.utilities.EmbedUtils;
+import zone.themcgamer.discordbot.utilities.MessageUtils;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
@@ -60,6 +64,10 @@ public class MGZBot {
         }
 
         System.out.println("Done (" + (System.currentTimeMillis() - time) + ")! For help, type \"help\" or \"?\"\n");
+            EmbedBuilder embedBuilder = EmbedUtils.successEmbed();
+            embedBuilder.setTitle("Startup");
+            embedBuilder.setDescription("The bot was started in "+ (System.currentTimeMillis() - time) + "ms!");
+        MessageUtils.sendLogMessage(embedBuilder);
     }
 
     public static void main(String[] args) {
