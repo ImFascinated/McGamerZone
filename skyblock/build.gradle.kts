@@ -9,7 +9,7 @@ dependencies {
     compileOnly("com.destroystokyo:paperspigot:1.12.2")
     implementation("com.github.cryptomorin:XSeries:7.8.0")
     compileOnly("me.clip:placeholderapi:2.10.9")
-    compileOnly("com.bgsoftware:superiorskyblock:b59")
+    compileOnly("com.bgsoftware:bgsoftware:b196")
 }
 
 tasks {

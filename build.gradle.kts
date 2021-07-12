@@ -74,7 +74,7 @@ subprojects {
         repositories {
             maven {
                 name = project.name
-                url = uri("https://mvn.cnetwork.club/repository/${project.name}/")
+                url = uri("https://repository.themcgamer.zone/repository/${project.name}/")
 
                 credentials {
                     username = System.getenv("NEXUS_USERNAME")
@@ -105,7 +105,7 @@ subprojects {
         jcenter()
 
         maven {
-            url = uri("https://mvn.cnetwork.club/repository/public/")
+            url = uri("https://repository.themcgamer.zone/repository/public/")
 
             credentials {
                 username = getEnv("NEXUS_USERNAME").orElseGet {
