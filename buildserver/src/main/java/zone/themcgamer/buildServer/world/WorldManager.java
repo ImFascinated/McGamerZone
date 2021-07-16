@@ -128,6 +128,7 @@ public class WorldManager extends Module {
                 if (mgzWorld != null) {
                     if (world.getPlayers().isEmpty()) {
                         setupWorld(world);
+                        world.save();
                         Bukkit.unloadWorld(world, true);
                         unloadWorld(mgzWorld);
                         mgzWorld.setWorld(null);

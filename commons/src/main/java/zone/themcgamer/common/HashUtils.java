@@ -17,8 +17,8 @@ public class HashUtils {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(s.getBytes());
-            byte digest[] = messageDigest.digest();
-            StringBuffer buffer = new StringBuffer();
+            byte[] digest = messageDigest.digest();
+            StringBuilder buffer = new StringBuilder();
             for (byte b : digest)
                 buffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             return buffer.toString();

@@ -26,6 +26,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import zone.themcgamer.core.account.Account;
 import zone.themcgamer.core.account.AccountManager;
 import zone.themcgamer.core.account.menu.ProfileMenu;
@@ -87,6 +89,7 @@ public class PlayerListener implements Listener {
         player.getInventory().setItem(7, SETTINGS);
         player.getInventory().setItem(8, PROFILE.setSkullOwner(player.getName()).toItemStack());
         player.getInventory().setHeldItemSlot(0);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 900000, 2));
 
         Optional<Account> optionalAccount = AccountManager.fromCache(player.getUniqueId());
         if (optionalAccount.isEmpty())

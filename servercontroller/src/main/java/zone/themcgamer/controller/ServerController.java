@@ -439,7 +439,7 @@ public class ServerController {
                         ServerController.starting.add(server);
                         minecraftServerRepository.post(server);
 
-                        ProcessRunner processRunner = new ProcessRunner(new String[] { "/bin/sh", "/home/minecraft/createServer.sh",
+                        ProcessRunner processRunner = new ProcessRunner(new String[] { "/bin/sh", "/home/minecraft/ftp/upload/createServer.sh",
                                 server.getGroup().getName(),
                                 server.getId(),
                                 group.getServerJar(),
@@ -542,7 +542,7 @@ public class ServerController {
         String finalReason = reason;
 
         // Calling the stopServer.sh script
-        ProcessRunner processRunner = new ProcessRunner(new String[] { "/bin/sh", "/home/minecraft/stopServer.sh",
+        ProcessRunner processRunner = new ProcessRunner(new String[] { "/bin/sh", "/home/minecraft/ftp/upload/stopServer.sh",
                 server.getGroup().getName(),
                 server.getId()
         });

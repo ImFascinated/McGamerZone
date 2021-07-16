@@ -17,9 +17,12 @@ public class GoldCommand {
         Player player = command.getPlayer();
         String[] args = command.getArgs();
         String target = player.getName();
+
         if (args.length > 0)
             target = args[0];
+
         String finalTarget = target;
+
         accountManager.lookup(target, account -> {
             if (account == null) {
                 player.sendMessage(Style.invalidAccount("Account", finalTarget));

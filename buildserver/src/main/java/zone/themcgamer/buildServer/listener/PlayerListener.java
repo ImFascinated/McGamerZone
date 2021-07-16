@@ -10,10 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import zone.themcgamer.buildServer.Build;
 import zone.themcgamer.buildServer.world.WorldManager;
@@ -105,5 +102,10 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onQuit(PlayerQuitEvent event) {
         event.setQuitMessage(Style.color("&8[&c-&8] &7" + event.getPlayer().getName()));
+    }
+
+    @EventHandler
+    private void onWorldChange(PlayerChangedWorldEvent event) {
+        event.getFrom().save();
     }
 }

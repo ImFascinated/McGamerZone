@@ -7,9 +7,12 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.GuildChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import zone.themcgamer.data.jedis.JedisController;
+import zone.themcgamer.data.jedis.cache.CacheRepository;
+import zone.themcgamer.data.jedis.cache.impl.PlayerStatusCache;
+import zone.themcgamer.data.jedis.repository.RedisRepository;
+import zone.themcgamer.data.jedis.repository.impl.APIKeyRepository;
 import zone.themcgamer.discordbot.command.impl.*;
 import zone.themcgamer.discordbot.events.GuildsListener;
 import zone.themcgamer.discordbot.events.MainGuildListener;
@@ -29,6 +32,9 @@ public class MGZBot {
         instance = this;
         long time = System.currentTimeMillis();
 
+        // Initializing Redis
+        new JedisController().start();
+
         CommandClientBuilder commandClientBuilder = new CommandClientBuilder();
         commandClientBuilder.setPrefix(BotConstants.PREFIX);
         commandClientBuilder.setActivity(Activity.playing("McGamerZone"));
@@ -46,6 +52,8 @@ public class MGZBot {
         commandClientBuilder.addCommand(new AddReactionToMessageCommand());
         commandClientBuilder.addCommand(new MemberCountCommand());
         commandClientBuilder.addCommand(new PingCommand());
+        commandClientBuilder.addCommand(new StopCommand());
+        commandClientBuilder.addCommand(new OnlineCommand());
 
         try {
             jda = JDABuilder.createDefault(BotConstants.TOKEN)

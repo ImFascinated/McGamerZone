@@ -1,6 +1,7 @@
 package zone.themcgamer.core.deliveryMan;
 
 import com.cryptomorin.xseries.XSound;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,6 +12,7 @@ import zone.themcgamer.core.account.AccountManager;
 import zone.themcgamer.core.account.MiniAccount;
 import zone.themcgamer.core.common.Style;
 import zone.themcgamer.core.deliveryMan.command.DeliveryManCommand;
+import zone.themcgamer.core.deliveryMan.event.ClaimEvent;
 import zone.themcgamer.core.module.ModuleInfo;
 import zone.themcgamer.data.mysql.MySQLController;
 
@@ -93,6 +95,7 @@ public class DeliveryManManager extends MiniAccount<DeliveryManClient> {
             return;
         repository.claim(optionalAccount.get().getId(), reward);
         deliveryManClient.claim(reward);
+        Bukkit.getPluginManager().callEvent(new ClaimEvent(player, reward));
         player.playSound(player.getEyeLocation(), XSound.ENTITY_HORSE_ARMOR.parseSound(), 0.9f, 1f);
         player.sendMessage(Style.main(DELIVERY_MAN_NAME, "You claimed §b" + reward.getDisplayName() + "§7."));
     }

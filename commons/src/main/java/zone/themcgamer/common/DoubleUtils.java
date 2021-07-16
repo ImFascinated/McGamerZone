@@ -11,7 +11,7 @@ public class DoubleUtils {
      * Format the given value into a readable format
      *
      * @param amount the value to format
-     * @param shortSuffixes whether or not to have shorrt suffixes
+     * @param shortSuffixes whether or not to have short suffixes
      * @return the formatted value
      * @author Ell (modified by Braydon)
      */

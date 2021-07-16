@@ -14,6 +14,8 @@ import zone.themcgamer.data.jedis.repository.impl.MinecraftServerRepository;
 import zone.themcgamer.data.jedis.repository.impl.NodeRepository;
 import zone.themcgamer.data.jedis.repository.impl.ServerGroupRepository;
 
+import java.util.Map;
+
 /**
  * @author Braydon
  * @implNote This class serves the purpose of connecting and initializing things that
@@ -31,6 +33,7 @@ public class JedisController {
      * initialized without running into problems
      */
     public JedisController start() {
+
         pool = new JedisPool(JedisConstants.HOST); // Configuring redis and connecting to the server
         new JedisCommandHandler(); // Starting the command handler to handle commands over the network
 
@@ -41,6 +44,9 @@ public class JedisController {
         new APIKeyRepository(this);
         minecraftServerRepository = new MinecraftServerRepository(this);
 
+
+        // Adding a listener for the ServerStateChangeCommand that should remove the server from the cache if the
+        // Current server state is STOPPING
         JedisCommandHandler.getInstance().addListener(jedisCommand -> {
             if (jedisCommand instanceof ServerStateChangeCommand) {
                 ServerStateChangeCommand serverStateChangeCommand = (ServerStateChangeCommand) jedisCommand;

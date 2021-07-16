@@ -11,6 +11,9 @@ import java.util.function.Consumer;
 /**
  * @author Braydon
  */
+
+// Maybe do all the CRUD operations?
+
 @AllArgsConstructor
 public class MySQLRepository {
     protected final HikariDataSource dataSource;

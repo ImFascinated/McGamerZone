@@ -38,7 +38,7 @@ public class ServerUpdater extends Module {
         this.traveler = traveler;
 
         // Creating the jars directory
-        File jarsDirectory = new File(File.separator + "home" + File.separator + "minecraft" + File.separator + "upload" + File.separator + "jars");
+        File jarsDirectory = new File(File.separator + "home" + File.separator + "minecraft" + File.separator + "ftp" + File.separator + "upload" + File.separator + "upload" + File.separator + "jars");
         if (!jarsDirectory.exists())
             jarsDirectory.mkdirs();
 

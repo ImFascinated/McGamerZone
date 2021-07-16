@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +36,7 @@ public class AccountRepository extends MySQLRepository {
             "(`id`, `uuid`, `name`, `primaryRank`, `secondaryRanks`, `gold`, `gems`, `ipAddress`, `firstLogin`, `lastLogin`) VALUES " +
             "(NULL, ?, ?, '" + Rank.DEFAULT.name() + "', '', '0', '0', ?, ?, ?);";
     private static final String UPDATE_RANK = "UPDATE `accounts` SET `primaryRank` = ? WHERE `id` = ?;";
+    private static final String UPDATE_SECONDARY = "UPDATE `accounts` SET `secondaryRanks` = ? WHERE `id` = ?;";
 
     public AccountRepository(HikariDataSource dataSource) {
         super(dataSource);
@@ -173,6 +175,14 @@ public class AccountRepository extends MySQLRepository {
         });
     }
 
+    public void setUpdateSecondary(int accountId, Rank[] ranks) {
+        /*CompletableFuture.runAsync(() -> {
+            executeInsert(UPDATE_SECONDARY, new Column[] {
+                    new StringColumn("secondaryRanks", ranks.length),
+                    new IntegerColumn("id", accountId)
+            });
+        });*/
+    }
     public void clearRanks(int accountId) {
         String query = UPDATE_RANK
                 .replaceFirst("\\?", "'" + Rank.DEFAULT.name() + "'")

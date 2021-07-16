@@ -12,3 +12,4 @@ public class APIKey {
     private final String key;
     private final APIAccessLevel accessLevel;
 }
+

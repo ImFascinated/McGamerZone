@@ -1,7 +1,17 @@
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("http://repo.citizensnpcs.co/")
+        url = uri("https://repo.codemc.io/repository/maven-public/")
+    }
+}
+
 dependencies {
     implementation(project(":core"))
     compileOnly("com.destroystokyo:paperspigot:1.12.2")
     implementation("com.github.cryptomorin:XSeries:7.8.0")
+    compileOnly("net.citizensnpcs:citizensapi:2.0.28-SNAPSHOT")
+    compileOnly("com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.0")
 }
 
 tasks {

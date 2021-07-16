@@ -3,3 +3,6 @@ version: 1.0-SNAPSHOT
 api-version: 1.13
 main: zone.themcgamer.hub.Hub
 author: MGZ Development Team
+softdepend:
+  - Citizens
+  - HolographicDisplays

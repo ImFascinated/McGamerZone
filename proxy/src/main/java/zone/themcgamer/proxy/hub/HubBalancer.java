@@ -59,6 +59,9 @@ public class HubBalancer implements Runnable, Listener {
                 if (!serverStateChangeCommand.getNewState().isShuttingDownState())
                     return;
                 MinecraftServer server = serverStateChangeCommand.getServer();
+                System.out.println(server.getAddress());
+                System.out.println(server.getHost());
+                System.out.println(server.getPort());
                 removeServer(server.getId());
             }
         });
@@ -78,6 +81,8 @@ public class HubBalancer implements Runnable, Listener {
 
         // If the player is joining the proxy, and the target server is the name of the server group, we wanna
         // find a hub for them to connect to
+
+        System.out.println(event.getReason());
         if (reason == ServerConnectEvent.Reason.JOIN_PROXY && event.getTarget().getName().equals(group.getName())) {
             ServerInfo serverInfo = sendToHub(player);
             if (serverInfo == null) {
@@ -184,6 +189,8 @@ public class HubBalancer implements Runnable, Listener {
                 return null;
             }
             System.out.println("Sending " + player.getName() + " to server \"" + target.getName() + "\"");
+            System.out.println(target.getSocketAddress());
+            System.out.println(target.getAddress());
             return target;
         }
         System.err.println("Cannot find a server to send " + player.getName() + " to!");
@@ -193,7 +200,7 @@ public class HubBalancer implements Runnable, Listener {
 
     private void registerServer(MinecraftServer minecraftServer) {
         ServerInfo serverInfo = proxy.getProxy().constructServerInfo(minecraftServer.getId(),
-                new InetSocketAddress(group.getPrivateAddress(), (int) minecraftServer.getPort()), "A MGZ Server", false);
+                new InetSocketAddress(minecraftServer.getAddress(), (int) minecraftServer.getPort()), "A MGZ Server", false);
         proxy.getProxy().getServers().put(minecraftServer.getId(), serverInfo);
         if (group.getServers().contains(minecraftServer))
             hubs.put(minecraftServer.getId(), serverInfo);

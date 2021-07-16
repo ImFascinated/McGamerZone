@@ -131,7 +131,7 @@ public class ParseTask {
         mgzWorld.save(new File(world.getWorldFolder(), MGZWorld.FILE_NAME));
 
         // Zipping the parsed world
-        File targetDirectory = new File(File.separator + "home" + File.separator + "minecraft" + File.separator + "upload" + File.separator +
+        File targetDirectory = new File(File.separator + "home" + File.separator + "minecraft" + File.separator + "ftp" + File.separator + "upload" + File.separator + "upload" + File.separator +
                 "maps" + File.separator + mgzWorld.getCategory().name());
         if (!targetDirectory.exists())
             targetDirectory.mkdirs();

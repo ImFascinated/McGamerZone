@@ -14,8 +14,10 @@ import zone.themcgamer.core.common.ServerUtils;
 import zone.themcgamer.core.common.menu.MenuManager;
 import zone.themcgamer.core.common.scheduler.Scheduler;
 import zone.themcgamer.core.cooldown.CooldownHandler;
+import zone.themcgamer.core.hologram.HologramManager;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.nametag.NametagManager;
+import zone.themcgamer.core.npc.NpcManager;
 import zone.themcgamer.core.plugin.command.BuildDataCommand;
 import zone.themcgamer.core.plugin.command.PluginsCommand;
 import zone.themcgamer.core.server.ServerManager;
@@ -55,6 +57,8 @@ public abstract class MGZPlugin extends JavaPlugin {
     protected AccountManager accountManager;
     protected BadSportSystem badSportSystem;
     protected NametagManager nametagManager;
+    protected HologramManager hologramManager;
+    protected NpcManager npcManager;
 
     @SneakyThrows
     @Override
@@ -105,7 +109,7 @@ public abstract class MGZPlugin extends JavaPlugin {
                                 name,
                                 null,
                                 serverGroupRepository.lookup(groupName).orElse(null),
-                                "168.119.4.237",
+                                "88.198.23.221",
                                 getServer().getPort(),
                                 0,
                                 0,
@@ -182,6 +186,11 @@ public abstract class MGZPlugin extends JavaPlugin {
             AccountManager.addMiniAccount(new TaskManager(this));
 
             new AnnounceManager(this);
+
+            if (getServer().getPluginManager().isPluginEnabled("HolographicDisplays"))
+                hologramManager = new HologramManager(this);
+            if (getServer().getPluginManager().isPluginEnabled("Citizens"))
+                npcManager = new NpcManager(this);
 
             // Running the @Startup methods for the plugin
             getLogger().info("Running @Startup methods...");

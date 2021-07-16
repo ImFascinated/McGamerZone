@@ -3,9 +3,11 @@ package zone.themcgamer.data.mysql;
 /**
  * @author Braydon
  */
-public class MySQLConstants {
-    public static final String HOST = "172.18.0.1";
 
-    public static final String USERNAME = "mcgamerzone";
-    public static final String AUTH = "n3oCqfGeCG7lUcOlqvUG2JfyKMtEZakG0eNIA_mGz";
+// Environment vars should be used here / in the future
+public class MySQLConstants {
+    public static final String HOST = "localhost";
+
+    public static final String USERNAME = System.getenv("MYSQL_USERNAME");
+    public static final String AUTH = System.getenv("MYSQL_PASSWORD");
 }

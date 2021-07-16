@@ -1,26 +1,16 @@
 package zone.themcgamer.discordbot.command.impl;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import zone.themcgamer.discordbot.command.BaseCommand;
 import zone.themcgamer.discordbot.guild.Guild;
 import zone.themcgamer.discordbot.utilities.EmbedUtils;
-import zone.themcgamer.discordbot.utilities.MessageUtils;
 
 import java.awt.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class PingCommand  extends BaseCommand {
-
-    private static long inputTime;
-
-    public static void setInputTime(long inputTimeLong) {
-        inputTime = inputTimeLong;
-    }
 
     private Color getColorByPing(long ping) {
         if (ping < 100)
@@ -44,11 +34,11 @@ public class PingCommand  extends BaseCommand {
 
     @Override
     protected void execute(CommandEvent event, List<String> args) {
-        long processing = new Date().getTime() - inputTime;
-        long ping = event.getJDA().getGatewayPing();
-        event.getTextChannel().sendMessage(EmbedUtils.defaultEmbed().setColor(getColorByPing(ping)).setDescription(
-                String.format(":ping_pong:   **Pong!**\n\nThe bot took `%s` milliseconds to response.\nIt took `%s` milliseconds to parse the command and the ping is `%s` milliseconds.",
-                        processing + ping, processing, ping)
-        ).build()).queue();
+        event.reply(":ping_pong: Pong! ...", m -> {
+            long ping = event.getMessage().getTimeCreated().until(m.getTimeCreated(), ChronoUnit.MILLIS);
+            m.editMessage(EmbedUtils.defaultEmbed().setColor(getColorByPing(ping))
+                    .setDescription("Ping: " + ping  + "ms | Websocket: " + event.getJDA().getGatewayPing() + "ms").build())
+                    .queue();
+        });
     }
 }

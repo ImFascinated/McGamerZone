@@ -6,6 +6,7 @@ import zone.themcgamer.common.ZipUtils;
 import zone.themcgamer.core.game.MGZGame;
 import zone.themcgamer.core.module.Module;
 import zone.themcgamer.core.module.ModuleInfo;
+import zone.themcgamer.core.server.ServerManager;
 import zone.themcgamer.core.world.MGZWorld;
 
 import java.io.File;
@@ -32,8 +33,7 @@ public class MapManager extends Module {
             if (!mapsDirectory.exists())
                 mapsDirectory.mkdirs();
             for (MGZGame game : MGZGame.values()) {
-                File parsedMapsDirectory = new File(File.separator + "home" + File.separator + "minecraft" + File.separator +
-                        "upload" + File.separator + "maps" + File.separator + game.name());
+                File parsedMapsDirectory = new File(File.separator + "home" + File.separator + "minecraft" + File.separator + "ftp" + File.separator + "upload" + File.separator + "upload" + File.separator + "maps" + File.separator + game.name());
                 if (!parsedMapsDirectory.exists())
                     continue;
                 File[] files = parsedMapsDirectory.listFiles();
@@ -56,6 +56,8 @@ public class MapManager extends Module {
                         maps.add(new MGZWorld(targetDirectory));
                     } catch (IOException ex) {
                         ex.printStackTrace();
+
+                        MGZWorld mgzWorld;
                     }
                 }
             }

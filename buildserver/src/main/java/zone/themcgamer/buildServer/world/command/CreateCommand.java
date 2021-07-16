@@ -1,6 +1,7 @@
 package zone.themcgamer.buildServer.world.command;
 
 import lombok.AllArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import zone.themcgamer.buildServer.world.WorldManager;
@@ -52,5 +53,6 @@ public class CreateCommand {
         World world = worldManager.create(name, player.getName(), WorldCategory.OTHER, generator, preset);
         player.teleport(world.getSpawnLocation());
         player.sendMessage(Style.main("Map", "Created a new map named §b" + name + "§7!"));
+        player.sendMessage(Style.color("Please pre-generate the world! Use /pregen"));
     }
 }

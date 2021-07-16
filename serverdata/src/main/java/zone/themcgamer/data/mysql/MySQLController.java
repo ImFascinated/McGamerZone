@@ -16,22 +16,32 @@ import java.sql.SQLException;
  */
 @Getter
 public class MySQLController {
+
     private final HikariDataSource dataSource;
 
     public MySQLController(boolean production) {
-        // Connecting to the MySQL server
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://" + MySQLConstants.HOST + ":3306/" + MySQLConstants.USERNAME + "_" + (production ? "production" : "dev") + "?allowMultiQueries=true");
+        // Setting up the Hikari config && connecting to the MySQL server
+        dataSource = new HikariDataSource(setupConfig(production));
+        // Setting up && creating the tables
+        createTables(setupTables());
+    }
+
+    private HikariConfig setupConfig(boolean production) {
+        final HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://" + MySQLConstants.HOST + ":3306/" + MySQLConstants.USERNAME + "_" +
+                (production ? "production" : "dev") + "?allowMultiQueries=true");
+
         config.setUsername(MySQLConstants.USERNAME);
         config.setPassword(MySQLConstants.AUTH);
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        dataSource = new HikariDataSource(config);
+        return config;
+    }
 
-        // Creating the tables
-        Table[] tables = new Table[] {
+    private Table[] setupTables() {
+        return  new Table[] {
                 new Table("accounts", new Column[] {
                         new IntegerColumn("id", true, false),
                         new StringColumn("uuid", 36, false),
@@ -86,11 +96,15 @@ public class MySQLController {
                         new StringColumn("kit", 50, false)
                 }, new String[] { "accountId" })
         };
-        for (Table table : tables) {
+    }
+
+    private void createTables(Table[] tablesArray) {
+        for (Table table : tablesArray) {
             try {
                 table.create(this, true);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            }catch (Exception exception) {
+                System.out.println("Couldn't create table" + table.getName());
+                exception.printStackTrace();
             }
         }
     }

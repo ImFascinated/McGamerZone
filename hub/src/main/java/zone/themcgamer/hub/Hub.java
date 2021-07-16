@@ -16,8 +16,11 @@ import zone.themcgamer.core.plugin.MGZPlugin;
 import zone.themcgamer.core.plugin.Startup;
 import zone.themcgamer.core.world.MGZWorld;
 import zone.themcgamer.hub.command.SpawnCommand;
+import zone.themcgamer.hub.holograms.HaroldHologram;
+import zone.themcgamer.hub.holograms.WelcomeHologram;
 import zone.themcgamer.hub.listener.PlayerListener;
 import zone.themcgamer.hub.listener.WorldListener;
+import zone.themcgamer.hub.npc.HaroldNPC;
 import zone.themcgamer.hub.scoreboard.HubScoreboard;
 
 /**
@@ -56,6 +59,10 @@ public class Hub extends MGZPlugin {
         new KingdomManager(this, traveler);
 
         AccountManager.addMiniAccount(new DeliveryManManager(this, mySQLController, true));
+
+        new HaroldHologram(this);
+        new WelcomeHologram(this);
+        new HaroldNPC(this);
 
         commandManager.registerCommand(new SpawnCommand(this));
     }
