@@ -24,6 +24,7 @@ import zone.themcgamer.hub.npc.HaroldNPC;
 import zone.themcgamer.hub.scoreboard.HubScoreboard;
 
 /**
+ * Fascinated was here.
  * @author Braydon
  */
 @Getter
