@@ -1,6 +1,7 @@
-# Making this project public as the owner fucked me over as I spent 100+ hours on it and never got a single dollar from it.
-# I've asked countless times to be paid and I've been banned from the Discord and blocked and I'm fed up with it.
-# Enjoy.
+# Enjoy
+Making this project public as the owner fucked me over as I spent 100+ hours on it and never got a single dollar from it.
+I've asked countless times to be paid and I've been banned from the Discord and blocked and I'm fed up with it.
+Enjoy.
 
 
 
