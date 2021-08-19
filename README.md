@@ -1,3 +1,9 @@
+# Making this project public as the owner fucked me over as I spent 100+ hours on it and never got a single dollar from it.
+# I've asked countless times to be paid and I've been banned from the Discord and blocked and I'm fed up with it.
+# Enjoy.
+
+
+
 # Project Structure
 - **Commons**: Commons is common libraries and/or utilities that are shared across the network.
 - **ServerData**: This branch of the project controls the database backend for both Redis and MySQL. All modules that use Redis or MySQL must have this as a dependency.
